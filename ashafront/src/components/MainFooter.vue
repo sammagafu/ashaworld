@@ -1,5 +1,5 @@
 <template>
-            <footer class="footer appear-animate">
+<footer class="footer appear-animate">
             <div class="footer-newsletter bg-primary">
                 <div class="container">
                     <div class="row justify-content-center align-items-center">
@@ -183,7 +183,8 @@
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer> 
+        
 </template>
 
 <script>

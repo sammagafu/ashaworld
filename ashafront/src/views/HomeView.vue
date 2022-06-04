@@ -1,17 +1,23 @@
 <template>
-  <TopNavigationBar/>
+  <section>
+    <SliderComponent />
+    <div class="page-content mb-10 pb-2 mt-10">
+      <div class="container">
+        <ProductList />
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
+  import SliderComponent from '@/components/SliderComponent.vue';
+  import ProductList from '@/components/ProductList.vue';
 
-import TopNavigationBar from '@/components/TopNavigationBar.vue'
-
-export default {
-  name: 'HomeView',
-  components: {
-    TopNavigationBar
-}
-}
+  export default {
+    name: 'HomeView',
+    components: {
+      ProductList,
+      SliderComponent
+    }
+  }
 </script>

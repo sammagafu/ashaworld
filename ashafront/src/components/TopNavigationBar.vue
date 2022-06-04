@@ -168,7 +168,7 @@
                 <div class="inner-wrap">
                     <div class="header-left">
                         <div class="dropdown category-dropdown has-border" data-visible="true">
-                            <a href="#" class="category-toggle text-dark" role="button" data-toggle="dropdown"
+                            <a href="#" class="category-toggle text-primary" role="button" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="true" data-display="static"
                                 title="Browse Categories">
                                 <i class="w-icon-category"></i>
@@ -177,23 +177,23 @@
 
                             <div class="dropdown-box">
                                 <ul class="menu vertical-menu category-menu">
-                                    <template class="" v-if="categories">
+                                    <template v-if="categories">
                                         <li v-for="(category, index) in categories" :key="index">
                                             <a href="shop-fullwidth-banner.html">
                                                 {{ category.categoryname }}
-                                                {{ category.subcategory.length }}
                                             </a>
-                                            <SubCategoryTopNav :subcategories="category.subcategory"
+                                            <SubCategoryTopNav :name="category.categoryname" :subcategories="category.subcategory"
                                                 v-if="category.subcategory"></SubCategoryTopNav>
                                         </li>
                                     </template>
                                 </ul>
                             </div>
                         </div>
+                        <!--  -->
                         <nav class="main-nav">
                             <ul class="menu active-underline">
                                 <li class="active">
-                                    <a href="demo1.html">Home</a>
+                                    <router-link :to="{ name:'home'}">Home</router-link>
                                 </li>
                                 <li>
                                     <a href="shop-banner-sidebar.html">Shop</a>
@@ -374,6 +374,8 @@
 </template>
 
 <script>
+
+// import { categoryService } from '@/api';
     import axios from 'axios'
     import SubCategoryTopNav from './SubCategoryTopNav.vue'
     export default {
@@ -403,6 +405,7 @@ this.getCategories()
                     }).catch(error => {
                         console.log(error);
                     });
+                // categoryService.fetchCategories().then(cat => this.categories = cat).catch(e => console.log(e))
             },
 
             async fetchCategories() {
