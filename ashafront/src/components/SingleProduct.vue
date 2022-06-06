@@ -1,9 +1,7 @@
 <template>
     <div class="product product-image-gap product-simple">
         <figure class="product-media">
-            <a href="product-default.html">
-                <img :src="image" alt="Product" width="295" height="335">
-            </a>
+            <router-link :to="slug"> <img :src="image" alt="Product" width="295" height="335"></router-link>
             <div class="product-action-vertical">
                 <a href="#" class="btn-product-icon btn-compare w-icon-compare" title="Compare">
 
@@ -20,7 +18,7 @@
                 <a href="shop-banner-sidebar.html">{{ category}}</a>
             </div>
             <h4 class="product-name">
-                <router-link :to=this.$route.params>{{ title }}</router-link>
+                <router-link :to="slug">{{ title }}</router-link>
             </h4>
             <div class="ratings-container">
                 <div class="ratings-full">
@@ -44,7 +42,7 @@
 export default{
     name:"SingleProduct",
     props:[
-        'image','category','price','title','get_absolute_url'
+        'image','category','price','title','slug'
     ]
 }
 </script>

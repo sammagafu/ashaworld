@@ -35,7 +35,7 @@ const routes = [
 
 
           {
-            path: "/product",
+            path: "/product/",
             component: RouteView,
             children:[
               {
@@ -45,7 +45,7 @@ const routes = [
               },
               
               {
-                path:":slug",
+                path:":slug/",
                 component: RouteView,
                 children:[
                   {
@@ -55,7 +55,7 @@ const routes = [
                   },
 
                   {
-                    path:"update",
+                    path:"update/",
                     component: () => import("../views/ProductUpdate.vue"),
                     name:"ProductUpdate"
                   }

@@ -50,8 +50,8 @@
                 <div class="header-left mr-md-4">
                     <a href="#" class="mobile-menu-toggle  w-icon-hamburger" aria-label="menu-toggle">
                     </a>
-                    <router-link to="/"><img src="../assets/images/asha-logo-dark.svg" alt="logo" width="144"
-                            height="45" /></router-link>
+                    <router-link to="/"><img src="../assets/images/asha-logo-dark.svg" alt="logo" width="160"
+                            height="50" /></router-link>
 
                     <form method="get" action="#"
                         class="header-search hs-expanded hs-round d-none d-md-flex input-wrapper">
@@ -167,7 +167,7 @@
             <div class="container">
                 <div class="inner-wrap">
                     <div class="header-left">
-                        <div class="dropdown category-dropdown has-border" data-visible="true">
+                        <div class="dropdown category-dropdown has-border" data-visible="true" @mouseover="hover = true" @mouseleave="hover = false">
                             <a href="#" class="category-toggle text-primary" role="button" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="true" data-display="static"
                                 title="Browse Categories">
@@ -182,8 +182,9 @@
                                             <a href="shop-fullwidth-banner.html">
                                                 {{ category.categoryname }}
                                             </a>
-                                            <SubCategoryTopNav :name="category.categoryname" :subcategories="category.subcategory"
-                                                v-if="category.subcategory"></SubCategoryTopNav>
+                                            <SubCategoryTopNav :name="category.categoryname"
+                                                :subcategories="category.subcategory" v-if="category.subcategory">
+                                            </SubCategoryTopNav>
                                         </li>
                                     </template>
                                 </ul>
@@ -374,8 +375,7 @@
 </template>
 
 <script>
-
-// import { categoryService } from '@/api';
+    // import { categoryService } from '@/api';
     import axios from 'axios'
     import SubCategoryTopNav from './SubCategoryTopNav.vue'
     export default {
@@ -391,10 +391,10 @@
             // });
         },
         mounted() {
-this.getCategories()
-// .then(data => {
-//                 this.categories = data
-//             });
+            this.getCategories()
+            // .then(data => {
+            //                 this.categories = data
+            //             });
             console.log('categories', this.categories)
         },
         methods: {

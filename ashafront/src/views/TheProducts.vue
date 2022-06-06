@@ -1,16 +1,7 @@
 <template>
     <div class="page-content">
         <div class="container">
-            <nav class="breadcrumb-nav">
-                <div class="container">
-                    <ul class="breadcrumb bb-no">
-                        <router-link :to="{ name:'home'}">Home</router-link>
-                        <li>Products</li>
-                    </ul>
-                </div>
-            </nav>
-
-            <div class="shop-content row gutter-lg mb-10">
+            <div class="shop-content row gutter-lg mt-10">
                 <!-- Start of Sidebar, Shop Sidebar -->
                 <aside class="sidebar shop-sidebar sticky-sidebar-wrapper sidebar-fixed">
                     <!-- Start of Sidebar Overlay -->
@@ -32,20 +23,7 @@
                                     <h3 class="widget-title"><label>All Categories</label><span
                                             class="toggle-btn"></span>
                                     </h3>
-                                    <ul class="widget-body filter-items search-ul">
-                                        <li><a href="#">Accessories</a></li>
-                                        <li><a href="#">Babies</a></li>
-                                        <li><a href="#">Beauty</a></li>
-                                        <li><a href="#">Decoration</a></li>
-                                        <li><a href="#">Electronics</a></li>
-                                        <li><a href="#">Fashion</a></li>
-                                        <li><a href="#">Food</a></li>
-                                        <li><a href="#">Furniture</a></li>
-                                        <li><a href="#">Kitchen</a></li>
-                                        <li><a href="#">Medical</a></li>
-                                        <li><a href="#">Sports</a></li>
-                                        <li><a href="#">Watches</a></li>
-                                    </ul>
+                                    <CategoryFilterList/>
                                 </div>
                                 <!-- End of Collapsible Widget -->
 
@@ -151,7 +129,7 @@
                     </nav>
                     <div class="product-wrapper row cols-md-3 cols-sm-2 cols-2">
                         <div class="product-wrap"  v-for="prod in product" :key="prod.id">
-                         <SingleProduct :category="prod.category.categoryname" :title="prod.productName" :image="prod.coverImage" :price="prod.price" :slug="prod.get_absolute_url"/>
+                         <SingleProduct :category="prod.category.categoryname" :title="prod.productName" :image="prod.coverImage" :price="prod.price" :slug="prod.slug"/>
                          </div>
                     </div>
 
@@ -188,6 +166,7 @@
 <script>
 import SingleProduct from '@/components/SingleProduct.vue';
 import axios from 'axios'
+import CategoryFilterList from '@/components/CategoryFilterList.vue';
     export default {
         data() {
             return {
@@ -205,7 +184,8 @@ import axios from 'axios'
             }
         },
         components :{
-    SingleProduct
+    SingleProduct,
+    CategoryFilterList
 }
     }
 </script>

@@ -1,7 +1,10 @@
 .asha-front-vue
 
 asha-front-vue
-
+.gitignore*
 .ashafront/src/assets/*
+ashabackend/media/*
+ashabackend/static/*
+ashabackend/db.sqlite3
 
 ashafront/src/assets/*

@@ -9,7 +9,7 @@ from django_resized import ResizedImageField
 class Product(models.Model):
     productName = models.CharField(_("Product Name"),max_length=160)
     slug = models.SlugField(_("slug"),editable=False,unique=True,null=False)
-    coverImage = ResizedImageField(upload_to = 'product/cover/%Y/%m/%d',verbose_name=_("cover Image"),size=[200, 400], crop=['middle', 'center'])
+    coverImage = ResizedImageField(upload_to = 'product/cover/%Y/%m/%d',verbose_name=_("cover Image"),size=[300, 350], crop=['middle', 'center'])
     brand = models.ForeignKey("brand.Brand", verbose_name=_("brand"), on_delete=models.SET_NULL,null=True,blank=True)
     category = models.ForeignKey("category.ProuctCategory", verbose_name=_("category"), on_delete=models.SET_NULL,null=True,blank=True)
     subCategory = models.ManyToManyField("category.ProductSubCategory")
@@ -38,6 +38,10 @@ class Product(models.Model):
             self.slug = slugify(self.productName)
         self.slug = slugify(self.productName)
         return super().save()
+
+    def get_absolute_url(self):
+        return reverse("products:details", kwargs={"slug": self.slug})
+
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE,related_name="images")
@@ -77,10 +81,6 @@ class ProductReview(models.Model):
 
     def __str__(self):
         return self.name
-
-    def get_absolute_url(self):
-        return reverse("ProductReview_detail", kwargs={"pk": self.pk})
-
 
 class ProductRating(models.Model):
     product = models.ForeignKey("product.Product", verbose_name=_("Product"), on_delete=models.CASCADE)

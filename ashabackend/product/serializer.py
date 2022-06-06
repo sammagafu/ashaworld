@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Product,ProductImage
+from category.serializer import CategorSerializer
 
 class ProudctImageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -8,6 +9,7 @@ class ProudctImageSerializer(serializers.ModelSerializer):
 
 class ProductSerializer(serializers.ModelSerializer):
     images =  ProudctImageSerializer(many=True)
+    category = CategorSerializer(read_only=True)
     class Meta:
         model =  Product
         fields = (
@@ -19,8 +21,8 @@ class ProductSerializer(serializers.ModelSerializer):
             "wholeSalePrice",
             "brand",
             "category",
-            "subCategory",
             "descripton",
             "sku",
-            "images"
+            "images",
+            "get_absolute_url"
             )
