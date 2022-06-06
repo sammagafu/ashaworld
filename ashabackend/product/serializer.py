@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from brand.serializer import BrandSerilizer
 from .models import Product,ProductImage
 from category.serializer import CategorSerializer
 
@@ -8,6 +10,7 @@ class ProudctImageSerializer(serializers.ModelSerializer):
         fields = ['images',]
 
 class ProductSerializer(serializers.ModelSerializer):
+    brand = BrandSerilizer()
     images =  ProudctImageSerializer(many=True)
     category = CategorSerializer(read_only=True)
     class Meta:
