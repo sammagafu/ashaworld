@@ -18,16 +18,8 @@
                                     <label>Filter :</label>
                                     <a href="#" class="btn btn-dark btn-link filter-clean">Clean All</a>
                                 </div>
-                                <!-- Start of Collapsible widget -->
-                                <div class="widget widget-collapsible">
-                                    <h3 class="widget-title"><label>All Categories</label><span
-                                            class="toggle-btn"></span>
-                                    </h3>
-                                    <CategoryFilterList/>
-                                </div>
-                                <!-- End of Collapsible Widget -->
 
-                                <!-- Start of Collapsible Widget -->
+                                                                <!-- Start of Collapsible Widget -->
                                 <div class="widget widget-collapsible">
                                     <h3 class="widget-title"><label>Price</label><span class="toggle-btn"></span></h3>
                                     <div class="widget-body">
@@ -46,46 +38,20 @@
                                         </form>
                                     </div>
                                 </div>
-                                <!-- End of Collapsible Widget -->
 
                                 <!-- Start of Collapsible Widget -->
+                                <!-- Start of Collapsible widget -->
                                 <div class="widget widget-collapsible">
-                                    <h3 class="widget-title"><label>Size</label><span class="toggle-btn"></span></h3>
-                                    <ul class="widget-body filter-items item-check mt-1">
-                                        <li><a href="#">Extra Large</a></li>
-                                        <li><a href="#">Large</a></li>
-                                        <li><a href="#">Medium</a></li>
-                                        <li><a href="#">Small</a></li>
-                                    </ul>
+                                    <h3 class="widget-title"><label>All Categories</label><span
+                                            class="toggle-btn"></span>
+                                    </h3>
+                                    <CategoryFilterList/>
                                 </div>
                                 <!-- End of Collapsible Widget -->
-
-                                <!-- Start of Collapsible Widget -->
                                 <div class="widget widget-collapsible">
                                     <h3 class="widget-title"><label>Brand</label><span class="toggle-btn"></span></h3>
                                     <ul class="widget-body filter-items item-check mt-1">
-                                        <li><a href="#">Elegant Auto Group</a></li>
-                                        <li><a href="#">Green Grass</a></li>
-                                        <li><a href="#">Node Js</a></li>
-                                        <li><a href="#">NS8</a></li>
-                                        <li><a href="#">Red</a></li>
-                                        <li><a href="#">Skysuite Tech</a></li>
-                                        <li><a href="#">Sterling</a></li>
-                                    </ul>
-                                </div>
-                                <!-- End of Collapsible Widget -->
-
-                                <!-- Start of Collapsible Widget -->
-                                <div class="widget widget-collapsible">
-                                    <h3 class="widget-title"><label>Color</label><span class="toggle-btn"></span></h3>
-                                    <ul class="widget-body filter-items item-check mt-1">
-                                        <li><a href="#">Black</a></li>
-                                        <li><a href="#">Blue</a></li>
-                                        <li><a href="#">Brown</a></li>
-                                        <li><a href="#">Green</a></li>
-                                        <li><a href="#">Grey</a></li>
-                                        <li><a href="#">Orange</a></li>
-                                        <li><a href="#">Yellow</a></li>
+                                        <li v-for="(brand,index) in brands" :key="index"><a href="#">{{ brand.brandName}}</a></li>
                                     </ul>
                                 </div>
                                 <!-- End of Collapsible Widget -->
@@ -170,16 +136,23 @@ import CategoryFilterList from '@/components/CategoryFilterList.vue';
     export default {
         data() {
             return {
-                product: []
+                product: [],
+                brands : [],
             }
         },
         mounted() {
             this.getProducts();
+            this.getBrands();
         },
         methods: {
             getProducts() {
                 axios.get("/api/v1/product/")
                 .then(response => { this.product = response.data; })
+                .catch(error => { console.log(error); });
+            },
+            getBrands(){
+                axios.get("/api/v1/brand/")
+                .then(response => { this.brands = response.data; })
                 .catch(error => { console.log(error); });
             }
         },

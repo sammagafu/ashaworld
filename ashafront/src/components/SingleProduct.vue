@@ -1,7 +1,7 @@
 <template>
     <div class="product product-image-gap product-simple">
         <figure class="product-media">
-            <router-link :to="slug"> <img :src="image" alt="Product" width="295" height="335"></router-link>
+            <router-link :to="`/product/${slug}`"> <img :src="image" alt="Product" width="295" height="335"></router-link>
             <div class="product-action-vertical">
                 <a href="#" class="btn-product-icon btn-compare w-icon-compare" title="Compare">
 
@@ -18,7 +18,7 @@
                 <a href="shop-banner-sidebar.html">{{ category}}</a>
             </div>
             <h4 class="product-name">
-                <router-link :to="slug">{{ title }}</router-link>
+                <router-link :to="`/product/${slug}`">{{ title }}</router-link>
             </h4>
             <div class="ratings-container">
                 <div class="ratings-full">
@@ -30,7 +30,7 @@
             <div class="product-pa-wrapper">
                 <div class="product-price">TZS {{price}}</div>
                 <div class="product-action">
-                    <a href="#" class="btn-cart btn-product btn btn-link btn-underline">Add
+                    <a href="#" class="btn-cart btn-product btn btn-link btn-underline" @click.once="addTocart">Add
                         To Cart</a>
                 </div>
             </div>
@@ -39,10 +39,16 @@
 </template>
 
 <script>
+import axios from 'axios'
 export default{
     name:"SingleProduct",
     props:[
-        'image','category','price','title','slug'
-    ]
+        'image','category','price','title','slug',
+    ],
+    methods:{
+        addTocart(){
+            console.log(this.slug)
+        }
+    }
 }
 </script>
