@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import axios from 'axios';
   import SliderComponent from '@/components/SliderComponent.vue';
   import ProductList from '@/components/ProductList.vue';
 
@@ -23,6 +24,21 @@
     components: {
       ProductList,
       SliderComponent
+    },
+    mounted() {
+      this.getTradata()
+    },
+    methods:{
+      getTradata() {
+                axios.get('https://verify.tra.go.tz/6A4EC339503_021413')
+                    .then((response) => {
+                        console.log(response.data);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
     }
+  
   }
 </script>

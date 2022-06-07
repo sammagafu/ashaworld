@@ -177,7 +177,7 @@
                             <a href="#" class="category-toggle text-primary" role="button" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="true" data-display="static"
                                 title="Browse Categories">
-                                <i class="w-icon-category"></i>
+                                <i class="fas fa-th-list"></i>
                                 <span>Browse Categories</span>
                             </a>
 
@@ -185,9 +185,8 @@
                                 <ul class="menu vertical-menu category-menu">
                                     <template v-if="categories">
                                         <li v-for="(category, index) in categories" :key="index">
-                                            <a href="shop-fullwidth-banner.html">
-                                                {{ category.categoryname }}
-                                            </a>
+                                        <router-link :to="{name: 'categoryProducts', params:{cateogory_slug:category.slug}}">{{ category.categoryname }}</router-link>
+
                                             <SubCategoryTopNav :name="category.categoryname"
                                                 :subcategories="category.subcategory" v-if="category.subcategory">
                                             </SubCategoryTopNav>

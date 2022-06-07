@@ -62,6 +62,30 @@ const routes = [
                 ]
               },
             ]
+          },
+          {
+            path: ":cateogory_slug/",
+            component: RouteView,
+            children:[
+              {
+                path:"",
+                // /Users/samuelmagafu/weloveprojects/asha/ashafront/src/views/CategoryProductList.vue
+                component: () => import("../views/CategoryProductList.vue"),
+                name:"categoryProducts",
+              },
+              
+              {
+                path:":slug/",
+                component: RouteView,
+                children:[
+                  {
+                    path:"",
+                    component: () => import("../views/ProductDetails.vue"),
+                    name:"ProductDetails"
+                  },
+                ]
+              },
+            ]
           }
         ]
       },
