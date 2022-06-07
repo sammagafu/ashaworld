@@ -40,8 +40,6 @@
                     </div>
                     <!-- End of Dropdown Menu -->
                     <span class="divider d-lg-show"></span>
-                    <a href="blog.html" class="d-lg-show">Blog</a>
-                    <a href="contact-us.html" class="d-lg-show">Contact Us</a>
                     <a href="my-account.html" class="d-lg-show">My Account</a>
                     <a href="assets/ajax/login.html" class="d-lg-show login sign-in"><i class="w-icon-account"></i>Sign
                         In</a>
@@ -95,16 +93,16 @@
                         <i class="w-icon-compare"></i>
                         <span class="compare-label d-lg-show">Compare</span>
                     </a>
-                    <div class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2">
+                    <div class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2" :class="{ opened : isOpenedCart }">
                         <div class="cart-overlay"></div>
-                        <a href="#" class="cart-toggle label-down link">
+                        <a href="#" class="cart-toggle label-down link" @click="isOpenedCart = true">
                             <i class="w-icon-cart">
                                 <span class="cart-count">2</span>
                             </i>
                             <span class="cart-label">Cart</span>
                         </a>
                         <div class="dropdown-box">
-                            <div class="cart-header">
+                            <div class="cart-header" @click="isOpenedCart = false">
                                 <span>Shopping Cart</span>
                                 <a href="#" class="btn-close">Close<i class="w-icon-long-arrow-right"></i></a>
                             </div>
@@ -122,7 +120,7 @@
                                     </div>
                                     <figure class="product-media">
                                         <a href="product-default.html">
-                                            <img src="assets/images/cart/product-1.jpg" alt="product" height="84"
+                                            <img src="../assets/images/cart/product-1.jpg" alt="product" height="84"
                                                 width="94" />
                                         </a>
                                     </figure>
@@ -143,7 +141,7 @@
                                     </div>
                                     <figure class="product-media">
                                         <a href="product-default.html">
-                                            <img src="assets/images/cart/product-2.jpg" alt="product" width="84"
+                                            <img src="../assets/images/cart/product-2.jpg" alt="product" width="84"
                                                 height="94" />
                                         </a>
                                     </figure>
@@ -245,7 +243,8 @@
         data() {
             return {
                 categories: [],
-                hoveredMenu: false
+                hoveredMenu: false,
+                isOpenedCart : false,
             };
         },
         created() {

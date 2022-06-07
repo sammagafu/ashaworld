@@ -1,6 +1,5 @@
 <template>
     <section>
-        <h2 class="title title-center mb-5">Newest Products</h2>
         <div class="row product-wrapper mb-7 show-code-action">
 
             <div class="col-md-3 col-6" v-for="prod in product" :key="prod.id">
