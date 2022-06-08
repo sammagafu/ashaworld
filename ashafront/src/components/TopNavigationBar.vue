@@ -185,7 +185,7 @@
                                 <ul class="menu vertical-menu category-menu">
                                     <template v-if="categories">
                                         <li v-for="(category, index) in categories" :key="index">
-                                        <router-link :to="{name: 'categoryProducts', params:{cateogory_slug:category.slug}}">{{ category.categoryname }}</router-link>
+                                        <router-link :to="{name: 'CategoryProducts', params:{cateogory_slug:category.slug}}">{{ category.categoryname }}</router-link>
 
                                             <SubCategoryTopNav :name="category.categoryname"
                                                 :subcategories="category.subcategory" v-if="category.subcategory">
@@ -260,7 +260,7 @@
         },
         methods: {
             getCategories() {
-                axios.get("/api/v1/category/")
+                axios.get("/category/")
                     .then(response => {
                         this.categories = response.data;
                     }).catch(error => {
@@ -271,13 +271,9 @@
             async fetchCategories() {
                 const {
                     data
-                } = axios.get("/api/v1/category/")
+                } = axios.get("category/")
                 return data
             },
-            showSub() {
-                console.log("its showing")
-            }
-
         }
         //   props: {
         //     msg: String

@@ -25,20 +25,5 @@ import axios from 'axios';
       ProductList,
       SliderComponent
     },
-    mounted() {
-      this.getTradata()
-    },
-    methods:{
-      getTradata() {
-                axios.get('https://verify.tra.go.tz/6A4EC339503_021413')
-                    .then((response) => {
-                        console.log(response.data);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            }
-    }
-  
   }
 </script>

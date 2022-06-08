@@ -146,12 +146,12 @@ import CategoryFilterList from '@/components/CategoryFilterList.vue';
         },
         methods: {
             getProducts() {
-                axios.get("/api/v1/product/")
+                axios.get("product/")
                 .then(response => { this.product = response.data; })
                 .catch(error => { console.log(error); });
             },
             getBrands(){
-                axios.get("/api/v1/brand/")
+                axios.get("brand/")
                 .then(response => { this.brands = response.data; })
                 .catch(error => { console.log(error); });
             }

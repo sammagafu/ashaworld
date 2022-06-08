@@ -18,7 +18,7 @@
         },
         methods: {
             getCategoryList() {
-                axios.get("/api/v1/category/")
+                axios.get("category/")
                     .then(response => {
                         this.categoryList = response.data;
                     })

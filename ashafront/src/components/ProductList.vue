@@ -27,7 +27,7 @@ export default{
     },
     methods: {
         getProducts() {
-            axios.get("/api/v1/product/")
+            axios.get("product/")
                 .then(response => { this.product = response.data; })
                 .catch(error => { console.log(error); });
         }
