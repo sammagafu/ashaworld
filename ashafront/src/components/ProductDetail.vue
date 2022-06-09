@@ -5,7 +5,6 @@
                     <div class="product product-single row">
                         <div class="col-md-6 mb-6">
                             <div class="product-gallery product-gallery-sticky product-gallery-vertical"><ProductImageSwiper :images="images"/></div>
-                            
                         </div>
                         <div class="col-md-6 mb-4 mb-md-6">
                             <div class="product-details" data-sticky-options="{'minWidth': 767}">

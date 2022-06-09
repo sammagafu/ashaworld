@@ -1,19 +1,19 @@
 <template>
-    <div class="mfp-content"><div class="product product-single product-popup">
+<div class="mfp-content"><div class="product product-single product-popup">
         <div class="row gutter-lg">
             <div class="col-md-6 mb-4 mb-md-0">
                 <div class="product-gallery product-gallery-sticky">
                     <div class="swiper-container product-single-swiper swiper-theme nav-inner swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events">
-                        <div class="swiper-wrapper " id="swiper-wrapper-5db873b5dd24db94" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
+                        <div class="swiper-wrapper " id="swiper-wrapper-7dc3454941746eeb" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
                             <div class="swiper-slide swiper-slide-active" style="width: 395px;" role="group" aria-label="1 / 4">
                                 <figure class="product-image" style="position: relative; overflow: hidden; cursor: pointer;">
                                     <img src="assets/images/products/popup/1-440x494.jpg" data-zoom-image="assets/images/products/popup/1-800x900.jpg" alt="Water Boil Black Utensil" width="800" height="900">
-                                <img role="presentation" alt="Water Boil Black Utensil" src="https://portotheme.com/html/wolmart/assets/images/products/popup/1-440x494.jpg" class="zoomImg" style="position: absolute; top: -97.3962px; left: -59.0329px; opacity: 1; width: 484px; height: 543.4px; border: none; max-width: none; max-height: none;"></figure>
+                                <img role="presentation" alt="Water Boil Black Utensil" src="https://portotheme.com/html/wolmart/assets/images/products/popup/1-440x494.jpg" class="zoomImg" style="position: absolute; top: -98.0695px; left: -62.4127px; opacity: 0; width: 484px; height: 543.4px; border: none; max-width: none; max-height: none;"></figure>
                             </div>
                             <div class="swiper-slide swiper-slide-next" style="width: 395px;" role="group" aria-label="2 / 4">
                                 <figure class="product-image" style="position: relative; overflow: hidden; cursor: pointer;">
                                     <img src="assets/images/products/popup/2-440x494.jpg" data-zoom-image="assets/images/products/popup/2-800x900.jpg" alt="Water Boil Black Utensil" width="800" height="900">
-                                <img role="presentation" alt="Water Boil Black Utensil" src="https://portotheme.com/html/wolmart/assets/images/products/popup/2-440x494.jpg" class="zoomImg" style="position: absolute; top: 0px; left: 0px; opacity: 0; width: 484px; height: 543.4px; border: none; max-width: none; max-height: none;"></figure>
+                                <img role="presentation" alt="Water Boil Black Utensil" src="https://portotheme.com/html/wolmart/assets/images/products/popup/2-440x494.jpg" class="zoomImg" style="position: absolute; top: -37.9262px; left: 0px; opacity: 0; width: 484px; height: 543.4px; border: none; max-width: none; max-height: none;"></figure>
                             </div>
                             <div class="swiper-slide" style="width: 395px;" role="group" aria-label="3 / 4">
                                 <figure class="product-image" style="position: relative; overflow: hidden; cursor: pointer;">
@@ -26,8 +26,8 @@
                                 <img role="presentation" alt="Water Boil Black Utensil" src="https://portotheme.com/html/wolmart/assets/images/products/popup/4-440x494.jpg" class="zoomImg" style="position: absolute; top: 0px; left: 0px; opacity: 0; width: 484px; height: 543.4px; border: none; max-width: none; max-height: none;"></figure>
                             </div>
                         </div>
-                        <button class="swiper-button-next" tabindex="0" aria-label="Next slide" aria-controls="swiper-wrapper-5db873b5dd24db94" aria-disabled="false"></button>
-                        <button class="swiper-button-prev swiper-button-disabled" tabindex="-1" aria-label="Previous slide" aria-controls="swiper-wrapper-5db873b5dd24db94" aria-disabled="true" disabled=""></button>
+                        <button class="swiper-button-next" tabindex="0" aria-label="Next slide" aria-controls="swiper-wrapper-7dc3454941746eeb" aria-disabled="false"></button>
+                        <button class="swiper-button-prev swiper-button-disabled" tabindex="-1" aria-label="Previous slide" aria-controls="swiper-wrapper-7dc3454941746eeb" aria-disabled="true" disabled=""></button>
                     <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
                     <div class="product-thumbs-wrap swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-pointer-events swiper-container-free-mode swiper-container-thumbs" data-swiper-options="{
                         'navigation': {
@@ -35,8 +35,8 @@
                             'prevEl': '.swiper-button-prev'
                         }
                     }">
-                        <div class="product-thumbs swiper-wrapper   " id="swiper-wrapper-58417bc73c06ca71" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
-                            <div class="product-thumb swiper-slide swiper-slide-thumb-active swiper-slide-visible swiper-slide-active" style="width: 91.25px; margin-right: 10px;" role="group" aria-label="1 / 4">
+                        <div class="product-thumbs swiper-wrapper   " id="swiper-wrapper-ae6f9122378041610" aria-live="polite" style="transition-duration: 0ms; transform: translate3d(0px, 0px, 0px);">
+                            <div class="product-thumb swiper-slide swiper-slide-visible swiper-slide-active swiper-slide-thumb-active" style="width: 91.25px; margin-right: 10px;" role="group" aria-label="1 / 4">
                                 <img src="assets/images/products/popup/1-103x116.jpg" alt="Product Thumb" width="103" height="116">
                             </div>
                             <div class="product-thumb swiper-slide swiper-slide-visible swiper-slide-next" style="width: 91.25px; margin-right: 10px;" role="group" aria-label="2 / 4">
@@ -49,8 +49,8 @@
                                 <img src="assets/images/products/popup/4-103x116.jpg" alt="Product Thumb" width="103" height="116">
                             </div>
                         </div>
-                        <button class="swiper-button-next swiper-button-disabled" tabindex="-1" aria-label="Next slide" aria-controls="swiper-wrapper-58417bc73c06ca71" aria-disabled="true" disabled=""></button>
-                        <button class="swiper-button-prev swiper-button-disabled" tabindex="-1" aria-label="Previous slide" aria-controls="swiper-wrapper-58417bc73c06ca71" aria-disabled="true" disabled=""></button>
+                        <button class="swiper-button-next swiper-button-disabled" tabindex="-1" aria-label="Next slide" aria-controls="swiper-wrapper-ae6f9122378041610" aria-disabled="true" disabled=""></button>
+                        <button class="swiper-button-prev swiper-button-disabled" tabindex="-1" aria-label="Previous slide" aria-controls="swiper-wrapper-ae6f9122378041610" aria-disabled="true" disabled=""></button>
                     <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span><span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                     <div class="ratings-container">
                         <div class="ratings-full">
                             <span class="ratings" style="width: 80%;"></span>
-                            <span class="tooltiptext tooltip-top"></span>
+                            <span class="tooltiptext tooltip-top">4.00</span>
                         </div>
                         <a href="#" class="rating-reviews">(3 Reviews)</a>
                     </div>

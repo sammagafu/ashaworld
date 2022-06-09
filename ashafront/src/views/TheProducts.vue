@@ -19,41 +19,42 @@
                                     <a href="#" class="btn btn-dark btn-link filter-clean">Clean All</a>
                                 </div>
 
-                                                                <!-- Start of Collapsible Widget -->
+                                <!-- Start of Collapsible Widget -->
                                 <div class="widget widget-collapsible">
-                                    <h3 class="widget-title"><label>Price</label><span class="toggle-btn"></span></h3>
-                                    <div class="widget-body">
-                                        <ul class="filter-items search-ul">
-                                            <li><a href="#">$0.00 - $100.00</a></li>
-                                            <li><a href="#">$100.00 - $200.00</a></li>
-                                            <li><a href="#">$200.00 - $300.00</a></li>
-                                            <li><a href="#">$300.00 - $500.00</a></li>
-                                            <li><a href="#">$500.00+</a></li>
-                                        </ul>
-                                        <form class="price-range">
-                                            <input type="number" name="min_price" class="min_price text-center"
-                                                placeholder="$min"><span class="delimiter">-</span><input type="number"
-                                                name="max_price" class="max_price text-center" placeholder="$max"><a
-                                                href="#" class="btn btn-primary btn-rounded">Go</a>
-                                        </form>
+                                    <h3 class="widget-title"><label>Price Range</label><span class="toggle-btn"></span></h3>
+                                    <div class="widget-body mt-1">
+                                        <div class="form-group">
+                                            <label for="range">Maximum Prince {{max}}</label>
+                                            <input type="range" v-model.number="max" min="0" max="100000" step="10" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
-
+    
                                 <!-- Start of Collapsible Widget -->
                                 <!-- Start of Collapsible widget -->
-                                <div class="widget widget-collapsible">
+                                <!-- <div class="widget widget-collapsible">
                                     <h3 class="widget-title"><label>All Categories</label><span
                                             class="toggle-btn"></span>
                                     </h3>
                                     <CategoryFilterList/>
-                                </div>
+                                </div> -->
                                 <!-- End of Collapsible Widget -->
                                 <div class="widget widget-collapsible">
-                                    <h3 class="widget-title"><label>Brand</label><span class="toggle-btn"></span></h3>
-                                    <ul class="widget-body filter-items item-check mt-1">
-                                        <li v-for="(brand,index) in brands" :key="index"><a href="#">{{ brand.brandName}}</a></li>
-                                    </ul>
+                                    <h3 class="widget-title mb-2"><label>Filter By Brand</label><span
+                                            class="toggle-btn"></span></h3>
+
+                                    <div class="mt-3 form-check">
+                                            <input type="radio" :value="null" v-model="checkedNames" />
+                                            <label for="brand" class="ml-1">All Brands</label>
+                                        </div>        
+                                    <template v-for="(brand,index) in brands" :key="index">
+                                        <div class="mt-3 form-check">
+                                            <input type="radio" :value="brand.brandName" v-model="checkedNames" />
+                                            <label for="brand" class="ml-1">{{brand.brandName}}</label>
+                                        </div>
+                                    </template>
                                 </div>
+
                                 <!-- End of Collapsible Widget -->
                             </div>
                         </div>
@@ -94,14 +95,15 @@
                         </div>
                     </nav>
                     <div class="product-wrapper row cols-md-3 cols-sm-2 cols-2">
-                        <div class="product-wrap"  v-for="prod in product" :key="prod.id">
-                         <SingleProduct :category="prod.category.categoryname" :title="prod.productName" :image="prod.coverImage" :price="prod.price" :slug="prod.slug"/>
-                         </div>
+                        <div class="product-wrap" v-for="prod in filterProductByBrands" :key="prod.id">
+                            <SingleProduct :category="prod.category.categoryname" :title="prod.productName"
+                                :image="prod.coverImage" :price="prod.price" :slug="prod.slug" />
+                        </div>
                     </div>
 
                     <div class="toolbox toolbox-pagination justify-content-between">
                         <p class="showing-info mb-2 mb-sm-0">
-                            Showing<span>1-12 of 60</span>Products
+                            Showing<span>1-12 of {{product.length}}</span>Products
                         </p>
                         <ul class="pagination">
                             <li class="prev disabled">
@@ -130,35 +132,55 @@
 </template>
 
 <script>
-import SingleProduct from '@/components/SingleProduct.vue';
-import axios from 'axios'
-import CategoryFilterList from '@/components/CategoryFilterList.vue';
+    import SingleProduct from '@/components/SingleProduct.vue';
+    import axios from 'axios'
+    import CategoryFilterList from '@/components/FilterProductsbyCategory.vue';
     export default {
         data() {
             return {
                 product: [],
-                brands : [],
+                brands: [],
+                checkedNames: null,
+                max:0,
             }
         },
         mounted() {
             this.getProducts();
             this.getBrands();
         },
+        computed: {
+            filterProductByBrands() {
+                if(this.checkedNames){
+                    return this.product.filter(prod => (prod.brand.brandName == this.checkedNames))
+                }
+                else {
+                    return this.product
+                }
+            }
+        },
         methods: {
             getProducts() {
                 axios.get("product/")
-                .then(response => { this.product = response.data; })
-                .catch(error => { console.log(error); });
+                    .then(response => {
+                        this.product = response.data;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             },
-            getBrands(){
+            getBrands() {
                 axios.get("brand/")
-                .then(response => { this.brands = response.data; })
-                .catch(error => { console.log(error); });
+                    .then(response => {
+                        this.brands = response.data;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
             }
         },
-        components :{
-    SingleProduct,
-    CategoryFilterList
-}
+        components: {
+            SingleProduct,
+            CategoryFilterList
+        }
     }
 </script>

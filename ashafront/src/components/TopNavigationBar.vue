@@ -177,7 +177,7 @@
                             <a href="#" class="category-toggle text-primary" role="button" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="true" data-display="static"
                                 title="Browse Categories">
-                                <i class="fas fa-th-list"></i>
+                                <i class="w-icon-grid"></i>
                                 <span>Browse Categories</span>
                             </a>
 

@@ -1,5 +1,7 @@
 <template>
+<input type="checkbox" name="category" id="">
     <ul v-if="categoryList" class="widget-body filter-items search-ul">
+
         <li v-for="(cat,index) in categoryList" :key="index"><a href="#">{{ cat.categoryname}}</a></li>
     </ul>
 </template>
@@ -7,7 +9,7 @@
 <script>
     import axios from 'axios'
     export default {
-        name: "CategoryFilterList",
+        name: "FilterProductsByCategory",
         data() {
             return {
                 categoryList: []
