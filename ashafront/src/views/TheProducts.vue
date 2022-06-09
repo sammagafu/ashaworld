@@ -24,21 +24,11 @@
                                     <h3 class="widget-title"><label>Price Range</label><span class="toggle-btn"></span></h3>
                                     <div class="widget-body mt-1">
                                         <div class="form-group">
-                                            <label for="range">Maximum Prince {{max}}</label>
+                                            <label for="range">Maximum Price {{max}}</label>
                                             <input type="range" v-model.number="max" min="0" max="100000" step="10" class="form-control">
                                         </div>
                                     </div>
                                 </div>
-    
-                                <!-- Start of Collapsible Widget -->
-                                <!-- Start of Collapsible widget -->
-                                <!-- <div class="widget widget-collapsible">
-                                    <h3 class="widget-title"><label>All Categories</label><span
-                                            class="toggle-btn"></span>
-                                    </h3>
-                                    <CategoryFilterList/>
-                                </div> -->
-                                <!-- End of Collapsible Widget -->
                                 <div class="widget widget-collapsible">
                                     <h3 class="widget-title mb-2"><label>Filter By Brand</label><span
                                             class="toggle-btn"></span></h3>
@@ -135,6 +125,7 @@
     import SingleProduct from '@/components/SingleProduct.vue';
     import axios from 'axios'
     import CategoryFilterList from '@/components/FilterProductsbyCategory.vue';
+    
     export default {
         data() {
             return {
@@ -156,7 +147,11 @@
                 else {
                     return this.product
                 }
+            },
+            filterProductByPriceRange(){
+                return this.product.filter(prod => (prod.price == this.max));
             }
+
         },
         methods: {
             getProducts() {
