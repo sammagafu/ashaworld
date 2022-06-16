@@ -1,7 +1,5 @@
 from django.contrib import admin
 from django.urls import path,include
-from two_factor.urls import urlpatterns as tf_urls
-from two_factor.gateways.twilio.urls import urlpatterns as tf_twilio_urls
 # static and media files
 from django.conf import settings
 from django.conf.urls.static import static
