@@ -12,4 +12,4 @@ class CategorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProuctCategory
-        fields = ['categoryname', 'slug','subcategory']
+        fields = ['id','categoryname', 'slug','subcategory']
