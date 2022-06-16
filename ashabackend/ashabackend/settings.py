@@ -38,11 +38,6 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     # Configure the django-otp package.
-    'django_otp',
-    'django_otp.plugins.otp_static',
-    'django_otp.plugins.otp_totp',
-    'two_factor',
-    'otp_yubikey',
     # provides
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.apple',
