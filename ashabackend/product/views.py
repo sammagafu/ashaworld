@@ -15,7 +15,7 @@ class ProductListview(generics.ListCreateAPIView):
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['category', 'price','brand']
-    ordering_fields = '__all__'
+    ordering_fields = ['price','created_at']
 
 class ProductDetailView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
