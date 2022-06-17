@@ -2,7 +2,7 @@ from .serializer import ProductSerializer
 from .models import Product
 from rest_framework import generics
 from django.views.generic import TemplateView
-from django_filters.rest_framework import DjangoFilterBackend
+from django_filters.rest_framework import DjangoFilterBackend,OrderingFilter
 
 
 
@@ -13,7 +13,7 @@ class LandingPage(TemplateView):
 class ProductListview(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = ['category', 'price','brand']
     ordering_fields = ['price','created_at']
 
