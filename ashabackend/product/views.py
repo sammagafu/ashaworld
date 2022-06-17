@@ -16,6 +16,7 @@ class ProductListview(generics.ListCreateAPIView):
     filter_backends = [DjangoFilterBackend,OrderingFilter]
     filterset_fields = ['category', 'price','brand']
     ordering_fields = ['price','created_at']
+    odering = ['price']
 
 class ProductDetailView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
