@@ -40,7 +40,7 @@ class Product(models.Model):
         return super().save()
 
     def get_absolute_url(self):
-        return reverse("products:details", kwargs={"slug": self.slug})
+        return f'/{self.category.slug}/{self.slug}'
 
 
 class ProductImage(models.Model):

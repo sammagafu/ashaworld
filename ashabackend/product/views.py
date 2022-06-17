@@ -1,6 +1,9 @@
+from django.http import Http404
+from requests import Response
 from .serializer import ProductSerializer
 from .models import Product
 from rest_framework import generics,filters
+from rest_framework.views import APIView
 from django.views.generic import TemplateView
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -18,8 +21,15 @@ class ProductListview(generics.ListCreateAPIView):
     ordering_fields = ['price','created_at']
     search_fields = ['productName', 'descripton']
 
-class ProductDetailView(generics.RetrieveAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    lookup_field = 'slug'
+class ProductDetailView(APIView):
+    def get_object(self,category_slug,product_slug):
+        try:
+            return Product.objects.filter(category__slug=category_slug).get(slug=product_slug)
+        except Product.DoesNotExist:
+            raise Http404
+
+    def get(self,request, category_slug, product_slug, format=None):
+        product = self.get_object(category_slug,product_slug)
+        serializer = ProductSerializer(product)
+        return Response(serializer.data)
 
