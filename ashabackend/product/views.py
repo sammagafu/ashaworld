@@ -2,6 +2,7 @@ from django.http import Http404
 from rest_framework.response import Response
 from .serializer import ProductSerializer
 from .models import Product
+from category.models import ProuctCategory
 from rest_framework import generics,filters
 from rest_framework.views import APIView
 from django.views.generic import TemplateView
@@ -33,3 +34,17 @@ class ProductDetailView(APIView):
         serializer = ProductSerializer(product)
         return Response(serializer.data)
 
+
+class GetProductsByCategory(APIView):
+    def get_object(self, category_slug):
+        try:
+            return Product.objects.filter(category__slug=category_slug).get()
+        except Product.DoesNotExist:
+            raise Http404
+
+    def get(self, request, category_slug, format=None):
+        # print(self.get_object)
+        product = self.get_object(category_slug)
+        print(product)
+        serializer = ProductSerializer(product)
+        return Response(serializer.data)
