@@ -38,13 +38,11 @@ class ProductDetailView(APIView):
 class GetProductsByCategory(APIView):
     def get_object(self, category_slug):
         try:
-            return Product.objects.filter(category__slug=category_slug).get()
+            return Product.objects.filter(category__slug=category_slug)
         except Product.DoesNotExist:
             raise Http404
 
     def get(self, request, category_slug, format=None):
-        # print(self.get_object)
         product = self.get_object(category_slug)
-        print(product)
-        serializer = ProductSerializer(product)
+        serializer = ProductSerializer(product,many=True)
         return Response(serializer.data)
