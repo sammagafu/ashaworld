@@ -142,7 +142,7 @@
         methods: {
             async getProducts() {
                 
-                await axios.get(`${this.$route.params.slug}/product/`)
+                await axios.get(`category/${this.$route.params.slug}/product/`)
                     .then(response => {
                         this.product = response.data;
                         
