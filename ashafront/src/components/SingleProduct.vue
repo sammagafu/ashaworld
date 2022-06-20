@@ -1,7 +1,7 @@
 <template>
     <div class="product product-image-gap product-simple">
         <figure class="product-media">
-            <router-link :to="`/product/${slug}`"> <img :src="image" alt="Product" width="295" height="335">
+            <router-link :to="product.get_absolute_url"> <img :src="product.coverImage" alt="Product" width="295" height="335">
             </router-link>
             <div class="product-action-vertical">
                 <a href="#" class="btn-product-icon btn-compare w-icon-compare" title="Compare">
@@ -19,10 +19,10 @@
         <div class="product-details">
             <a href="#" class="btn-wishlist w-icon-heart" title="Add to wishlist"></a>
             <div class="product-cat">
-                <a href="shop-banner-sidebar.html">{{ category}}</a>
+                <a href="shop-banner-sidebar.html">{{ product.category.categoryname }}</a>
             </div>
-            <h4 class="product-name">
-                <router-link :to="`/product/${slug}`">{{ title }}</router-link>
+            <h4 class="product-name text-uppercase">
+                <router-link :to="product.get_absolute_url">{{ product.productName }}</router-link>
             </h4>
             <div class="ratings-container">
                 <div class="ratings-full">
@@ -32,7 +32,7 @@
                 <a href="product-default.html" class="rating-reviews">(3 reviews)</a>
             </div>
             <div class="product-pa-wrapper">
-                <div class="product-price">TZS {{price}}</div>
+                <div class="product-price">TZS {{product.price}}</div>
                 <div class="product-action">
                     <a href="#" class="btn-cart btn-product btn btn-link btn-underline"
                         :class="isAdded ? cartOverlayClass : '' " @click="addTocart">Add
@@ -56,9 +56,9 @@ import QuickViewProduct from './QuickViewProduct.vue'
                 cartOverlayClass: ['cart-offcanvas','cart-overlay']
             }
         },
-        props: [
-            'image', 'category', 'price', 'title', 'slug',
-        ],
+        props: {
+        product: Object
+    },
         methods: {
             addTocart() {
                 this.isAdded = true

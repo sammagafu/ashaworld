@@ -21,11 +21,13 @@
 
                                 <!-- Start of Collapsible Widget -->
                                 <div class="widget widget-collapsible">
-                                    <h3 class="widget-title"><label>Price Range</label><span class="toggle-btn"></span></h3>
+                                    <h3 class="widget-title"><label>Price Range</label><span class="toggle-btn"></span>
+                                    </h3>
                                     <div class="widget-body mt-1">
                                         <div class="form-group">
                                             <label for="range">Maximum Price {{max}}</label>
-                                            <input type="range" v-model.number="max" min="0" max="100000" step="10" class="form-control">
+                                            <input type="range" v-model.number="max" min="0" max="100000" step="10"
+                                                class="form-control">
                                         </div>
                                     </div>
                                 </div>
@@ -34,9 +36,9 @@
                                             class="toggle-btn"></span></h3>
 
                                     <div class="mt-3 form-check">
-                                            <input type="radio" :value="null" v-model="checkedNames" />
-                                            <label for="brand" class="ml-1">All Brands</label>
-                                        </div>        
+                                        <input type="radio" :value="null" v-model="checkedNames" />
+                                        <label for="brand" class="ml-1">All Brands</label>
+                                    </div>
                                     <template v-for="(brand,index) in brands" :key="index">
                                         <div class="mt-3 form-check">
                                             <input type="radio" :value="brand.brandName" v-model="checkedNames" />
@@ -84,10 +86,11 @@
                             </div>
                         </div>
                     </nav>
-                    <div class="product-wrapper row cols-md-3 cols-sm-2 cols-2">
-                        <div class="product-wrap" v-for="prod in filterProductByBrands" :key="prod.id">
-                            <SingleProduct :category="prod.category.categoryname" :title="prod.productName"
-                                :image="prod.coverImage" :price="prod.price" :slug="prod.slug" />
+
+                    <div class="row product-wrapper mb-7 show-code-action">
+
+                        <div class="col-md-4 col-6" v-for="product in product" :key="product.id">
+                            <SingleProduct v-bind:product="product" />
                         </div>
                     </div>
 
@@ -125,14 +128,14 @@
     import SingleProduct from '@/components/SingleProduct.vue';
     import axios from 'axios'
     import CategoryFilterList from '@/components/FilterProductsbyCategory.vue';
-    
+
     export default {
         data() {
             return {
                 product: [],
                 brands: [],
                 checkedNames: null,
-                max:0,
+                max: 0,
             }
         },
         mounted() {
@@ -141,14 +144,13 @@
         },
         computed: {
             filterProductByBrands() {
-                if(this.checkedNames){
+                if (this.checkedNames) {
                     return this.product.filter(prod => (prod.brand.brandName == this.checkedNames))
-                }
-                else {
+                } else {
                     return this.product
                 }
             },
-            filterProductByPriceRange(){
+            filterProductByPriceRange() {
                 return this.product.filter(prod => (prod.price == this.max));
             }
 

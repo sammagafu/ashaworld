@@ -41,10 +41,11 @@
                     <!-- End of Dropdown Menu -->
                     <span class="divider d-lg-show"></span>
                     <a href="my-account.html" class="d-lg-show">My Account</a>
-                    <a href="assets/ajax/login.html" class="d-lg-show login sign-in"><i class="w-icon-account"></i>Sign
-                        In</a>
+                    <router-link :to="{name:'login'}" class="d-lg-show login sign-in"><i class="w-icon-account"></i> Sign
+                        In</router-link>
                     <span class="delimiter d-lg-show">/</span>
-                    <a href="assets/ajax/login.html" class="ml-0 d-lg-show login register">Register</a>
+                    <router-link :to="{name:'signup'}"  class="ml-0 d-lg-show login register"> Register </router-link>
+                    <!-- <a href="assets/ajax/login.html" class="ml-0 d-lg-show login register"></a> -->
                 </div>
             </div>
         </div>
@@ -185,7 +186,7 @@
                                 <ul class="menu vertical-menu category-menu">
                                     <template v-if="categories">
                                         <li v-for="(category, index) in categories" :key="index">
-                                        <router-link :to="{name: 'CategoryProducts', params:{cateogory_slug:category.slug}}">{{ category.categoryname }}</router-link>
+                                        <router-link :to="{name: 'CategoryProducts', params:{slug:category.slug}}">{{ category.categoryname }}</router-link>
 
                                             <SubCategoryTopNav :name="category.categoryname"
                                                 :subcategories="category.subcategory" v-if="category.subcategory">
@@ -201,22 +202,8 @@
                                 <li class="active">
                                     <router-link :to="{ name:'home'}">Home</router-link>
                                 </li>
-                                <li class="has-submenu">
+                                <li>
                                     <router-link :to="{ name : 'TheProducts'}">Shop All</router-link>
-                                    <!-- <a href="shop-banner-sidebar.html">Shop</a> -->
-
-                                    <!-- Start of Megamenu -->
-                                    <ul class="megamenu">
-                                        <li v-for="(category, index) in categories" :key="index">
-                                            <h4 class="menu-title">{{ category.categoryname }}</h4>
-                                            <ul v-for="(subcat, index) in category.subcategory" :key="index">
-                                                <li><a href="shop-banner-sidebar.html">{{ subcat.subcategoryname }}</a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-
-                                    <!-- End of Megamenu -->
                                 </li>
                                 <li><a href="#">Blog</a></li>
                                 <li><a href="#">Contact Us</a></li>

@@ -18,19 +18,8 @@
                                     <label>Filter :</label>
                                     <a href="#" class="btn btn-dark btn-link filter-clean">Clean All</a>
                                 </div>
-
-                                <!-- Start of Collapsible Widget -->
-                                <div class="widget widget-collapsible">
-                                    <h3 class="widget-title"><label>Price Range</label><span class="toggle-btn"></span></h3>
-                                    <div class="widget-body mt-1">
-                                        <div class="form-group">
-                                            <label for="range">Maximum Prince {{max}}</label>
-                                            <input type="range" v-model.number="max" min="0" max="100000" step="10" class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
                                 <!-- End of Collapsible Widget -->
-                                <div class="widget widget-collapsible">
+                                <!-- <div class="widget widget-collapsible">
                                     <h3 class="widget-title mb-2"><label>Filter By Brand</label><span
                                             class="toggle-btn"></span></h3>
                                     <template v-for="(brand,index) in brands" :key="index">
@@ -39,7 +28,7 @@
                                             <label for="brand" class="ml-1">{{brand.brandName}}</label>
                                         </div>
                                     </template>
-                                </div>
+                                </div> -->
 
                                 <!-- End of Collapsible Widget -->
                             </div>
@@ -80,12 +69,15 @@
                             </div>
                         </div>
                     </nav>
-                    <div class="product-wrapper row cols-md-3 cols-sm-2 cols-2">
-                        <div class="product-wrap" v-for="prod in filterProductByBrands" :key="prod.id">
-                            <SingleProduct :category="prod.category.categoryname" :title="prod.productName"
-                                :image="prod.coverImage" :price="prod.price" :slug="prod.slug" />
+
+                    <div class="row product-wrapper mb-7 show-code-action">
+
+                        <div class="col-md-4 col-6" v-for="product in product" :key="product.id">
+                            <SingleProduct v-bind:product="product" />
                         </div>
+
                     </div>
+
 
                     <div class="toolbox toolbox-pagination justify-content-between">
                         <p class="showing-info mb-2 mb-sm-0">
@@ -122,41 +114,39 @@
     import SingleProduct from '../components/SingleProduct.vue'
     import axios from 'axios';
     export default {
-        data (){
-            return{
-                slug:"",
-                product:[],
-                selected:{
-                    brands:[],
-                    prices:[],
-                    manufacture:[]
-                }
+        data() {
+            return {
+                category_slug: '',
+                product: {},
             }
-            
+
         },
         components: {
             TheProducts,
             SingleProduct
         },
+        computed() {
+            this.category_slug = this.$route.params.cateogory_slug
+        },
+
+       watch: {
+        $route(to, from) {
+            if (to.name === 'Category') {
+                this.getCategory()
+            }
+        }
+    },
         mounted() {
-            this.slug = this.$route.query.name;
             this.getProducts()
         },
-        computed:{
-            filterProductByBrands() {
-                if(this.checkedNames){
-                    return this.product.filter(prod => (prod.brand.category == this.slug))
-                }
-                else {
-                    return this.product
-                }
-            }
-        },
         methods: {
-            getProducts() {
-                axios.get("product/")
+            async getProducts() {
+                
+                await axios.get(`${this.$route.params.slug}/product/`)
                     .then(response => {
                         this.product = response.data;
+                        
+                        console.log('response.data :>> ', response.data);
                     })
                     .catch(error => {
                         console.log(error);

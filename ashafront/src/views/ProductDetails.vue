@@ -34,10 +34,12 @@
             // this.url_data = this.$route.params.slug
            
             this.getProductdetail()
-            console.log('kimepop',this.product);
         },
         methods: {
             getProductdetail() {
+                const category_slug = this.$route.params.category_slug
+                const product_slug = this.$route.params.product_slug
+
                 console.log('this.url_data :>> ', this.url_data);
                 axios.get(`product/${this.$route.params.slug}/`)
                     .then((response) => {
