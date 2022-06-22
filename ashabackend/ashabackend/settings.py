@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
+    "https://api.asha-world.com",
     "https://asha-world.com",
     "http://localhost:8080",
     "http://127.0.0.1:9000",
