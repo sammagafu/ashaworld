@@ -20,7 +20,7 @@ class Cart(models.Model):
         return reverse("_detail", kwargs={"pk": self.pk})
 
     def get_total_price(self):
-        if self.quantity < 20:
+        if (self.quantity < 20):
             return self.product.price * self.quantity
         else:
             return self.product.wholeSalePrice * self.quantity
