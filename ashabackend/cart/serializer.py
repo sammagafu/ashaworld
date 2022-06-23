@@ -10,4 +10,6 @@ class CartSerializer(serializers.ModelSerializer):
         fields = (
             "product",
             "quantity",
+            
         )
+        read_only_fields = ("get_total_price")
