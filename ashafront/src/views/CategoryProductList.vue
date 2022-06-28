@@ -138,15 +138,12 @@
     },
         mounted() {
             this.getProducts()
-            console.log('this.$route.params.slug :>> ', this.$route.params.slug);
         },
         methods: {
             getProducts() {
                 axios.get(`category/${this.$route.params.slug}/product/`)
                     .then(response => {
                         this.product = response.data;
-                        
-                        console.log('response.data :>> ', response.data);
                     })
                     .catch(error => {
                         console.log(error);

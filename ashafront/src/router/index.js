@@ -6,6 +6,9 @@ import HomeView from '../views/HomeView.vue'
 import BaseView from "@/views/BaseView.vue"
 import RouteView from "@/views/RouteView.vue"
 import AdminBaseView from "@/views/AdminBaseView.vue"
+import store from '../store'
+
+
 const routes = [
 
   {
@@ -46,8 +49,23 @@ const routes = [
           {
             path: '/cart',
             name: 'cart',
-            component: () => import('../views/CartItems.vue')
+            component: () => import('../views/CartItems.vue'),
+            meta: {
+              requireLogin: true
+            }
+
           },
+
+          {
+            path: '/my-account',
+            name: 'my-account',
+            component: () => import('../views/MyAccount.vue'),
+            meta: {
+              requireLogin: true
+            }
+
+          },
+
 
           {
             path: '/compared',
@@ -136,6 +154,14 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requireLogin) && !store.state.isAuthenticated) {
+    next('/login')
+  } else {
+    next()
+  }
 })
 
 export default router

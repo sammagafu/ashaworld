@@ -3,45 +3,64 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    cart: {
+    compared: {
         items: [],
     },
     cartItems : [],
     categories : [],
     isAuthenticated: false,
     token: '',
+    user: {
+      id: 0,
+      email: ''
+    },
     isLoading: false
   },
   mutations: {
     initializeStore(state) {
-      if (localStorage.getItem('cart')) {
-        state.cart = JSON.parse(localStorage.getItem('cart'))
-      } else {
-        localStorage.setItem('cart', JSON.stringify(state.cart))
-      }
-
       if (localStorage.getItem('token')) {
-          state.token = localStorage.getItem('token')
-          state.isAuthenticated = true
+        state.token = localStorage.getItem('token')
+        state.isAuthenticated = true
+        state.user.email = localStorage.getItem('email')
+        state.user.id = localStorage.getItem('userid')
+        // state.team.name = localStorage.getItem('team_name')
+        // state.team.id = localStorage.getItem('team_id')
+        // state.team.plan = localStorage.getItem('team_plan')
+        // state.team.max_leads = localStorage.getItem('team_max_leads')
+        // state.team.max_clients = localStorage.getItem('team_max_clients')
       } else {
-          state.token = ''
-          state.isAuthenticated = false
-      } 
-    },
-    addToCart(state, item) {
-      const exists = state.cart.items.filter(i => i.product.id === item.product.id)
-      if (exists.length) {
-        exists[0].quantity = parseInt(exists[0].quantity) + parseInt(item.quantity)
-        console.log('exists.length :>> ', exists.length);
-      } else {
-        state.cart.items.push(item)
+        state.token = ''
+        state.isAuthenticated = false
+        state.user.id = 0
+        state.user.username = ''
+        // state.team.id = 0
+        // state.team.name = ''
+        // state.team.plan = ''
+        // state.team.max_leads = 0
+        // state.team.max_clients = 0
       }
+    },
+    addToCompare(state, item) {
+      console.log('item :>> ', item);
+      state.compared.items.push(item)
 
-      localStorage.setItem('cart', JSON.stringify(state.cart))
+      // const exists = state.cart.items.filter(i => i.product.id === item.product.id)
+      // if (exists.length) {
+      //   console.log('"exists" :>> ', "exists");
+      // } else {
+      //   state.compared.items.push(item)
+      // }
+
+      localStorage.setItem('compared', JSON.stringify(item))
     },
     setIsLoading(state, status) {
       state.isLoading = status
     },
+
+    setUser(state, user) {
+      state.user = user
+    },
+
     setToken(state, token) {
         state.token = token
         state.isAuthenticated = true
@@ -67,7 +86,6 @@ export default createStore({
       axios.get("/category/")
           .then(response => {
             let cat = response.data
-            console.log('cat :>> ', cat);
               commit('getCategories', cat);
           }).catch(error => {
               console.log(error);
@@ -78,7 +96,6 @@ export default createStore({
       axios.get("/cart/",{ headers: {"Authorization" : `Token ${token}`} })
           .then(response => {
             let cart = response.data
-            console.log('cat :>> ', cart);
               commit('getCartItems', cart);
           }).catch(error => {
               console.log(error);

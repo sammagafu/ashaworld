@@ -4,14 +4,14 @@
                 <div class="main-content">
                     <div class="product product-single row">
                         <div class="col-md-6 mb-6">
-                            <div class="product-gallery product-gallery-sticky product-gallery-vertical"><ProductImageSwiper :images="images"/></div>
+                            <div class="product-gallery product-gallery-sticky product-gallery-vertical"><ProductImageSwiper :images="get_images"/></div>
                         </div>
                         <div class="col-md-6 mb-4 mb-md-6">
                             <div class="product-details" data-sticky-options="{'minWidth': 767}">
                                 <h1 class="product-title">{{ productname }}</h1>
                                 <div class="product-bm-wrapper">
                                     <figure class="brand">
-                                        <img :src="brand.brandlogo" width="102"
+                                        <img :src="brand.get_brandImg" width="102"
                                             height="48">
                                     </figure>
                                     <div class="product-meta">
@@ -39,11 +39,7 @@
                                     </div>
 
                                     <div class="product-short-desc">
-                                        <ul class="list-type-check list-style-none">
-                                            <li>Ultrices eros in cursus turpis massa cursus mattis.</li>
-                                            <li>Volutpat ac tincidunt vitae semper quis lectus.</li>
-                                            <li>Aliquam id diam maecenas ultricies mi eget mauris.</li>
-                                        </ul>
+                                        {{description}}
                                     </div>
 
                                 <hr class="product-divider">                                
@@ -75,6 +71,10 @@ import ProductImageSwiper from "./ProductImageSwiper.vue";
         },images:{
             type: String,
         },brand:{
+            type: String,
+            default:{},
+        },
+        description:{
             type: String,
             default:{},
         },

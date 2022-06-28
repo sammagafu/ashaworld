@@ -8,8 +8,9 @@
                 :category="product.category" 
                 :sku="product.sku" 
                 :price="product.price" 
-                :images="product.images" 
+                :images="product.get_coverImage" 
                 :brand="product.brand"
+                :description="product.descripton"
                 />
             </div>
             <div class="" v-else>Loading Data</div>
@@ -44,7 +45,7 @@
                 axios.get(`product/${category_slug}/${product_slug}/`)
                     .then((response) => {
                         this.product = response.data
-                        console.log('this.product :>> ', this.product);
+                        document.title = this.product.productName + ' | Asha'
                     })
                     .catch((error) => {
                         console.log(error);

@@ -1,10 +1,10 @@
 <template>
     <div class="product product-image-gap product-simple">
         <figure class="product-media">
-            <router-link :to="product.get_absolute_url"> <img :src="product.coverImage" alt="Product" width="295" height="335">
+            <router-link :to="product.get_absolute_url"> <img :src="product.get_coverImage" alt="Product" width="295" height="335">
             </router-link>
             <div class="product-action-vertical">
-                <a href="#" class="btn-product-icon btn-compare w-icon-compare" title="Compare" @click="$store.commit.addTocart">
+                <a href="#" class="btn-product-icon btn-compare w-icon-compare" title="Compare" @click="addTocompare(product)">
                 </a>
             </div>
             <div class="product-action">
@@ -32,7 +32,7 @@
             </div>
             <div class="product-pa-wrapper">
                 <div class="product-price">TZS {{product.price}}</div>
-                <div class="product-action">
+                <div class="product-action" v-show="$store.state.isAuthenticated">
                     <a href="#" class="btn-cart btn-product btn btn-link btn-underline"
                         :class="isAdded ? cartOverlayClass : '' " @click="addTocart">Add
                         To Cart</a>
@@ -59,9 +59,16 @@ import QuickViewProduct from './QuickViewProduct.vue'
         product: Object
     },
         methods: {
-            addTocart() {
-                this.isAdded = true
+            addTocompare(product) {
+            //      if (isNaN(this.quantity) || this.quantity < 1) {
+            //     this.quantity = 1
+            // }
+            // const item = {
+            //     product: this.product,
+            //     quantity: this.quantity
+            // }
+            this.$store.commit('addToCompare', product)
             }
-        }
+        },
     }
 </script>

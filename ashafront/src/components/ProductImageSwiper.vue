@@ -6,7 +6,7 @@
     @slideChange="onSlideChange"
   >
     <swiper-slide v-for="(img,index) in images" :key="index">
-    <img :src="img.images" alt="">
+    <img :src="img.get_images" alt="">
     </swiper-slide>
   </swiper>
 </template>

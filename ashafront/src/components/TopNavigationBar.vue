@@ -40,12 +40,12 @@
                     </div>
                     <!-- End of Dropdown Menu -->
                     <span class="divider d-lg-show"></span>
-                    <a href="my-account.html" class="d-lg-show">My Account</a>
-                    <router-link :to="{name:'login'}" class="d-lg-show login sign-in"><i class="w-icon-account"></i> Sign
+                    <!-- <a href="my-account.html" class="d-lg-show">My Account</a> -->
+                    <router-link :to="{name:'my-account'}" class="d-lg-show">My Account</router-link>
+                    <router-link :to="{name:'login'}" class="d-lg-show"><i class="w-icon-account"></i> Sign
                         In</router-link>
                     <span class="delimiter d-lg-show">/</span>
                     <router-link :to="{name:'signup'}"  class="ml-0 d-lg-show login register"> Register </router-link>
-                    <!-- <a href="assets/ajax/login.html" class="ml-0 d-lg-show login register"></a> -->
                 </div>
             </div>
         </div>
@@ -105,7 +105,7 @@
                                 <a href="#" class="btn-close">Close<i class="w-icon-long-arrow-right"></i></a>
                             </div>
 
-                            <div class="products">
+                            <div class="products mb-10">
                                 <div class="product product-cart mb-1" v-for="(cart,index) in $store.state.cartItems" :key="index">
                                     <div class="product-detail">
                                         <a href="product-default.html" class="product-name">{{cart.product.productName}}</a>
@@ -116,7 +116,7 @@
                                     </div>
                                     <figure class="product-media">
                                         <a href="product-default.html">
-                                            <img src="../assets/images/cart/product-1.jpg" alt="product" height="84"
+                                            <img :src="cart.product.get_coverImage" alt="product" height="84"
                                                 width="94" />
                                         </a>
                                     </figure>
@@ -126,7 +126,7 @@
                                 </div>
                             </div>
 
-                            <div class="cart-total mt-10">
+                            <div class="cart-total mb-10 pt-10">
                                 <label>Subtotal:</label>
                                 <span class="price">$58.67</span>
                             </div>

@@ -32,7 +32,7 @@
                                             <div class="p-relative">
                                                 <a href="product-default.html">
                                                     <figure>
-                                                        <img src="assets/images/shop/12.jpg" alt="product" width="300" height="338">
+                                                        <img :src="cart.product.get_coverImage" alt="product" width="300" height="338">
                                                     </figure>
                                                 </a>
                                                 <button type="submit" class="btn btn-close"><i class="fas fa-times"></i></button>
