@@ -32,6 +32,7 @@ class ProductManufacture(models.Model):
     businessType = models.CharField(max_length=60, verbose_name=_("Business Type"),choices=businessStatus)
     businessLincese = models.FileField(verbose_name=_("Bussiness Lincence"),help_text=_("Upload Business Lincence"),upload_to="upload/businesslicense/",null=True,blank=True)
     tin = models.FileField(verbose_name=_("Tax Indentification"),help_text=_("Upload Tax Indentification"),upload_to="upload/tin/",null=True,blank=True)
+    verified = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -51,6 +52,7 @@ class ResellerOrRetailer(models.Model):
     businessLincese = models.FileField(verbose_name=_("Bussiness Lincence"),help_text=_("Upload Business Lincence"),null=True,blank=True)
     businessType = models.CharField(max_length=60, verbose_name=_("Business Type"),choices=businessStatus)
     tin = models.FileField(verbose_name=_("Tax Indentification"),help_text=_("Upload Tax Indentification"),null=True,blank=True)
+    verified = models.BooleanField(default=False)
 
     def __str__(self):
         return self.companyName

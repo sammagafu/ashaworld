@@ -42,31 +42,19 @@ class Product(models.Model):
     def get_absolute_url(self):
         return f'/{self.category.slug}/{self.slug}'
 
+    def get_coverImage(self):
+        if self.coverImage:
+            return 'https://api.asha-world.com' + self.coverImage.url
+        return ''
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE,related_name="images")
     images = ResizedImageField(upload_to = 'product/images/%Y/%m/%d',verbose_name=_("Other Product Images"),size=[800, 900], crop=['middle', 'center'])
 
-    def get_thumbnail(self):
+    def get_images(self):
         if self.images:
-            return self.images.url
-        else:
-            if self.images:
-                self.images = self.make_thumbnail(self.images)
-                self.save()
-
-                return self.images.url
-            else:
-                return ''
-    
-    def make_thumbnail(self, image, size=(500, 500)):
-        img = Image.open(image)
-        img.convert('RGB')
-        img.thumbnail(size)
-        thumb_io = BytesIO()
-        img.save(thumb_io, 'JPEG', quality=85)
-        images = File(thumb_io, name=image.name)
-        return images
+            return 'https://api.asha-world.com' + self.images.url
+        return ''
         
 
 class ProductReview(models.Model):

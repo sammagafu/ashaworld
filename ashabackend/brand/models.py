@@ -18,14 +18,18 @@ class Brand(models.Model):
 
     def __str__(self):
         return self.brandName
+    
+    def get_brandImg(self):
+        if self.brandlogo:
+            return 'https://api.asha-world.com' + self.brandlogo.url
+        return ''
 
     def save(self):
-        print(self)
         if not self.slug:
             self.slug = slugify(self.brandName)
         self.slug = slugify(self.brandName)
         super().save()
-
+    
     
         
 

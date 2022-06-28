@@ -19,13 +19,13 @@ class ProductSerializer(serializers.ModelSerializer):
             "id",
             "slug",
             "productName",
-            "coverImage",
+            "get_coverImage",
             "price",
             "wholeSalePrice",
             "brand",
             "category",
             "descripton",
             "sku",
-            "images",
+            "get_images",
             "get_absolute_url"
             )
