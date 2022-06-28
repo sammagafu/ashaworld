@@ -41,7 +41,7 @@
                 const product_slug = this.$route.params.product_slug
 
                 console.log('this.url_data :>> ', this.url_data);
-                axios.get(`product/${this.$route.params.slug}/`)
+                axios.get(`product/${category_slug}/${product_slug}/`)
                     .then((response) => {
                         this.product = response.data
                         console.log('this.product :>> ', this.product);

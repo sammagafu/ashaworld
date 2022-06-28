@@ -126,7 +126,7 @@
             SingleProduct
         },
         computed() {
-            this.category_slug = this.$route.params.cateogory_slug
+            // this.category_slug = this.$route.params.cateogory_slug
         },
 
        watch: {
@@ -138,11 +138,11 @@
     },
         mounted() {
             this.getProducts()
+            console.log('this.$route.params.slug :>> ', this.$route.params.slug);
         },
         methods: {
-            async getProducts() {
-                
-                await axios.get(`category/${this.$route.params.slug}/product/`)
+            getProducts() {
+                axios.get(`category/${this.$route.params.slug}/product/`)
                     .then(response => {
                         this.product = response.data;
                         

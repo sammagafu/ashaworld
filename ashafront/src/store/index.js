@@ -1,10 +1,12 @@
 import { createStore } from 'vuex'
+import axios from 'axios'
 
 export default createStore({
   state: {
     cart: {
         items: [],
     },
+    categories : [],
     isAuthenticated: false,
     token: '',
     isLoading: false
@@ -29,6 +31,7 @@ export default createStore({
       const exists = state.cart.items.filter(i => i.product.id === item.product.id)
       if (exists.length) {
         exists[0].quantity = parseInt(exists[0].quantity) + parseInt(item.quantity)
+        console.log('exists.length :>> ', exists.length);
       } else {
         state.cart.items.push(item)
       }
@@ -51,8 +54,22 @@ export default createStore({
 
       localStorage.setItem('cart', JSON.stringify(state.cart))
     },
+    getCategories(state,categories){
+      state.categories = categories;
+    }
   },
   actions: {
+    getCategories({commit}) {
+      axios.get("/category/")
+          .then(response => {
+            let cat = response.data
+            console.log('cat :>> ', cat);
+              commit('getCategories', cat);
+          }).catch(error => {
+              console.log(error);
+          })},
+
+    getCartItems(){}
   },
   modules: {
   }

@@ -49,6 +49,12 @@ const routes = [
             component: () => import('../views/CartItems.vue')
           },
 
+          {
+            path: '/compared',
+            name: 'compared',
+            component: () => import('../views/CompareProducts.vue')
+          },
+
 
           {
             path: "/product/",

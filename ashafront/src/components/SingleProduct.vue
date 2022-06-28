@@ -4,8 +4,7 @@
             <router-link :to="product.get_absolute_url"> <img :src="product.coverImage" alt="Product" width="295" height="335">
             </router-link>
             <div class="product-action-vertical">
-                <a href="#" class="btn-product-icon btn-compare w-icon-compare" title="Compare">
-
+                <a href="#" class="btn-product-icon btn-compare w-icon-compare" title="Compare" @click="$store.commit.addTocart">
                 </a>
             </div>
             <div class="product-action">

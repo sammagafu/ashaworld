@@ -11,13 +11,13 @@
                                 <h1 class="product-title">{{ productname }}</h1>
                                 <div class="product-bm-wrapper">
                                     <figure class="brand">
-                                        <img :src=brand width="102"
+                                        <img :src="brand.brandlogo" width="102"
                                             height="48">
                                     </figure>
                                     <div class="product-meta">
                                         <div class="product-categories">
                                             Category:
-                                            <span class="product-category"><a href="#">{{ category }}</a></span>
+                                            <span class="product-category"><a href="#">{{ category.categoryname}}</a></span>
                                         </div>
                                         <div class="product-sku">
                                             SKU: <span>{{sku}}</span>
@@ -58,7 +58,27 @@
 import ProductImageSwiper from "./ProductImageSwiper.vue";
     export default {
     name: "ProductDetail",
-    props: ["productname", "category", "sku", "price", "images", "brand"],
+    // props: ["productname", "category", "sku", "price", "images", "brand"],
+    props:{
+        productname:{
+            type: String,
+            required:true,
+        },
+        category:{
+            type: Object,
+            default:{},
+        },
+        sku:{
+            type: String,
+        },price:{
+            type: String,
+        },images:{
+            type: String,
+        },brand:{
+            type: String,
+            default:{},
+        },
+    },
     mounted() { },
     components: { ProductImageSwiper }
 }

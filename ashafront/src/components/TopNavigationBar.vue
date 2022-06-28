@@ -64,8 +64,7 @@
                         <div class="select-box">
                             <select id="category" name="category">
                                 <option value="">All Categories</option>
-                                <option v-for="(cat, id) in categories" :key="id">
-                                    <!-- //todo::pass dyanic value to value -->
+                                <option v-for="(cat, id) in $store.state.categories" :key="id">
                                     {{ cat.categoryname }}
                                 </option>
                             </select>
@@ -90,10 +89,8 @@
                         <i class="w-icon-heart"></i>
                         <span class="wishlist-label d-lg-show">Wishlist</span>
                     </a>
-                    <a class="compare label-down link d-xs-show" href="compare.html">
-                        <i class="w-icon-compare"></i>
-                        <span class="compare-label d-lg-show">Compare</span>
-                    </a>
+                    <router-link :to="{name:'compared'}" class="compare label-down link d-xs-show"><i class="w-icon-compare"></i>
+                        <span class="compare-label d-lg-show">Compare</span></router-link>
                     <div class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2" :class="{ opened : isOpenedCart }">
                         <div class="cart-overlay"></div>
                         <a href="#" class="cart-toggle label-down link" @click="isOpenedCart = true">
@@ -185,8 +182,8 @@
                             <div class="dropdown-box" v-show="hoveredMenu">
                                 <ul class="menu vertical-menu category-menu">
                                     <template v-if="categories">
-                                        <li v-for="(category, index) in categories" :key="index">
-                                        <router-link :to="{name: 'CategoryProducts', params:{slug:category.slug}}">{{ category.categoryname }}</router-link>
+                                        <li v-for="(category, index) in $store.state.categories" :key="index">
+                                        <router-link @click="()=>this.$router.go(this.$router.currentRoute)" :to="{name: 'CategoryProducts', params:{slug:category.slug}}">{{ category.categoryname }}</router-link>
 
                                             <SubCategoryTopNav :name="category.categoryname"
                                                 :subcategories="category.subcategory" v-if="category.subcategory">
@@ -224,6 +221,7 @@
     // import { categoryService } from '@/api';
     import axios from 'axios'
     import SubCategoryTopNav from './SubCategoryTopNav.vue'
+    // import {useStore} from '../store/index'
     export default {
         name: "TopNavigationBar",
         data() {
@@ -239,33 +237,11 @@
             // });
         },
         mounted() {
-            this.getCategories()
-            // .then(data => {
-            //                 this.categories = data
-            //             });
-            console.log('categories', this.categories)
+            this.$store.dispatch('getCategories')
+            // console.log('this.$ :>> ', this.$);
         },
         methods: {
-            getCategories() {
-                axios.get("/category/")
-                    .then(response => {
-                        this.categories = response.data;
-                    }).catch(error => {
-                        console.log(error);
-                    });
-                // categoryService.fetchCategories().then(cat => this.categories = cat).catch(e => console.log(e))
-            },
-            async fetchCategories() {
-                const {
-                    data
-                } = axios.get("category/")
-                return data
-            },
-        }
-        //   props: {
-        //     msg: String
-        //   }
-        ,
+        },
         components: {
             SubCategoryTopNav
         }
