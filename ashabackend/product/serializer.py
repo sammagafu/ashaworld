@@ -7,7 +7,7 @@ from category.serializer import CategorSerializer
 class ProudctImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
-        fields = ['images',]
+        fields = ['get_images',]
 
 class ProductSerializer(serializers.ModelSerializer):
     brand = BrandSerilizer()
@@ -26,6 +26,6 @@ class ProductSerializer(serializers.ModelSerializer):
             "category",
             "descripton",
             "sku",
-            "get_images",
+            "images",
             "get_absolute_url"
             )
