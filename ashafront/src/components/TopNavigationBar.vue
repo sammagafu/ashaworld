@@ -95,7 +95,7 @@
                         <div class="cart-overlay"></div>
                         <a href="#" class="cart-toggle label-down link" @click="isOpenedCart = true">
                             <i class="w-icon-cart">
-                                <span class="cart-count">2</span>
+                                <span class="cart-count">{{$store.state.cartItems.length}}</span>
                             </i>
                             <span class="cart-label">Cart</span>
                         </a>
@@ -106,14 +106,12 @@
                             </div>
 
                             <div class="products">
-                                <div class="product product-cart">
+                                <div class="product product-cart mb-1" v-for="(cart,index) in $store.state.cartItems" :key="index">
                                     <div class="product-detail">
-                                        <a href="product-default.html" class="product-name">Beige knitted
-                                            elas<br>tic
-                                            runner shoes</a>
+                                        <a href="product-default.html" class="product-name">{{cart.product.productName}}</a>
                                         <div class="price-box">
-                                            <span class="product-quantity">1</span>
-                                            <span class="product-price">$25.68</span>
+                                            <span class="product-quantity">{{cart.quantity}}</span>
+                                            <span class="product-price">{{cart.product.price}}</span>
                                         </div>
                                     </div>
                                     <figure class="product-media">
@@ -126,36 +124,16 @@
                                         <i class="fas fa-times"></i>
                                     </button>
                                 </div>
-
-                                <div class="product product-cart">
-                                    <div class="product-detail">
-                                        <a href="product-default.html" class="product-name">Blue utility
-                                            pina<br>fore
-                                            denim dress</a>
-                                        <div class="price-box">
-                                            <span class="product-quantity">1</span>
-                                            <span class="product-price">$32.99</span>
-                                        </div>
-                                    </div>
-                                    <figure class="product-media">
-                                        <a href="product-default.html">
-                                            <img src="../assets/images/cart/product-2.jpg" alt="product" width="84"
-                                                height="94" />
-                                        </a>
-                                    </figure>
-                                    <button class="btn btn-link btn-close" aria-label="button">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
                             </div>
 
-                            <div class="cart-total">
+                            <div class="cart-total mt-10">
                                 <label>Subtotal:</label>
                                 <span class="price">$58.67</span>
                             </div>
 
                             <div class="cart-action">
-                                <a href="cart.html" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
+                                <router-link :to="{name:'cart'}" class="btn btn-dark btn-outline btn-rounded">View Cart</router-link>
+                                <!-- <a href="cart.html" class="btn btn-dark btn-outline btn-rounded">View Cart</a> -->
                                 <a href="checkout.html" class="btn btn-primary  btn-rounded">Checkout</a>
                             </div>
                         </div>
@@ -183,7 +161,7 @@
                                 <ul class="menu vertical-menu category-menu">
                                     <template v-if="categories">
                                         <li v-for="(category, index) in $store.state.categories" :key="index">
-                                        <router-link @click="()=>this.$router.go(this.$router.currentRoute)" :to="{name: 'CategoryProducts', params:{slug:category.slug}}">{{ category.categoryname }}</router-link>
+                                        <router-link :to="{name: 'CategoryProducts', params:{slug:category.slug}}">{{ category.categoryname }}</router-link>
 
                                             <SubCategoryTopNav :name="category.categoryname"
                                                 :subcategories="category.subcategory" v-if="category.subcategory">
@@ -237,8 +215,9 @@
             // });
         },
         mounted() {
+            // this.$router.go(this.$router.currentRoute)
             this.$store.dispatch('getCategories')
-            // console.log('this.$ :>> ', this.$);
+            this.$store.dispatch('getCartItems')
         },
         methods: {
         },

@@ -6,6 +6,7 @@ export default createStore({
     cart: {
         items: [],
     },
+    cartItems : [],
     categories : [],
     isAuthenticated: false,
     token: '',
@@ -56,6 +57,9 @@ export default createStore({
     },
     getCategories(state,categories){
       state.categories = categories;
+    },
+    getCartItems(state,cartItems){
+      state.cartItems = cartItems;
     }
   },
   actions: {
@@ -69,7 +73,17 @@ export default createStore({
               console.log(error);
           })},
 
-    getCartItems(){}
+    getCartItems({commit}){
+      const token = localStorage.getItem('token')
+      axios.get("/cart/",{ headers: {"Authorization" : `Token ${token}`} })
+          .then(response => {
+            let cart = response.data
+            console.log('cat :>> ', cart);
+              commit('getCartItems', cart);
+          }).catch(error => {
+              console.log(error);
+          })
+    },
   },
   modules: {
   }
