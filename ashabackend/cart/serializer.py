@@ -11,5 +11,9 @@ class CartSerializer(serializers.ModelSerializer):
         fields = ["product","quantity","get_total_price"]
 
 
-class FavouriteProduct(serializers.ModelSerializer):
+class FavouriteProductSerializer(serializers.ModelSerializer):
     product = ProductSerializer(read_only=True)
+    class Meta:
+        model = FavouriteProduct
+        fields = ["product"]
+

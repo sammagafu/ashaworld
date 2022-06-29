@@ -10,8 +10,8 @@ from rest_framework import generics
 from rest_framework.response import Response
 
 from product.models import Product
-from .models import Cart
-from .serializer import CartSerializer
+from .models import Cart,FavouriteProduct
+from .serializer import CartSerializer,FavouriteProductSerializer
 
 
 class CartList(APIView):
@@ -23,17 +23,6 @@ class CartList(APIView):
         serializer = CartSerializer(cart, many=True)
         return Response(serializer.data)
 
-    # def post(self,request, format=None):
-    #     product_slug = self.request.POST.get('product')
-    #     product = Product.objects.get(slug__exact=product_slug)
-    #     owner = self.request.user
-    #     print(request.data)
-    #     serializer = CartSerializer(data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 class AddProductToCart (generics.CreateAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartSerializer
@@ -44,3 +33,27 @@ class AddProductToCart (generics.CreateAPIView):
         product_slug  = self.request.data.get("product", None)  # read data from request
         producttosave = Product.objects.get(slug__exact=product_slug)
         serializer.save(owner=self.request.user,product=producttosave)
+
+
+class RemoveRetreiveUpdateDeleteCart(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = CartSerializer
+    queryset = Cart.objects.all()
+
+
+class AddProductToFavourite(generics.ListCreateAPIView):
+    queryset = FavouriteProduct.objects.all()
+    serializer_class = FavouriteProductSerializer
+    # authentication_classes = [authentication.TokenAuthentication]
+    # permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        product_slug  = self.request.data.get("product", None)  # read data from request
+        producttosave = Product.objects.get(slug__exact=product_slug)
+        serializer.save(owner=self.request.user,product=producttosave)
+    
+    def retrieve(self,request, *args, **kwargs):
+        return self.queryset.filter(owner=self.request.user)
+
+class RemoveRetreiveUpdateDeleteFavourite(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = FavouriteProductSerializer
+    queryset = FavouriteProduct.objects.all()
