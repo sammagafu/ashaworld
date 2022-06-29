@@ -66,6 +66,16 @@ const routes = [
 
           },
 
+          {
+            path: '/wishlist',
+            name: 'wishlist',
+            component: () => import('../views/WishList.vue'),
+            meta: {
+              requireLogin: true
+            }
+
+          },
+
 
           {
             path: '/compared',

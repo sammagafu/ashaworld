@@ -3,29 +3,28 @@
 </template>
 
 <script>
-
+  import axios from 'axios'
 
   export default {
+    
     name: 'app',
-    components: {
-    },
-
-    mounted:function(){
-      const user = {
-        isAdmin: true
+    components: {},
+    beforeCreate() {
+      this.$store.commit('initializeStore')
+      if (this.$store.state.token) {
+        axios.defaults.headers.common['Authorization'] = "Token " + this.$store.state.token
+      } else {
+        axios.defaults.headers.common['Authorization'] = ""
       }
-
-      localStorage.setItem("ashaUser", JSON.stringify(user))
-
-      const usr = JSON.parse(localStorage.getItem("ashaUser"))
-              console.log("user", usr)
-    }
+      // if (!this.$store.state.team.id) {
+      //   this.$router.push('/dashboard/add-team')
+      // }
+    },
 
   }
 </script>
 
 <style>
-@import './assets/css/style.min.css';
-@import './assets/css/asha.min.css';
-  
+  @import './assets/css/style.min.css';
+  @import './assets/css/asha.min.css';
 </style>

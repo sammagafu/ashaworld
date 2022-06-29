@@ -34,7 +34,7 @@
                 <div class="product-price">TZS {{product.price}}</div>
                 <div class="product-action" v-show="$store.state.isAuthenticated">
                     <a href="#" class="btn-cart btn-product btn btn-link btn-underline"
-                        :class="isAdded ? cartOverlayClass : '' " @click="addTocart">Add
+                        :class="isAdded ? cartOverlayClass : '' " @click="addProductToCart(product.slug)">Add
                         To Cart</a>
                 </div>
             </div>
@@ -68,7 +68,22 @@ import QuickViewProduct from './QuickViewProduct.vue'
             //     quantity: this.quantity
             // }
             this.$store.commit('addToCompare', product)
+            },
+            addProductToCart(product){
+                const data = {
+                    quantity:1,
+                     product:product
+                }
+                axios.post('/cart/add/',data)
+            },
+            addToWishlist(product){
+                const data = {
+                     product:product
+                }
+                axios.post('/cart/wishlist/',data)
             }
+
+
         },
     }
 </script>

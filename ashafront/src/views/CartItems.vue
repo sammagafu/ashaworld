@@ -30,18 +30,14 @@
                                     <tr v-for="(cart,index) in $store.state.cartItems" :key="index">
                                         <td class="product-thumbnail">
                                             <div class="p-relative">
-                                                <a href="product-default.html">
-                                                    <figure>
+                                                <router-link :to="cart.product.get_absolute_url"><figure>
                                                         <img :src="cart.product.get_coverImage" alt="product" width="300" height="338">
-                                                    </figure>
-                                                </a>
+                                                    </figure></router-link>
                                                 <button type="submit" class="btn btn-close"><i class="fas fa-times"></i></button>
                                             </div>
                                         </td>
                                         <td class="product-name">
-                                            <a href="product-default.html">
-                                                {{cart.product.productName}}
-                                            </a>
+                                            <router-link :to="cart.product.get_absolute_url">{{cart.product.productName}}</router-link>
                                         </td>
                                         <td class="product-price"><span class="amount">{{cart.product.price}}</span></td>
                                         <td class="product-quantity">
@@ -165,6 +161,8 @@
 
 <script>
 export default {
+    name : 'CartItems'
+    
 
 }
 </script>

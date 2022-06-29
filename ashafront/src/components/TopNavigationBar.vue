@@ -85,10 +85,10 @@
                                 328</a>
                         </div>
                     </div>
-                    <a class="wishlist label-down link d-xs-show" href="wishlist.html">
-                        <i class="w-icon-heart"></i>
-                        <span class="wishlist-label d-lg-show">Wishlist</span>
+                    <a class="" href="wishlist.html">
+                        
                     </a>
+                    <router-link :to="{name:'wishlist'}" class="wishlist label-down link d-xs-show"><i class="w-icon-heart"></i><span class="wishlist-label d-lg-show">Wishlist</span></router-link>
                     <router-link :to="{name:'compared'}" class="compare label-down link d-xs-show"><i class="w-icon-compare"></i>
                         <span class="compare-label d-lg-show">Compare</span></router-link>
                     <div class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2" :class="{ opened : isOpenedCart }">
@@ -108,17 +108,15 @@
                             <div class="products mb-10">
                                 <div class="product product-cart mb-1" v-for="(cart,index) in $store.state.cartItems" :key="index">
                                     <div class="product-detail">
-                                        <a href="product-default.html" class="product-name">{{cart.product.productName}}</a>
+                                        <router-link :to="cart.product.get_absolute_url" class="product-name">{{cart.product.productName}}</router-link>
                                         <div class="price-box">
                                             <span class="product-quantity">{{cart.quantity}}</span>
                                             <span class="product-price">{{cart.product.price}}</span>
                                         </div>
                                     </div>
                                     <figure class="product-media">
-                                        <a href="product-default.html">
-                                            <img :src="cart.product.get_coverImage" alt="product" height="84"
-                                                width="94" />
-                                        </a>
+                                        <router-link :to="cart.product.get_absolute_url"><img :src="cart.product.get_coverImage" alt="product" height="84"
+                                                width="94" /></router-link>
                                     </figure>
                                     <button class="btn btn-link btn-close" aria-label="button">
                                         <i class="fas fa-times"></i>
