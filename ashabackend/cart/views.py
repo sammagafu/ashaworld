@@ -43,8 +43,8 @@ class RemoveRetreiveUpdateDeleteCart(generics.RetrieveUpdateDestroyAPIView):
 class AddProductToFavourite(generics.ListCreateAPIView):
     queryset = FavouriteProduct.objects.all()
     serializer_class = FavouriteProductSerializer
-    # authentication_classes = [authentication.TokenAuthentication]
-    # permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [authentication.TokenAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         product_slug  = self.request.data.get("product", None)  # read data from request
