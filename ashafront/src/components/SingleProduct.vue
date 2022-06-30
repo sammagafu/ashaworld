@@ -16,7 +16,7 @@
              <quick-view-product v-if="showModal"></quick-view-product>
         </figure>
         <div class="product-details">
-            <a href="#" class="btn-wishlist w-icon-heart" title="Add to wishlist"></a>
+            <a href="#" @click="addToWishlist(product.slug)" class="btn-wishlist w-icon-heart" title="Add to wishlist"></a>
             <div class="product-cat">
                 <a href="shop-banner-sidebar.html">{{ product.category.categoryname }}</a>
             </div>
