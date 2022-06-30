@@ -10,7 +10,7 @@ orderstatus = [
     ("Refunded","Refunded"),
     ("Disputed","Disputed"),
     ("Shipped","Shipped"),
-    ("Pending","Pending"),
+    ("Paid","Paid"),
     ("Deliverd","Delivered")
 ]
 
