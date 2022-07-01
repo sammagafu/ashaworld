@@ -20,6 +20,10 @@ class Order(models.Model):
     slug = models.SlugField(_("slug"),editable=False,unique=True,null=False)
     orderstatus = models.CharField(max_length=50,choices=orderstatus,default="Pending")
     created_at = models.DateTimeField(default=timezone.now,blank=True,null=True)
+    paid_at = models.DateTimeField(verbose_name=_("Payment Date"), blank=True,null=True,editable=False)
+    promo_code = models.CharField(max_length=50,null=True,blank=True)
+    active = models.BooleanField(_("Active Order"),default=True)
+
 
     def save(self):
         if self.pk is None:
