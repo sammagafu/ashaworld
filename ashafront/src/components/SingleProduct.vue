@@ -75,6 +75,8 @@ import QuickViewProduct from './QuickViewProduct.vue'
                      product:product
                 }
                 axios.post('/cart/add/',data)
+                const toPath = this.$route.query.to || '/cart'
+                this.$router.push(toPath)
             },
             addToWishlist(product){
                 const data = {

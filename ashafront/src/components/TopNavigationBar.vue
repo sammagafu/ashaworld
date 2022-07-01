@@ -93,48 +93,10 @@
                         <span class="compare-label d-lg-show">Compare</span></router-link>
                     <div class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2" :class="{ opened : isOpenedCart }">
                         <div class="cart-overlay"></div>
-                        <a href="#" class="cart-toggle label-down link" @click="isOpenedCart = true">
-                            <i class="w-icon-cart">
+                        <router-link :to="{name:'cart'}" class="cart-toggle label-down link"><i class="w-icon-cart">
                                 <span class="cart-count">{{$store.state.cartItems.length}}</span>
                             </i>
-                            <span class="cart-label">Cart</span>
-                        </a>
-                        <div class="dropdown-box">
-                            <div class="cart-header" @click="isOpenedCart = false">
-                                <span>Shopping Cart</span>
-                                <a href="#" class="btn-close">Close<i class="w-icon-long-arrow-right"></i></a>
-                            </div>
-
-                            <div class="products mb-10">
-                                <div class="product product-cart mb-1" v-for="(cart,index) in $store.state.cartItems" :key="index">
-                                    <div class="product-detail">
-                                        <router-link :to="cart.product.get_absolute_url" class="product-name">{{cart.product.productName}}</router-link>
-                                        <div class="price-box">
-                                            <span class="product-quantity">{{cart.quantity}}</span>
-                                            <span class="product-price">{{cart.product.price}}</span>
-                                        </div>
-                                    </div>
-                                    <figure class="product-media">
-                                        <router-link :to="cart.product.get_absolute_url"><img :src="cart.product.get_coverImage" alt="product" height="84"
-                                                width="94" /></router-link>
-                                    </figure>
-                                    <button class="btn btn-link btn-close" aria-label="button">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="cart-total mb-10 pt-10">
-                                <label>Subtotal:</label>
-                                <span class="price">$58.67</span>
-                            </div>
-
-                            <div class="cart-action">
-                                <router-link :to="{name:'cart'}" class="btn btn-dark btn-outline btn-rounded">View Cart</router-link>
-                                <!-- <a href="cart.html" class="btn btn-dark btn-outline btn-rounded">View Cart</a> -->
-                                <a href="checkout.html" class="btn btn-primary  btn-rounded">Checkout</a>
-                            </div>
-                        </div>
+                            <span class="cart-label">Cart</span></router-link>
                         <!-- End of Dropdown Box -->
                     </div>
                 </div>

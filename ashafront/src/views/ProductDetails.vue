@@ -11,6 +11,8 @@
                 :images="product.get_coverImage" 
                 :brand="product.brand"
                 :description="product.descripton"
+                :slug="product.slug"
+                :productImages="product.images"
                 />
             </div>
             <div class="" v-else>Loading Data</div>
