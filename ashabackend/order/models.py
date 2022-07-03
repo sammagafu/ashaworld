@@ -22,7 +22,9 @@ class Order(models.Model):
     created_at = models.DateTimeField(default=timezone.now,blank=True,null=True)
     paid_at = models.DateTimeField(verbose_name=_("Payment Date"), blank=True,null=True,editable=False)
     promo_code = models.CharField(max_length=50,null=True,blank=True)
+    totalprice = models.DecimalField(max_digits=12, decimal_places=2,default=0)
     active = models.BooleanField(_("Active Order"),default=True)
+    
 
 
     def save(self):
@@ -44,7 +46,7 @@ class OrderItems(models.Model):
     order = models.ForeignKey(Order, verbose_name=_("Order"), on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     quantity = models.IntegerField(verbose_name=_("Product Quantity"))
-    created_at = models.DateTimeField(default=timezone.now,blank=True,null=True)
+    created_at = models.DateTimeField(default=timezone.now,blank=True,null=True,editable=False)
 
     class Meta:
         verbose_name = 'Order'

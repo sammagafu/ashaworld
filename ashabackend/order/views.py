@@ -1,10 +1,10 @@
 from django.shortcuts import render,get_object_or_404
 from django.views.generic import View, ListView,DetailView
-from . models import Order,OrderProduct
+from . models import Order,OrderItems
 from cart.models import Cart
 from product.models import Product
 from django.db.models import Sum
-from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # api imports
 from .serializer import OrderSerializer, OrderProductSerializer
@@ -21,3 +21,11 @@ class OrderRetrieveUpdateDeleteAPI(generics.RetrieveUpdateDestroyAPIView):
     lookup_url_kwarg = 'slug'
     lookup_field = 'slug'
     queryset = Order.objects.all()
+
+class OrderItemListAPI(generics.ListCreateAPIView):
+    queryset = OrderItems.objects.all()
+    serializer_class = OrderProductSerializer
+
+class OrderItemRetrieveUpdateDeleteAPI(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = OrderProductSerializer
+    queryset = OrderItems.objects.all()
