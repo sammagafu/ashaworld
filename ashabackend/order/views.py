@@ -26,6 +26,9 @@ class OrderItemListAPI(generics.ListCreateAPIView):
     queryset = OrderItems.objects.all()
     serializer_class = OrderProductSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user,)
+
 class OrderItemRetrieveUpdateDeleteAPI(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = OrderProductSerializer
     queryset = OrderItems.objects.all()

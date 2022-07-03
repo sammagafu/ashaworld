@@ -3,6 +3,8 @@ from django.utils.translation import gettext as _
 from django.urls import reverse
 from django.conf import settings
 from django.utils import timezone
+import uuid 
+
 
 orderstatus = [
     ("Pending","Pending"),
@@ -46,8 +48,6 @@ class OrderItems(models.Model):
     order = models.ForeignKey(Order, verbose_name=_("Order"), on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     quantity = models.IntegerField(verbose_name=_("Product Quantity"))
-    created_at = models.DateTimeField(default=timezone.now,blank=True,null=True,editable=False)
-
     class Meta:
         verbose_name = 'Order'
         verbose_name_plural = 'Orders'
