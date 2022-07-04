@@ -16,6 +16,9 @@ class OrderListAPI(generics.ListCreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user,)
+
 class OrderRetrieveUpdateDeleteAPI(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = OrderSerializer
     lookup_url_kwarg = 'slug'
