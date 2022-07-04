@@ -84,13 +84,6 @@
                                 style="border-bottom: 0px none rgb(102, 102, 102); width: 393.32px;">
                                 <div class="cart-summary mb-4">
                                     <h3 class="cart-title text-uppercase">Cart Totals</h3>
-                                    <div class="cart-subtotal d-flex align-items-center justify-content-between">
-                                        <label class="ls-25">Subtotal</label>
-                                        <span>{{Sum}}</span>
-                                    </div>
-
-                                    <hr class="divider">
-
                                     <ul class="shipping-methods mb-2">
                                         <li>
                                             <label class="shipping-title text-dark font-weight-bold">Shipping</label>
@@ -169,7 +162,6 @@ import axios from 'axios';
         },
         methods: {
             removeItemtoCart(item) {
-                console.log('item :>> ', item);
                 axios.delete(`/cart/${item}/`)
                     .then(response => this.$router.go(this.$router.currentRoute))
                     .catch(error => {
@@ -178,16 +170,39 @@ import axios from 'axios';
                     });
             },
             checkout(){
-                console.log('this :>> ', this);
+                const orderitems = this.$store.state.cartItems
+                const items = []
+                this.sum = this.Sum
+                for(let i=0; i < this.$store.state.cartItems.length; i++){
+                    const item = this.$store.state.cartItems[i]
+                    console.log('item.product.slug :>> ', item.quantity);
+
+                    const obj = {
+                    product: item.product.slug,
+                    quantity: item.quantity,
+                    price: item.product.price * item.quantity
+                }
+                    console.log('item :>> ', item);
+                    // console.log('item :>> ', this.cart.items[i]);
+                }
+                const data = {
+                    'product' : [orderitems],
+                    'totalprice' : this.sum
+                }
+                console.log('orderitems :>> ', data);
+                axios.post('order/',data)
+                .then(response => console.log('object >> ', response))
+                    .catch(error => {
+                        // element.parentElement.innerHTML = `Error: ${error.message}`;
+                        console.error('There was an error!', error);
+                    });
+
+
             },
         },
         computed:{
-           Sum(){ return this.$store.state.cartItems.reduce( (Sum, product) => product.get_total_price + Sum  ,0);},
-           getSumPrice (){
-            
-           }
-
-        }
+            Sum(){ return this.$store.state.cartItems.reduce( (Sum, product) => product.get_total_price + Sum  ,0);},
+        },
     }
 </script>
 
