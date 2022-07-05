@@ -31,7 +31,7 @@ class Order(models.Model):
 
     def save(self,*args, **kwargs):
         if self.pk is None:
-            self.slug = "asha-order-" + uuid.uuid4().hex[12].lower()
+            self.slug = "asha-order-" + uuid.uuid4().hex[:12].lower()
         super(Order,self).save()
 
     class Meta:
@@ -44,7 +44,7 @@ class Order(models.Model):
 
 class OrderItems(models.Model):
     product = models.ForeignKey("product.Product", verbose_name=_("product"), on_delete=models.CASCADE)
-    order = models.ForeignKey(Order, verbose_name=_("Order"), on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, verbose_name=_("Order"), on_delete=models.CASCADE,related_name="orderproducts")
     created_at = models.DateTimeField(auto_now_add=True)
     quantity = models.IntegerField(verbose_name=_("Product Quantity"))
     class Meta:

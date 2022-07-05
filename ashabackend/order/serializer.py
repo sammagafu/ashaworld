@@ -1,24 +1,28 @@
-from itertools import product
+from time import clock_getres
 from rest_framework import serializers
 from .models import Order,OrderItems
+from product.serializer import ProductSerializer
 
 class OrderProductSerializer(serializers.ModelSerializer):
-
+    product = ProductSerializer(read_only=True)
     class Meta:
         model = OrderItems
-        fields = ['product','quantity']
-        read_only_fields = ['id','order','created_at']
+        fields = ['product','quantity','order']
+        read_only_fields = ['id','created_at']
 
 class OrderSerializer(serializers.ModelSerializer):
-    product = OrderProductSerializer(many=True)
+    orderproducts = OrderProductSerializer(many=True)
     class Meta:
-        model = Order
-        fields = ['product','totalprice','orderstatus','active','promo_code']
-        read_only_fields = ['owner','paid_at','slug','created_at']
 
+        model = Order
+        read_only_fields = ('owner','paid_at','slug','created_at')
+        fields = ['totalprice','orderstatus','active','promo_code','orderproducts']
+        
+    
     def create(self, validated_data):
-        product_data = validated_data.pop('product')
+        orderitems = validated_data.pop('orderproducts')
+        print(orderitems)
         order = Order.objects.create(**validated_data)
-        for productdata in product_data:
-            OrderItems.objects.create(order=order, **productdata)
+        for orderitems in orderitems:
+            orderitems.objects.create(order=order, **orderitems)
         return order
