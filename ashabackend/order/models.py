@@ -6,7 +6,7 @@ from django.utils import timezone
 import uuid 
 
 
-orderstatus = [
+STATUS = [
     ("Pending","Pending"),
     ("Cancelled","Cancelled"),
     ("Refunded","Refunded"),
@@ -20,7 +20,7 @@ orderstatus = [
 class Order(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Order Owner"), on_delete=models.CASCADE)
     slug = models.SlugField(_("slug"),editable=False,unique=True,null=False)
-    orderstatus = models.CharField(max_length=50,choices=orderstatus,default="Pending")
+    orderstatus = models.CharField(max_length=50,choices=STATUS,default=STATUS[0][0])
     created_at = models.DateTimeField(default=timezone.now,blank=True,null=True)
     paid_at = models.DateTimeField(verbose_name=_("Payment Date"), blank=True,null=True,editable=False)
     promo_code = models.CharField(max_length=50,null=True,blank=True)
@@ -29,7 +29,7 @@ class Order(models.Model):
     
 
 
-    def save(self):
+    def save(self,*args, **kwargs):
         if self.pk is None:
             self.slug = "asha-order-" + uuid.uuid4().hex[12].lower()
         super(Order,self).save()
@@ -43,7 +43,6 @@ class Order(models.Model):
 
 
 class OrderItems(models.Model):
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Order Owner"), on_delete=models.CASCADE)
     product = models.ForeignKey("product.Product", verbose_name=_("product"), on_delete=models.CASCADE)
     order = models.ForeignKey(Order, verbose_name=_("Order"), on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)

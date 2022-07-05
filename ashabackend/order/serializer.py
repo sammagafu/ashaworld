@@ -1,3 +1,4 @@
+from itertools import product
 from rest_framework import serializers
 from .models import Order,OrderItems
 
@@ -5,18 +6,19 @@ class OrderProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderItems
-        fields = '__all__'
+        fields = ['product','quantity']
+        read_only_fields = ['id','order','created_at']
 
 class OrderSerializer(serializers.ModelSerializer):
-    products = OrderProductSerializer(many=True)
+    product = OrderProductSerializer(many=True)
     class Meta:
         model = Order
-        fields = '__all__'
-        read_only_fields = ['slug','assigned_to','created_at']
+        fields = ['product','totalprice','orderstatus','active','promo_code']
+        read_only_fields = ['owner','paid_at','slug','created_at']
 
     def create(self, validated_data):
-        order_product = validated_data.pop('order')
-        order = Order.objects.create(**order_product)
-        for order_product in order_product:
-            OrderItems.objects.create(order=order, **order_product)
+        product_data = validated_data.pop('product')
+        order = Order.objects.create(**validated_data)
+        for productdata in product_data:
+            OrderItems.objects.create(order=order, **productdata)
         return order
