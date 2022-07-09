@@ -1,148 +1,46 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import RouteView from "@/views/RouterView.vue"
-import BaseAppView from "@/views/BaseAppView.vue"
-
+import BaseApp from "@/views/BaseApp.vue"
 
 const routes = [
   {
-    path:"",
-    component:RouteView,
-    children : [
-     {
-      path: "",
-        component: BaseAppView,
+    path: '',
+    component: RouteView,
+    children:[
+      {
+        path: "",
+        component: BaseApp,
         name:"UserRouteViews",
-        children: [
+        children : [
           {
             path: '',
             name: 'home',
-            component: () => import( /* webpackChunkName: "about" */ '../views/Dashboard.vue')
+            component: () => import('../views/HomeView.vue')
           },
-
           {
-            path: "/product/",
-            component: RouteView,
-            children:[
-              {
-                path:"",
-                component: () => import("../views/ProductList.vue"),
-                name:"productlist",
-              },
-              
-              {
-                path:"",
-                component: RouteView,
-                children:[
-                  // {
-                  //   path:"/:category_slug/:product_slug/",
-                  //   component: () => import("../views/ProductDetails.vue"),
-                  //   name:"ProductDetails"
-                  // },
-
-                  // {
-                  //   path:"update/",
-                  //   component: () => import("../views/ProductUpdate.vue"),
-                  //   name:"ProductUpdate"
-                  // }
-                ]
-              },
-            ]},
-
-            {
-              path: "/orders/",
-              component: RouteView,
-              children:[
-                {
-                  path:"",
-                  component: () => import("../views/Orders.vue"),
-                  name:"orderlist",
-                },
-                
-                {
-                  path:"",
-                  component: RouteView,
-                  children:[
-                    // {
-                    //   path:"/:category_slug/:product_slug/",
-                    //   component: () => import("../views/ProductDetails.vue"),
-                    //   name:"ProductDetails"
-                    // },
-  
-                    // {
-                    //   path:"update/",
-                    //   component: () => import("../views/ProductUpdate.vue"),
-                    //   name:"ProductUpdate"
-                    // }
-                  ]
-                },
-              ]},
-
-              {
-                path: "/customers/",
-                component: RouteView,
-                children:[
-                  {
-                    path:"",
-                    component: () => import("../views/Customers.vue"),
-                    name:"customers",
-                  },
-                  
-                  {
-                    path:"",
-                    component: RouteView,
-                    children:[
-                      // {
-                      //   path:"/:category_slug/:product_slug/",
-                      //   component: () => import("../views/ProductDetails.vue"),
-                      //   name:"ProductDetails"
-                      // },
-    
-                      // {
-                      //   path:"update/",
-                      //   component: () => import("../views/ProductUpdate.vue"),
-                      //   name:"ProductUpdate"
-                      // }
-                    ]
-                  },
-                ]},
-
-                {
-                  path: "/point-of-sale/",
-                  component: RouteView,
-                  children:[
-                    {
-                      path:"",
-                      component: () => import("../views/Pointofsale.vue"),
-                      name:"pos",
-                    },
-                    
-                    {
-                      path:"",
-                      component: RouteView,
-                      children:[
-                        // {
-                        //   path:"/:category_slug/:product_slug/",
-                        //   component: () => import("../views/ProductDetails.vue"),
-                        //   name:"ProductDetails"
-                        // },
-      
-                        // {
-                        //   path:"update/",
-                        //   component: () => import("../views/ProductUpdate.vue"),
-                        //   name:"ProductUpdate"
-                        // }
-                      ]
-                    },
-                  ]},
-          
+            path: '/product/',
+            name: 'product',
+            component: () => import('../views/Products.vue')
+          },
+          {
+            path: '/order/',
+            name: 'order',
+            component: () => import('../views/Orders.vue')
+          },
+          {
+            path: '/point-of-sale/',
+            name: 'pos',
+            component: () => import('../views/PointOfSale.vue')
+          },
         ]
-     }
+      }
     ]
-  }
+  },
+  
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory(process.env.BASE_URL),
   routes
 })
 

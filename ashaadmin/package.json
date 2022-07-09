@@ -7,14 +7,12 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
-    "ant-design-vue": "^3.2.9",
+    "@headlessui/vue": "^1.6.6",
+    "@heroicons/vue": "^1.0.6",
     "axios": "^0.27.2",
-    "bulma": "^0.9.4",
     "core-js": "^3.8.3",
     "vue": "^3.2.13",
-    "vue-axios": "^3.4.1",
     "vue-router": "^4.0.3",
-    "vuesax": "^3.12.2",
     "vuex": "^4.0.0"
   },
   "devDependencies": {
@@ -22,7 +20,16 @@
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "autoprefixer": "^10.4.7",
+    "postcss": "^8.4.14",
     "sass": "^1.32.7",
-    "sass-loader": "^12.0.0"
-  }
+    "sass-loader": "^12.0.0",
+    "tailwindcss": "^3.1.5"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
 }

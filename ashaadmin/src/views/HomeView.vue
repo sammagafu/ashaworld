@@ -1,13 +1,12 @@
 <template>
-  
 </template>
 
 <script>
-export default {
 
+export default {
+  name: 'HomeView',
+  components: {
+
+  }
 }
 </script>
-
-<style>
-
-</style>
