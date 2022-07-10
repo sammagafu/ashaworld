@@ -2,7 +2,7 @@
     <div class="basis-full py-3 mx-3">
         <div class="flex items-center justify-between">
             <div class="basis-3/4">
-                <h2 class="title text-2xl font-semibold">Orders</h2>
+                <h2 class="title text-2xl font-semibold">Customers</h2>
             </div>
             <div class="basis-1/2">
                 <div class="inline-flex rounded-lg">
@@ -21,6 +21,14 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                             </path>
                         </svg></button>
+
+                        <button
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-4 px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+          </button>
                 </div>
 
             </div>
@@ -32,23 +40,15 @@
         <div class="inline-flex rounded-md shadow-sm" role="group">
             <button type="button"
                 class="py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-l-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-                Pending
+                All
             </button>
             <button type="button"
                 class="py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-                Paid
-            </button>
-            <button type="button"
-                class="py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-                Cancelled
-            </button>
-            <button type="button"
-                class="py-2 px-4 text-sm font-medium text-gray-900 bg-white border-t border-b border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-                Refunded
+                Active
             </button>
             <button type="button"
                 class="py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-r-md border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
-                Shipped
+                Blocked
             </button>
             
         </div>
@@ -61,16 +61,16 @@
                             <thead class="bg-gray-100 border-b">
                                 <tr>
                                     <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                        Order
+                                        Customer Name
                                     </th>
                                     <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                        Total Price
+                                        Address
+                                    </th>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                        Phone Number
                                     </th>
                                     <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                         Status
-                                    </th>
-                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                        Ordering Date
                                     </th>
                                     <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                         Action
@@ -120,29 +120,7 @@
 </template>
 
 <script>
-    import axios from 'axios'
     export default {
-        name: 'Orders',
-        data() {
-            return {
-                order: []
-            }
-        },
-        mounted() {
-            this.getOrders();
-        },
-        methods: {
-            getOrders() {
-                axios.get('order/')
-                    .then(response => {
-                        this.order = response.data;
-                        console.log('order :>> ', response.data);
-                    }).catch(error => {
-                        console.log(error);
-                    });
-            }
-        }
-
 
     }
 </script>

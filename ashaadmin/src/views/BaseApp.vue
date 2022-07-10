@@ -1,18 +1,13 @@
 <template>
 <TopNavigationBar />
-<div class="flex flex-row">
-    <div class="md:flex">
-        <div class="basis-3/12">
-            <SideBar />
-        </div>
-        <div class="basis-9/12 mt-4 mx-6">
-            <router-view></router-view> 
-        </div>
+<div class="flex">
+    <div class="w-1/4">
+        <SideBar />
     </div>
-</div>
-    
-    
-    
+    <div class="w-3/4">
+        <router-view></router-view> 
+    </div>
+</div>    
 </template>
 
 <script>
