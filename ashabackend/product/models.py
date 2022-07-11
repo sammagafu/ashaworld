@@ -21,6 +21,8 @@ class Product(models.Model):
     discount = models.ForeignKey("product.ProductDiscount", verbose_name=_("discount in %"), related_name="productDicount", on_delete=models.SET_NULL,null=True,blank=True)
     created_at = models.DateTimeField(default=timezone.now,editable=False)
     modified_at = models.DateTimeField(blank=True,null=True)
+    approved = models.BooleanField(default=False,verbose_name="Approved to display on eccomerce")
+
 
 
     class Meta:
