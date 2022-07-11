@@ -1,12 +1,20 @@
-from rest_framework import generics
-from . models import ShippingAddress
+from rest_framework import viewsets
+from . models import POSclient,POSorder,POSproduct
+from .serializer import POSclientSerializer,POSproductSerializer,POSorderSerializer
 
-class ShippingListAPI(generics.ListCreateAPIView):
-    queryset = ShippingAddress.objects.all()
-    serializer_class = OrderSerializer
-    # authentication_classes = [authentication.TokenAuthentication]
-    # permission_classes = [permissions.IsAuthenticated]
+class PosclientViewSet(viewsets.ModelViewSet):
+     queryset = POSclient.objects.all()
+     serializer_class = POSclientSerializer
+     http_method_names = ['get','post','retrieve','put','patch']
 
-    def perform_create(self, serializer):
-        print(self.request.data.get("product", None))
-        serializer.save(owner=self.request.user)
+class PosOrderViewSet(viewsets.ModelViewSet):
+     queryset = POSorder.objects.all()
+     serializer_class = POSorderSerializer
+     http_method_names = ['get','post','retrieve','put','patch']
+
+class PosProductViewSet(viewsets.ModelViewSet):
+     queryset = POSproduct.objects.all()
+     serializer_class = POSproductSerializer
+     http_method_names = ['get','post','retrieve','put','patch']
+
+

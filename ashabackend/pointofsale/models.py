@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.conf import settings
 import uuid 
 from django.utils.translation import gettext as _
+from django.utils.text import slugify
 
 # Create your models here.
 class POSclient(models.Model):
@@ -26,7 +27,9 @@ class POSclient(models.Model):
     phone_number = PhoneNumberField(verbose_name="User Phone Number")
     payment = models.CharField(max_length=50, choices=PAYMENT_METHODS,default=PAYMENT_METHODS[0][0])
     provider = models.CharField(max_length=50,null=True,blank=True,verbose_name="Service Provider")
+    company = models.ForeignKey("accounttype.CompanyInformation", verbose_name=_("Company Info"), on_delete=models.CASCADE,related_name="clientof")
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Addeby"), on_delete=models.SET_NULL,null=True)
+    isactive = models.BooleanField(default=True,null=True,blank=True)
     
 
     class Meta:
@@ -49,6 +52,26 @@ class POSproduct(models.Model):
     created_at = models.DateTimeField(default=timezone.now,editable=False)
     modified_at = models.DateTimeField(blank=True,null=True)
     approved = models.BooleanField(default=False,verbose_name="Approved for POS")
+
+    def __str__(self):
+        return self.productName
+    
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.created = timezone.now()
+        self.modified_at = timezone.now()
+        if not self.slug:
+            self.slug = slugify(self.productName)
+        self.slug = slugify(self.productName)
+        return super().save()
+
+    def get_absolute_url(self):
+        return f'/{self.category.slug}/{self.slug}'
+
+    def get_coverImage(self):
+        if self.coverImage:
+            return 'https://api.asha-world.com' + self.coverImage.url
+        return ''
 
 
 class POSorder(models.Model):
