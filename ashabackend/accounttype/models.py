@@ -57,9 +57,11 @@ class CompanyInformation(models.Model):
 
 class Team(models.Model):
     teamname = models.CharField(max_length=180,verbose_name=_("Team name"))
+    company = models.ForeignKey(CompanyInformation, on_delete=models.SET_NULL, null=True, blank=True,related_name="team")
     owner = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
 
 class TeamMembers(models.Model):
-    member = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    team = models.ForeignKey(Team,on_delete=models.SET_NULL,related_name="teammember", null=True, blank=True)
+    member = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name="member")
     can_edit = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)

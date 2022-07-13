@@ -1,5 +1,5 @@
 <template>
-    <div class="basis-full py-3 mx-3">
+    <div class="basis-full py-3 mx-6    ">
         <div class="flex justify-between">
             <div class="basis-3/4">
                 <h2 class="title text-2xl font-semibold">Point of Sale</h2>
@@ -47,76 +47,131 @@
                         </ul>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
+    <div class="basis-full py-6 mx-6">
+        <div class="flex flex-row">
+            <div class="basis-2/6 bg-slate-200 py-6 rounded-md px-3 mx-3">
+                <h5>Customers</h5>
+                <div class="flex flex-col pt-3">
+                    <div class="w-full px-4">
 
-    <div class="basis-full py-6">
-        <div class="flex">
-            <div class="basis-2/5">
-                <div
-                    class="p-4 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
-                    <div class="flex items-start">
-                        <div class="flex items-center h-5">
-                            <h5 class="text-white mx-3">Customer Details</h5>
-                            <button type="button"
-                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <form class="flex items-center">
+                            <label for="simple-search" class="sr-only">Search</label>
+                            <div class="relative w-full">
+                                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
+                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <input type="text" id="simple-search"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="Search by product name or SKU">
+                            </div>
+                        </form>
 
-                                <svg class="w-5 h-5 mr-2 -ml-1" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                Customer
-                            </button>
-                        </div>
                     </div>
-                    <div class="basis-full py-8">
-                        <div>
-                            <input type="email" name="email" id="email"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="Search customer's email or phone" required>
+                </div>
+            </div>
+            <div class="basis-4/6 bg-slate-200 py-6 rounded-md px-3 mx-3">
+                <h5>Products</h5>
+                <div class="flex flex-col pt-3">
+                    <div class="w-full">
+                        <div class=""></div>
+                        <div class="">
+                            <table class="min-w-full">
+                                <thead class="bg-white border-b">
+                                    <tr>
+                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Product
+                                        </th>
+                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Quaintity
+                                        </th>
+                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Price
+                                        </th>
+                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Subtotal
+                                        </th>
+                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Action
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="bg-gray-100 border-b" v-for="prod in product" :key="prod.id">
+                                        <td class="px-6 py-4 whitespace-nowraw">
+                                            <img :src="prod.get_coverImage" alt="">
+                                        </td>
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            {{prod.productName}}
+                                        </td>
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            {{prod.sku}}
+                                        </td>
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            {{prod.price}}
+                                        </td>
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            {{prod.category.categoryname}}
+                                        </td>
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            {{prod.price}}
+                                        </td>
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            available
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                                <!-- <tfoot>
+                                    <tr class="bg-gray-100 border-b py-6">
+                                        <td>Sum</td>
+                                        <td>$180</td>
+                                        <td>$180</td>
+                                        <td>$180</td>
+                                        <td>$180</td>
+                                    </tr>
+                                    <tr class="bg-gray-100 border-b py-6">
+                                        <td>Sum</td>
+                                        <td>$180</td>
+                                        <td>$180</td>
+                                        <td>$180</td>
+                                        <td>$180</td>
+                                    </tr>
+                                </tfoot> -->
+
+                            </table>
                         </div>
                     </div>
                 </div>
-
             </div>
-            <div class="w-4/5">
-                <div
-                    class="p-4 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
-                    <div class="flex items-start">
-                        <div class="flex items-center h-5">
-                            <h5 class="text-white mx-3">Customer Details</h5>
-                            <button type="button"
-                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
 
-                                <svg class="w-5 h-5 mr-2 -ml-1" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </svg>
-                                Customer
-                            </button>
-                        </div>
-                    </div>
-                    <div class="basis-full py-8">
-                        <div>
-                            <input type="email" name="email" id="email"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                placeholder="Search customer's email or phone" required>
-                        </div>
-                    </div>
-                </div>  
-            </div>
         </div>
     </div>
+    
 </template>
 
 <script>
+import AddProduct from '@/components/AddProduct.vue';
     export default {
-
+    components: { AddProduct },
+    data (){
+        return {
+            isopen : false,
+        }
+    },
+    computed : {
+        printworking(){
+            console.log('this.isopen :>> ', this.isopen);
+        }
     }
+}
 </script>
 
 <style>

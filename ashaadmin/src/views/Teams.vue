@@ -1,8 +1,9 @@
 <template>
-    <div class="basis-full py-3 mx-3">
+    <div class="basis-full py-6 mx-6">
         <div class="flex items-center justify-between">
             <div class="basis-3/4">
                 <h2 class="title text-2xl font-semibold">Team</h2>
+                {{company.team}}
             </div>
             <div class="basis-1/2">
                 <div class="inline-flex rounded-lg">
@@ -35,7 +36,7 @@
         </div>
     </div>
 
-    <div class="basis-full">
+    <div class="basis-full py-6 mx-6">
         <div class="p-4 max-w-full bg-white rounded-lg border shadow-md sm:p-8 dark:bg-gray-800 mr-4">
             <div class="flex justify-between items-center mb-4">
                 <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Team Members</h5>
@@ -98,6 +99,46 @@
                             </div>
                         </div>
                     </li>
+                    <li class="py-3 sm:py-4">
+                        <div class="flex items-center space-x-4">
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                    Happiness Watimanya
+                                </p>
+                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                    Admin
+                                </p>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                    info@asha-world.com
+                                </p>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                    Dar es salaam Tanzania
+                                </p>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                    +255788419991
+                                </p>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <span
+                                    class="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
+                                    Active
+                                </span>
+                            </div>
+                            <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                    stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                                </svg>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -105,7 +146,27 @@
 </template>
 
 <script>
+import axios from 'axios'
     export default {
+        name : 'Teams',
+        data(){
+            return {
+                company : [],
+            }
+        },
+        methods:{
+            getTeam(){
+                axios.get('company/company-info/').then(response => {
+                    this.company = response.data
+                    console.log('this.company :>> ', this.company);
+                }).catch(error => {
+                    console.log('error :>> ', error);
+                })
+            }
+        },
+        mounted(){
+            this.getTeam()
+        }
 
     }
 </script>

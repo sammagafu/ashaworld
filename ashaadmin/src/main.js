@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import axios from 'axios'
 import '../src/assets/css/asha.css'
+import 'flowbite';
+
 
 
 axios.defaults.baseURL = 'http://localhost:8000/api/v1/'

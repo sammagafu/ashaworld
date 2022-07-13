@@ -1,13 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import RouteView from "@/views/RouterView.vue"
 import BaseApp from "@/views/BaseApp.vue"
+import AdminBaseView from "@/views/AdminBaseView"
+import Login from "@/views/Login.vue"
 
 const routes = [
-  {
-    path: "/login/",
-    name: "LoginIn",
-    component : ()=>import('@/views/Login.vue')
-  },
   {
     path: '',
     component: RouteView,
@@ -47,6 +44,18 @@ const routes = [
             name: 'customer',
             component: () => import('../views/Customers.vue')
           },
+        ]
+      },
+      {
+        path:"/account/",
+        name:"AdminRouteViews",
+        component: AdminBaseView,
+        children:[
+          {
+            path:"login/",
+            name:"Login",
+            component: Login,
+          }
         ]
       }
     ]

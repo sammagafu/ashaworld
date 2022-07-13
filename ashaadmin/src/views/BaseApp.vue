@@ -1,10 +1,10 @@
 <template>
 <TopNavigationBar />
-<div class="flex">
-    <div class="w-1/4">
+<div class="flex flex-row">
+    <div class="basis-1/12">
         <SideBar />
     </div>
-    <div class="w-3/4">
+    <div class="basis-11/12">
         <router-view></router-view> 
     </div>
 </div>    

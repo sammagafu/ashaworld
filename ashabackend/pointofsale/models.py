@@ -30,6 +30,9 @@ class POSclient(models.Model):
     company = models.ForeignKey("accounttype.CompanyInformation", verbose_name=_("Company Info"), on_delete=models.CASCADE,related_name="clientof")
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Addeby"), on_delete=models.SET_NULL,null=True)
     isactive = models.BooleanField(default=True,null=True,blank=True)
+
+    def __str__(self):
+        return self.clientsemail
     
 
     class Meta:
@@ -77,10 +80,10 @@ class POSproduct(models.Model):
 class POSorder(models.Model):
     order = models.SlugField(_("order"),editable=False,unique=True,null=False)
     product = models.ForeignKey(POSproduct, verbose_name=_("product"), on_delete=models.CASCADE)
-    buyer = models.ForeignKey(POSclient, verbose_name=_("product"), on_delete=models.SET_NULL,blank=True,null=True)
+    buyer = models.ForeignKey(POSclient, verbose_name=_("buyer"), on_delete=models.SET_NULL,blank=True,null=True)
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Seller"), on_delete=models.CASCADE)
 
     def save(self,*args, **kwargs):
         if self.pk is None:
-            self.slug = "asha-order" + uuid.uuid4().hex[:18].lower()
+            self.order = "asha-order" + uuid.uuid4().hex[:18].lower()
         super(POSproduct,self).save()

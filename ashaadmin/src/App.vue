@@ -3,23 +3,21 @@
 </template>
 
 <script>
-  import axios from 'axios'
-  export default {
-    
-    name: 'app',
-    components: {},
-    beforeCreate() {
-      this.$store.commit('initializeStore')
-      if (this.$store.state.token) {
-        axios.defaults.headers.common['Authorization'] = "Token " + this.$store.state.token
-      } else {
-        axios.defaults.headers.common['Authorization'] = ""
-      }
-      // if (!this.$store.state.team.id) {
-      //   this.$router.push('/dashboard/add-team')
-      // }
-    },
-  }
+    import axios from 'axios'
+    export default {
+        name: 'App',
+        beforeCreate() {
+            this.$store.commit('initializeStore')
+            if (this.$store.state.token) {
+                axios.defaults.headers.common['Authorization'] = "Token " + this.$store.state.token
+            } else {
+                axios.defaults.headers.common['Authorization'] = ""
+            }
+            // if (!this.$store.state.team.id) {
+            //     this.$router.push('/dashboard/add-team')
+            // }
+        },
+    }
 </script>
 
 <style lang="scss">
@@ -28,3 +26,4 @@ body{
   font-family: 'Poppins', Courier, monospace;
 }
 </style>
+
