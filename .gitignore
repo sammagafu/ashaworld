@@ -10,7 +10,7 @@ ashabackend/static/*
 ashabackend/db.sqlite3
 ashabackend/bin/
 ashabackend/lib*/
-ashabackend/lib64/
+/ashabackend/lib64
 ashabackend/share/
 ashabackend/pyvenv.cfg
 migrations/
