@@ -68,9 +68,18 @@
                                             clip-rule="evenodd"></path>
                                     </svg>
                                 </div>
-                                <input type="text" id="simple-search"
+                                <vue3-simple-typeahead
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Search by product name or SKU">
+                                    id="typeahead_id"
+                                    placeholder="Search by product name or SKU"
+                                    :items="products"
+                                    :minInputLength="1"
+                                    :defaultItem="products[0]"
+                                    :itemProjection="(item)=> item.productName"
+                                    @selectItem="selectItemEventHandler"
+                                >
+                                </vue3-simple-typeahead>
+
                             </div>
                         </form>
 
@@ -104,7 +113,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="bg-gray-100 border-b" v-for="prod in product" :key="prod.id">
+                                    <tr class="bg-gray-100 border-b" v-for="prod in selected" :key="prod.id">
                                         <td class="px-6 py-4 whitespace-nowraw">
                                             <img :src="prod.get_coverImage" alt="">
                                         </td>
@@ -165,9 +174,19 @@ import AddProduct from '@/components/AddProduct.vue';
     data (){
         return {
             isopen : false,
-            products:[]
+            products:[],
+            selected:[],
+            selectedItemIds: [],
+            selectedItem: null
         }
     },
+
+    /**
+     * @selectItem="selectItemEventHandler"
+                                    @onInput="onInputEventHandler"
+                                    @onFocus="onFocusEventHandler"
+                                    @onBlur="onBlurEventHandler"
+     */
      methods: {
       getPosProducts() {
         axios.get('product/')
@@ -178,6 +197,15 @@ import AddProduct from '@/components/AddProduct.vue';
             console.log(error);
           });
       },
+      selectedData(value) {
+        this.selectedItem = value
+      },
+      selectItemEventHandler(e){
+          console.log("add this item to product list for checkout")
+      },
+      ClickOutside(){
+          this.isopen = false
+      }
     },
     mounted() {
       this.getPosProducts();
