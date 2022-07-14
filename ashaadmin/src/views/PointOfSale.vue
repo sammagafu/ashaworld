@@ -75,7 +75,7 @@
                                     :defaultItem="products[0]"
                                     :itemProjection="(item)=> item.productName"
                                     @selectItem="selectItemEventHandler"
-                                    @blur="blurEventHandler"
+                                    @focus="blurEventHandler"
                                 >
                                 </vue3-simple-typeahead>
 
@@ -94,11 +94,14 @@
                             <table class="min-w-full">
                                 <thead class="bg-white border-b">
                                     <tr>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Image
+                                        </th>
                                         <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                             Product
                                         </th>
                                         <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
-                                            Quaintity
+                                            Quantity
                                         </th>
                                         <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                             Price
@@ -131,9 +134,9 @@
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             {{prod.price}}
                                         </td>
-                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        <!-- <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             available
-                                        </td>
+                                        </td> -->
                                     </tr>
 
                                 </tbody>
@@ -193,8 +196,9 @@ import AddProduct from '@/components/AddProduct.vue';
       selectItemEventHandler(value){
           this.selected.push(value);
       },
-      
+
       blurEventHandler(e){
+          console.log("value: ",e.target.value)
           e.target.value=''
       }
     },
