@@ -1,5 +1,5 @@
 <template>
-    <div class="basis-full py-3 mx-6    ">
+    <div class="basis-full py-3 mx-6">
         <div class="flex justify-between">
             <div class="basis-3/4">
                 <h2 class="title text-2xl font-semibold">Point of Sale</h2>
@@ -51,15 +51,15 @@
         </div>
     </div>
     <div class="basis-full py-6 mx-6">
-        <div class="flex flex-row">
-            <div class="basis-2/6 bg-slate-200 py-6 rounded-md px-3 mx-3">
-                <h5>Customers</h5>
+        <div class="grid grid-cols-12">
+            <div class="col-span-4 bg-slate-200 py-6 rounded-md px-3 mx-3">
+                <h5>Products</h5>
                 <div class="flex flex-col pt-3">
                     <div class="w-full px-4">
 
                         <form class="flex items-center">
-                            <div class="relative w-full">
-                                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                            <div class="flex items-center p-3 bg-gray-800 w-full">
+                                <div class="">
                                     <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor"
                                         viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                         <path fill-rule="evenodd"
@@ -68,13 +68,14 @@
                                     </svg>
                                 </div>
                                 <vue3-simple-typeahead
-                                    id="typeahead_id"
-                                    placeholder="Search by product name or SKU"
+                                    :id="ID"
+                                    placeholder="Search by name"
                                     :items="products"
                                     :minInputLength="1"
                                     :defaultItem="products[0]"
                                     :itemProjection="(item)=> item.productName"
                                     @selectItem="selectItemEventHandler"
+                                    @blur="blurEventHandler"
                                 >
                                 </vue3-simple-typeahead>
 
@@ -84,7 +85,7 @@
                     </div>
                 </div>
             </div>
-            <div class="basis-4/6 bg-slate-200 py-6 rounded-md px-3 mx-3">
+            <div class="col-span-8 bg-slate-200 py-6 rounded-md px-3 mx-3">
                 <h5>Products</h5>
                 <div class="flex flex-col pt-3">
                     <div class="w-full">
@@ -172,19 +173,13 @@ import AddProduct from '@/components/AddProduct.vue';
     data (){
         return {
             isopen : false,
+            ID:"typehead-id", //id name for type-ahead search input
             products:[],
             selected:[],
             selectedItemIds: [],
             selectedItem: null
         }
     },
-
-    /**
-     * @selectItem="selectItemEventHandler"
-                                    @onInput="onInputEventHandler"
-                                    @onFocus="onFocusEventHandler"
-                                    @onBlur="onBlurEventHandler"
-     */
      methods: {
       getPosProducts() {
         axios.get('product/')
@@ -195,14 +190,12 @@ import AddProduct from '@/components/AddProduct.vue';
             console.log(error);
           });
       },
-      selectedData(value) {
-        this.selectedItem = value
+      selectItemEventHandler(value){
+          this.selected.push(value);
       },
-      selectItemEventHandler(e){
-          console.log("add this item to product list for checkout")
-      },
-      ClickOutside(){
-          this.isopen = false
+      
+      blurEventHandler(e){
+          e.target.value=''
       }
     },
     mounted() {
@@ -217,5 +210,10 @@ import AddProduct from '@/components/AddProduct.vue';
 </script>
 
 <style>
-
+#typehead-id{
+    background: transparent !important;
+    padding-left: .5rem;
+    color:white;
+    width:inherit;
+}   
 </style>
