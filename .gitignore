@@ -8,11 +8,10 @@ ashaadmin/node_modules/
 ashabackend/media/*
 ashabackend/static/*
 ashabackend/db.sqlite3
-ashabackend/bin
-ashabackend/include
-ashabackend/lib*
+ashabackend/bin/
+ashabackend/lib*/
 ashabackend/share/
+ashabackend/pyvenv.cfg
 migrations/
 __pycache__/
-ashabackend/pyvenv.cfg
 ashafront/src/assets/*

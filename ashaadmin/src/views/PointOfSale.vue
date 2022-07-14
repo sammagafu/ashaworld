@@ -158,7 +158,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from'axios';
 import AddProduct from '@/components/AddProduct.vue';
     export default {
     components: { AddProduct },
@@ -168,7 +168,7 @@ import AddProduct from '@/components/AddProduct.vue';
             products:[]
         }
     },
-    methods: {
+     methods: {
       getPosProducts() {
         axios.get('product/')
           .then(response => {
