@@ -4,6 +4,7 @@ asha-front-vue
 .gitignore*
 ashafront/src/assets/*
 ashafront/node_modules/
+ashaadmin/node_modules/
 ashabackend/media/*
 ashabackend/static/*
 ashabackend/db.sqlite3
