@@ -2,9 +2,16 @@
 
 asha-front-vue
 .gitignore*
-.ashafront/src/assets/*
+ashafront/src/assets/*
+ashafront/node_modules/
 ashabackend/media/*
 ashabackend/static/*
 ashabackend/db.sqlite3
-
+ashabackend/bin
+ashabackend/include
+ashabackend/lib*
+ashabackend/share/
+migrations/
+__pycache__/
+ashabackend/pyvenv.cfg
 ashafront/src/assets/*
