@@ -231,15 +231,18 @@
 import axios from'axios';
 import AddProduct from '@/components/AddProduct.vue';
 import AshaModal from "@/components/AshaModal.vue";
+import { useRouter } from "vue-router";
 
     export default {
     components: { AddProduct,AshaModal },
     data (){
         return {
             isopen : false,
+            router:useRouter(),
             ID:"typehead-id", //id name for type-ahead search input
             products:[],
             selectedProducts:[],
+            orderProducts:[],
             customers:[],
             selectedCustomer:null,
             selectedItemIds: [],
@@ -263,33 +266,34 @@ import AshaModal from "@/components/AshaModal.vue";
         })
       },
       createOrder(){
-        //attaching quantity object instances to order products
-        this.selectedProducts.forEach((product)=>{
-            axios.post("pos/product-quantity/", product.order_quantity).then(response => {
-            product.order_quantity = response.data.value
-        }).catch(error => {
-            console.log(error)
-        })
-        })
         const order = {
-            products:this.selectedProducts,
+            products:JSON.stringify(this.orderProducts),
             buyer:this.selectedCustomer.owner,
             seller:localStorage.getItem('userid')
         }
-        console.log(order.products)
         axios.post('pos/order/',order).then(response => {
             this.customers = response.data
         }).catch(error => {
             console.log(error)
-        })
+        });
+        this.router.push({name:"order"})
       },
         
       selectedProductEventHandler(value){
         if(this.selectedProducts.includes(value)){
-            value.order_quantity+=1
+            //update product's order_quantity value in the array of selected products
+            value.order_quantity+=1;
+            //update corresponding orderProduct array item as well, 
+            //this array (orderProducts) is later sent to the database as a string
+            this.orderProducts.map((x)=>{
+                if(x.productName==value.productName){
+                    x.order_quantity+=1;
+                }
+            })
         }else{
             value.order_quantity=1
-            this.selectedProducts.push(value);
+            this.orderProducts.push({id:value.id, productName:value.productName, order_quantity:value.order_quantity});
+            this.selectedProducts.push(value)
         }
       },
 

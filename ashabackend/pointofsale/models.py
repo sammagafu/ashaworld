@@ -39,13 +39,6 @@ class POSclient(models.Model):
         verbose_name = 'Shipping Address'
         verbose_name_plural = 'Shipping Addresss'
 
-class ProductQuantity(models.Model):
-    '''
-    Multiple products can be ordered by the same person. 
-    Multiple people can each order multiple products.
-    Therefore records of ordered quantities have to be in their own table.
-    '''
-    value = models.IntegerField('Quantity in order', default=1)
 
 
 class POSproduct(models.Model):
@@ -56,7 +49,7 @@ class POSproduct(models.Model):
     category = models.ForeignKey("category.ProuctCategory", verbose_name=_("category"), on_delete=models.SET_NULL,null=True,blank=True)
     subCategory = models.ManyToManyField("category.ProductSubCategory")
     descripton = models.TextField(_("Product description"))
-    order_quantity= models.ForeignKey(ProductQuantity, null=True, on_delete=models.CASCADE)
+    order_quantity= models.CharField(null=True, max_length=200)
     available_quantity = models.IntegerField(verbose_name="quantity in store",default=1)
     sku = models.CharField(max_length=50,verbose_name=_("Stock Keeping Unit"))
     price = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="normal Price")
@@ -89,7 +82,7 @@ class POSproduct(models.Model):
 
 class POSorder(models.Model):
     order = models.SlugField(_("order"),editable=False,unique=True,null=False)
-    product = models.ManyToManyField(POSproduct, verbose_name=_("products"))
+    products = models.TextField(verbose_name="products")
     buyer = models.ForeignKey(POSclient, verbose_name=_("buyer"), on_delete=models.SET_NULL,blank=True,null=True)
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Seller"), on_delete=models.CASCADE)
 
