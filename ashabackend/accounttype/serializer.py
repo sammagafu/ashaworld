@@ -18,4 +18,8 @@ class CompanyInformationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CompanyInformation
-        fields = ['companyName','companyName','relationship','city','country','phone_number','address','businessType','businessLincese','tin','businessLincese','team']
+        fields = ['slug','relationship','city','country','phone_number','address','businessType','businessLincese','tin','businessLincese','team']
+    # team = models.ForeignKey(Team,on_delete=models.SET_NULL,related_name="teammember", null=True, blank=True)
+    # member = models.OneToOneField(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name="member")
+    # can_edit = models.BooleanField(default=False)
+    # admin = models.BooleanField(default=False)
