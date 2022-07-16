@@ -9,7 +9,7 @@ class POSclientSerializer(serializers.ModelSerializer):
 class POSproductSerializer(serializers.ModelSerializer):
     class Meta:
         model = POSproduct
-        fields = ['brand','coverImage','category','subCategory','descripton','sku','price','wholeSalePrice','discount']
+        fields = ['productName','brand','coverImage','category','subCategory','descripton','sku','price','wholeSalePrice','discount']
         read_only = ['approved','created_at','modified_at']
 
 class POSorderSerializer(serializers.ModelSerializer):

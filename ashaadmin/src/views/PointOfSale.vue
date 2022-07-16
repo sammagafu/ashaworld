@@ -158,13 +158,29 @@
 </template>
 
 <script>
+import axios from'axios';
 import AddProduct from '@/components/AddProduct.vue';
     export default {
     components: { AddProduct },
     data (){
         return {
             isopen : false,
+            products:[]
         }
+    },
+     methods: {
+      getPosProducts() {
+        axios.get('product/')
+          .then(response => {
+            this.products = response.data;
+            console.log('response.data :>> ', response.data);
+          }).catch(error => {
+            console.log(error);
+          });
+      },
+    },
+    mounted() {
+      this.getPosProducts();
     },
     computed : {
         printworking(){
