@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from . models import POSclient,POSorder,POSproduct
-from .serializer import POSclientSerializer,POSproductSerializer,POSorderSerializer
+from . models import POSclient,POSorder,POSproduct, ProductQuantity
+from .serializer import POSclientSerializer,POSproductSerializer,POSorderSerializer,POSProductQuantitySerializer
 
 class PosclientViewSet(viewsets.ModelViewSet):
      queryset = POSclient.objects.all()
@@ -17,4 +17,6 @@ class PosProductViewSet(viewsets.ModelViewSet):
      serializer_class = POSproductSerializer
      http_method_names = ['get','post','retrieve','put','patch']
 
-
+class PosProductQuantityViewSet(viewsets.ModelViewSet):
+     queryset = ProductQuantity.objects.all()
+     serializer_class = POSProductQuantitySerializer

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from . models import POSclient,POSproduct,POSorder
+from . models import POSclient,POSproduct,POSorder, ProductQuantity
 
 class POSclientSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,7 +9,7 @@ class POSclientSerializer(serializers.ModelSerializer):
 class POSproductSerializer(serializers.ModelSerializer):
     class Meta:
         model = POSproduct
-        fields = ['productName','brand','coverImage','category','subCategory','descripton','sku','price','wholeSalePrice','discount']
+        fields = ['productName','brand','coverImage','category','subCategory','descripton','order_quantity', 'available_quantity','sku','price','wholeSalePrice','discount']
         read_only = ['approved','created_at','modified_at']
 
 class POSorderSerializer(serializers.ModelSerializer):
@@ -17,3 +17,8 @@ class POSorderSerializer(serializers.ModelSerializer):
         model = POSorder
         fields = ['product','buyer','seller']
         read_only = ['order']
+
+class POSProductQuantitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductQuantity
+        fields = ['value']
