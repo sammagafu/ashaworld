@@ -86,4 +86,4 @@ class POSorder(models.Model):
     def save(self,*args, **kwargs):
         if self.pk is None:
             self.order = "asha-order" + uuid.uuid4().hex[:18].lower()
-        super(POSproduct,self).save()
+        super(POSorder,self).save()
