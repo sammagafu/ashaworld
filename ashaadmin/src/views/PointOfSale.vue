@@ -130,7 +130,7 @@
                                             {{prod.productName}}
                                         </td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            {{prod.sku}}
+                                            {{prod.order_quantity}}
                                         </td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             {{prod.price}}
@@ -174,6 +174,12 @@
                                 <span class="text-gray-800">{{selectedCustomer.clients}}</span>
                                 <br>
                                 <span class="text-gray-800">{{selectedCustomer.phone_number}}</span>
+                            </div>
+                            <div class="action pt-3 flex justify-end">
+                                <span
+                                    @click="createOrder"
+                                    class="text-white cursor-pointer bg-green-700 hover:bg-green-600 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" 
+                                    >Create Order</span>
                             </div>
                         </div>
                     </div>
@@ -242,7 +248,7 @@ import AshaModal from "@/components/AshaModal.vue";
     },
      methods: {
       getPosProducts() {
-        axios.get('product/')
+        axios.get('pos/product/')
           .then(response => {
             this.products = response.data;
           }).catch(error => {
@@ -250,14 +256,41 @@ import AshaModal from "@/components/AshaModal.vue";
           });
       },
       getCustomers() {
-                axios.get('pos/client').then(response => {
-                    this.customers = response.data
-                }).catch(error => {
-                    console.log(error)
-                })
-            },
+        axios.get('pos/client').then(response => {
+            this.customers = response.data
+        }).catch(error => {
+            console.log(error)
+        })
+      },
+      createOrder(){
+        //attaching quantity object instances to order products
+        this.selectedProducts.forEach((product)=>{
+            axios.post("pos/product-quantity/", product.order_quantity).then(response => {
+            product.order_quantity = response.data.value
+        }).catch(error => {
+            console.log(error)
+        })
+        })
+        const order = {
+            products:this.selectedProducts,
+            buyer:this.selectedCustomer.owner,
+            seller:localStorage.getItem('userid')
+        }
+        console.log(order.products)
+        axios.post('pos/order/',order).then(response => {
+            this.customers = response.data
+        }).catch(error => {
+            console.log(error)
+        })
+      },
+        
       selectedProductEventHandler(value){
-          this.selectedProducts.push(value);
+        if(this.selectedProducts.includes(value)){
+            value.order_quantity+=1
+        }else{
+            value.order_quantity=1
+            this.selectedProducts.push(value);
+        }
       },
 
       selectedCustomerEventHandler(value){

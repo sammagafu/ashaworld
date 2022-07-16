@@ -8,7 +8,6 @@ router.register('',PosclientViewSet)
 
 routerproduct = DefaultRouter()
 routerproduct.register('',PosProductViewSet)
-print([u for u in routerproduct.urls])
 routerorder = DefaultRouter()
 routerorder.register('',PosOrderViewSet)
 
