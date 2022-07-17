@@ -84,11 +84,11 @@
                                     </td>
 
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        {{prod.totalprice}}
+                                        {{ getTotalPrice(prod.products) }}
                                     </td>
 
-                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        {{prod.orderstatus}}
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap lowercase">
+                                        {{prod.status}}
                                     </td>
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                         {{prod.created_at}}
@@ -140,6 +140,16 @@
                     }).catch(error => {
                         console.log(error);
                     });
+            },
+            getTotalPrice(str){//takes a stringified array of products
+                //parse array
+                let prods = JSON.parse(str)
+                //aggregate prices for each products in order
+                let price=0
+                prods.forEach(x=>{
+                    price = price +  (x.price * x.order_quantity)
+                })
+                return price
             }
         }
 

@@ -81,8 +81,15 @@ class POSproduct(models.Model):
 
 
 class POSorder(models.Model):
+    STATUS = [
+        ("SHIPPED","shipped"),
+        ("PROCESSING","processing"),
+    ]
+
     order = models.SlugField(_("order"),editable=False,unique=True,null=False)
     products = models.TextField(verbose_name="products")
+    status = models.CharField(max_length=100, choices=STATUS, default="SHIPPED")
+    created_at = models.DateField(auto_now_add=True)
     buyer = models.ForeignKey(POSclient, verbose_name=_("buyer"), on_delete=models.SET_NULL,blank=True,null=True)
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Seller"), on_delete=models.CASCADE)
 

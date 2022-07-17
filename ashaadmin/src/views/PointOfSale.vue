@@ -292,7 +292,7 @@ import { useRouter } from "vue-router";
             })
         }else{
             value.order_quantity=1
-            this.orderProducts.push({id:value.id, productName:value.productName, order_quantity:value.order_quantity});
+            this.orderProducts.push({id:value.id, productName:value.productName, price:value.price, order_quantity:value.order_quantity});
             this.selectedProducts.push(value)
         }
       },
