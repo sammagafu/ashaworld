@@ -80,7 +80,7 @@
                             <tbody>
                                 <tr class="bg-gray-100 border-b" v-for="prod in order" :key="prod.id">
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        {{prod.slug}}
+                                        {{prod.order}}
                                     </td>
 
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
@@ -133,7 +133,7 @@
         },
         methods: {
             getOrders() {
-                axios.get('order/')
+                axios.get('pos/order')
                     .then(response => {
                         this.order = response.data;
                         console.log('order :>> ', response.data);

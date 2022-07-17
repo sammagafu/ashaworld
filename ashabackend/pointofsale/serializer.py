@@ -15,7 +15,7 @@ class POSproductSerializer(serializers.ModelSerializer):
 class POSorderSerializer(serializers.ModelSerializer):
     class Meta:
         model = POSorder
-        fields = ['products','buyer','seller']
+        fields = ['order','products','buyer','seller']
         read_only_fields = ['order']
 
     def perform_create(self, serializer):
