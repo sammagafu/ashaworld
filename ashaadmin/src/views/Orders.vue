@@ -136,7 +136,6 @@
                 axios.get('pos/order')
                     .then(response => {
                         this.order = response.data;
-                        console.log('order :>> ', response.data);
                     }).catch(error => {
                         console.log(error);
                     });
