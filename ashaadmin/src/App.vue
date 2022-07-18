@@ -9,7 +9,7 @@
         beforeCreate() {
             this.$store.commit('initializeStore')
             if (this.$store.state.token) {
-                axios.defaults.headers.common['Authorization'] = "Token " + this.$store.state.token
+                axios.defaults.headers.common['Authorization'] = "token " + this.$store.state.token
             } else {
                 axios.defaults.headers.common['Authorization'] = ""
             }

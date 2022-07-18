@@ -205,6 +205,7 @@
                     'phone_number': this.phonenumber,
                     'clientsemail': this.email,
                     'address': this.address,
+                    'company': localStorage.getItem("companyid")
                 }
                 axios.post('pos/client/', data)
                     .then(response => {
@@ -223,6 +224,7 @@
             }
         },
         mounted (){
+            console.log('this is code :>> ', );
             this.getClinet()
         },
 

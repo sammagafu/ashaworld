@@ -76,6 +76,7 @@
       }
     },
     mounted() {
+      console.log('this.$store.state.token :>> ', this.$store.state.token);
       document.title = 'Log In | Asha'
     },
     methods: {
@@ -92,8 +93,10 @@
             this.$store.commit('setToken', token)
             axios.defaults.headers.common["Authorization"] = "Token " + token
             localStorage.setItem("token", token)
-            const toPath = this.$route.query.to || '/cart'
-            this.$router.push(toPath)
+            console.log(JSON.stringify(req.headers));
+
+            // const toPath = this.$route.query.to || '/cart'
+            // this.$router.push(toPath)
             // console.log('response :>> ', response.data.auth_token);
           }).catch(error => {
             if (error.response) {
@@ -106,14 +109,11 @@
             }
           })
         axios
-          .get('/users/me', {
-            headers: {
-              'Authorization': `token ${access_token}`
-            }
-          })
+          .get('/users/me')
           .then(response => {
+
             this.$store.commit('setUser', {
-              'id': response.data.id,
+              'userid': response.data.id,
               'email': response.data.email
             })
             localStorage.setItem('email', response.data.email)
@@ -122,7 +122,32 @@
           .catch(error => {
             console.log(error)
           })
+        await axios.get('company/my-team/')
+          .then(response => {
+            // console.log('response :>> ', response);
+            this.$store.commit('setcompanyDetails',{
+              'companyid':response.data.id,
+              'companyname':response.data.companyName,
+              'slug':response.data.slug,
+              'city':response.data.city,
+              'country':response.data.country,
+              'address':response.data.address,
+              'businessType':response.data.businessType,
+              'businessLincese':response.data.businessLincese,
+              'tin':response.data.tin,
+              'phone_number':response.data.phone_number,
+              'verified':response.data.verified,
+            })
+            this.$router.push('/')
+          })
+          .catch(error => {
+            console.log('error :>> ', error);
+          })
+
       }
+
     }
   }
 </script>
+
+<!-- this.$router.push('/') -->
