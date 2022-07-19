@@ -9,9 +9,20 @@ export default createStore({
       id: 0,
       email: ''
     },
-    team: {
+    companyDetails: {
       id: 0,
-      name: '',
+      companyName: '',
+      relationship: '',
+      slug: '',
+      city: '',
+      country: '',
+      address: '',
+      businessType: '',
+      businessLincese: '',
+      tin: '',
+      phone_number: 0,
+      verified : false,
+
     }
   },
   mutations: {
@@ -19,17 +30,37 @@ export default createStore({
       if (localStorage.getItem('token')) {
         state.token = localStorage.getItem('token')
         state.isAuthenticated = true
-        state.user.username = localStorage.getItem('username')
+        state.user.username = localStorage.getItem('email')
         state.user.id = localStorage.getItem('userid')
-        state.team.name = localStorage.getItem('team_name')
-        state.team.id = localStorage.getItem('team_id')
+        state.companyDetails.companyName = localStorage.getItem('companyname')
+        state.companyDetails.id = localStorage.getItem('companyid')
+        state.companyDetails.relationship = localStorage.getItem('relationship')
+        state.companyDetails.slug = localStorage.getItem('slug')
+        state.companyDetails.city = localStorage.getItem('city')
+        state.companyDetails.country = localStorage.getItem('country')
+        state.companyDetails.address = localStorage.getItem('address')
+        state.companyDetails.businessType = localStorage.getItem('businessType')
+        state.companyDetails.businessLincese = localStorage.getItem('businessLincese')
+        state.companyDetails.tin = localStorage.getItem('tin')
+        state.companyDetails.phone_number = localStorage.getItem('phone_number')
+        state.companyDetails.verified = localStorage.getItem('verified')
       } else {
         state.token = ''
         state.isAuthenticated = false
         state.user.id = 0
         state.user.username = ''
-        state.team.id = 0
-        state.team.name = ''
+        state.companyDetails.id = 0
+        state.companyDetails.companyName = ''
+        state.companyDetails.relationship = ''
+        state.companyDetails.slug = ''
+        state.companyDetails.city = ''
+        state.companyDetails.country = ''
+        state.companyDetails.address = ''
+        state.companyDetails.businessType = ''
+        state.companyDetails.businessLincese = ''
+        state.companyDetails.tin = ''
+        state.companyDetails.verified = false
+        state.companyDetails.phone_number = 0
       }
     },
     setIsLoading(state, status) {
@@ -46,10 +77,20 @@ export default createStore({
     setUser(state, user) {
       state.user = user
     },
-    setTeam(state, team) {
-      state.team = team
-      localStorage.setItem('team_id', team.id)
-      localStorage.setItem('team_name', team.name)
+    
+    setcompanyDetails(state, companyDetails) {
+      state.companyDetails = companyDetails
+      localStorage.setItem('companyid', companyDetails.id)
+      localStorage.setItem('companyname', companyDetails.name)
+      localStorage.setItem('slug', companyDetails.slug)
+      localStorage.setItem('city', companyDetails.city)
+      localStorage.setItem('country', companyDetails.country)
+      localStorage.setItem('address', companyDetails.address)
+      localStorage.setItem('businessType', companyDetails.businessType)
+      localStorage.setItem('businessLincese', companyDetails.businessLincese)
+      localStorage.setItem('tin', companyDetails.tin)
+      localStorage.setItem('phone_number', companyDetails.phone_number)
+      localStorage.setItem('verified', companyDetails.verified)
     }
   },
   actions: {

@@ -41,17 +41,6 @@
                                 <span class="flex-1 ml-3 whitespace-nowrap">Orders</span>
                             </router-link>
                         </li>
-                        <li>
-                            <router-link :to="{name:'customer'}"
-                                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                                </svg>
-                                <span class="flex-1 ml-3 whitespace-nowrap">Customers</span>
-                            </router-link>
-                        </li>
 
                         <li>
                             <router-link :to="{name:'team'}"
@@ -65,17 +54,60 @@
                             </router-link>
                         </li>
 
+
+
                         <li>
-                            <router-link :to="{name:'pos'}"
-                                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                            <button type="button"
+                                class="flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+                                aria-controls="dropdown-example" data-collapse-toggle="dropdown-example"
+                                aria-expanded="true">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                                     stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
                                 </svg>
-                                <span class="flex-1 ml-3 whitespace-nowrap">Point of Sale</span>
-                            </router-link>
+                                <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item="">Point of
+                                    Sale</span>
+                                <svg sidebar-toggle-item="" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                        clip-rule="evenodd"></path>
+                                </svg>
+                            </button>
+
+                            <ul id="dropdown-example" class="py-2 space-y-2">
+                                <li>
+                                    <router-link :to="{name:'PosCustomers'}"
+                                        class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                        Customer
+                                    </router-link>
+                                </li>
+
+                                <li>
+                                    <router-link :to="{name:'PosProducts'}"
+                                        class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                        Products
+                                    </router-link>
+                                </li>
+
+                                <li>
+                                    <router-link :to="{name:'Pos'}"
+                                        class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                       Make Purchase
+                                    </router-link>
+                                </li>
+
+                                <li>
+                                    <router-link :to="{name:'PosOrders'}"
+                                        class="flex items-center p-2 pl-11 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">
+                                        Orders
+                                    </router-link>
+                                </li>
+                            </ul>
+
                         </li>
+
                     </ul>
                 </div>
 
