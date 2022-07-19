@@ -70,9 +70,8 @@ export default createStore({
         state.isAuthenticated = false
     },
     clearCart(state) {
-      state.cart = { items: [] }
-
-      localStorage.setItem('cart', JSON.stringify(state.cart))
+      state.cartItems = { items: [] }
+      localStorage.removeItem('cart')
     },
     getCategories(state,categories){
       state.categories = categories;

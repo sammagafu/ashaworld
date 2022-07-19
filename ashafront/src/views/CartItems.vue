@@ -153,11 +153,15 @@
 
 <script>
 import axios from 'axios';
+import { useRouter } from "vue-router";
+
     export default {
         name: 'CartItems',
         data(){
             return {
-                sum : 0
+                sum : 0,
+                router:useRouter(),
+
             }
         },
         methods: {
@@ -170,28 +174,25 @@ import axios from 'axios';
                     });
             },
             checkout(){
-                const orderitems = this.$store.state.cartItems
+                const orderitems = this.$store.state.cartItems.map((x)=>{
+                    return x.product.id
+                })
                 const items = []
                 this.sum = this.Sum
-                for(let i=0; i < this.$store.state.cartItems.length; i++){
-                    const item = this.$store.state.cartItems[i]
-                    console.log('item.product.slug :>> ', item.quantity);
-
-                    const obj = {
-                    product: item.product.slug,
-                    quantity: item.quantity,
-                    price: item.product.price * item.quantity
-                }
-                    console.log('item :>> ', item);
-                    // console.log('item :>> ', this.cart.items[i]);
-                }
                 const data = {
-                    'product' : [orderitems],
-                    'totalprice' : this.sum
+                    'orderproducts' :  orderitems,
+                    'totalprice' : this.sum,
+                    'owner':localStorage.getItem('userid')
                 }
                 console.log('orderitems :>> ', data);
                 axios.post('order/',data)
-                .then(response => console.log('object >> ', response))
+                .then(response => {
+                    console.log('object >> ', response);
+                    //clear cart here
+                    this.$store.commit("clearCart")
+                    //go home
+                    this.router.push({name:"home"})
+                    })
                     .catch(error => {
                         // element.parentElement.innerHTML = `Error: ${error.message}`;
                         console.error('There was an error!', error);

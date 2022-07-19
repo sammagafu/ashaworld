@@ -169,7 +169,7 @@
                                 class="p-4"
                                 v-if="selectedCustomer" 
                             >
-                                <span class="font-bold">client info</span>
+                                <span contenteditable="true" class="font-bold">client info</span>
                                 <br>
                                 <span class="text-gray-800">{{selectedCustomer.clients}}</span>
                                 <br>

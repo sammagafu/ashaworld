@@ -28,7 +28,7 @@
             </slot>
           </div>
           <!--footer-->
-          <div class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
+          <div v-if="showFooter" class="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
             <button
             @click="$emit('close')" 
             class="text-red-500 bg-transparent border border-solid border-red-500 hover:bg-red-500 hover:text-white active:bg-red-600 font-bold uppercase text-sm px-6 py-3 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150" type="button" v-on:click="toggleModal()">
@@ -44,7 +44,18 @@
 <script>
 export default {
   name: "AshaModal",
-  props:['title'],
-  emits:["close"]
+  props:{
+    title:String,
+    showFooter:{
+      type:Boolean,
+      default:true,
+    }
+  },
+  emits:["close"],
+  data:()=>{
+    return{
+      footer:true,
+    }
+  }
 }
 </script>
