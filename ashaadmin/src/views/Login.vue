@@ -124,7 +124,7 @@
           })
         await axios.get('company/my-team/')
           .then(response => {
-            // console.log('response :>> ', response);
+            console.log('response :>> ', response);
             this.$store.commit('setcompanyDetails',{
               'companyid':response.data.id,
               'companyname':response.data.companyName,
@@ -138,6 +138,17 @@
               'phone_number':response.data.phone_number,
               'verified':response.data.verified,
             })
+            localStorage.setItem('companyid',response.data.id)
+            localStorage.setItem('companyname',response.data.companyName)
+            localStorage.setItem('slug',response.data.slug)
+            localStorage.setItem('city',response.data.city)
+            localStorage.setItem('country',response.data.country)
+            localStorage.setItem('address',response.data.address)
+            localStorage.setItem('businessType',response.data.businessType)
+            localStorage.setItem('businessLincese',response.data.businessLincese)
+            localStorage.setItem('tin',response.data.tin)
+            localStorage.setItem('phone_number',response.data.phone_number)
+            localStorage.setItem('verified',response.data.verified)
             this.$router.push('/')
           })
           .catch(error => {
