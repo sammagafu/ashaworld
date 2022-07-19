@@ -137,8 +137,25 @@
                                 <li class="active">
                                     <router-link :to="{ name:'home'}">Home</router-link>
                                 </li>
-                                <li>
+                                <!-- <li>
                                     <router-link :to="{ name : 'TheProducts'}">Shop All</router-link>
+                                </li> -->
+                                <li class="has-submenu">
+                                    <router-link :to="{ name : 'TheProducts'}">Shop All</router-link>
+                                    <!-- <a href="shop-banner-sidebar.html">Shop</a> -->
+
+                                    <!-- Start of Megamenu -->
+                                    <ul class="megamenu">
+                                        <li v-for="(category, index) in $store.state.categories" :key="index">
+                                            <h4 class="menu-title">{{ category.categoryname }}</h4>
+                                            <ul v-for="(subcat, index) in category.subcategory" :key="index">
+                                                <li><a href="shop-banner-sidebar.html">{{ subcat.subcategoryname }}</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+
+                                    <!-- End of Megamenu -->
                                 </li>
                                 <li><a href="#">Blog</a></li>
                                 <li><a href="#">Contact Us</a></li>
