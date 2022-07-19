@@ -56,7 +56,7 @@ class POSproduct(models.Model):
     wholeSalePrice = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="wholesale Price") #when 20 products are bought 
     discount = models.ForeignKey("product.ProductDiscount", verbose_name=_("discount in %"), related_name="productdiscount", on_delete=models.SET_NULL,null=True,blank=True)
     created_at = models.DateTimeField(default=timezone.now,editable=False)
-    modified_at = models.DateTimeField(blank=True,null=True)
+    modified_at = models.DateTimeField(blank=True,null=True,auto_now=True)
     approved = models.BooleanField(default=False,verbose_name="Approved for POS")
 
     def __str__(self):
@@ -87,9 +87,9 @@ class POSorder(models.Model):
     ]
 
     order = models.SlugField(_("order"),editable=False,unique=True,null=False)
-    products = models.TextField(verbose_name="products")
+    products = models.TextField(verbose_name="products",null=True)
     status = models.CharField(max_length=100, choices=STATUS, default="SHIPPED")
-    created_at = models.DateField(auto_now_add=True)
+    created_at = models.DateField(auto_now=True)
     buyer = models.ForeignKey(POSclient, verbose_name=_("buyer"), on_delete=models.SET_NULL,blank=True,null=True)
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Seller"), on_delete=models.CASCADE)
 

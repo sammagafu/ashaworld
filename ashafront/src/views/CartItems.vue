@@ -193,6 +193,7 @@ import { useRouter } from "vue-router";
                     //go home
                     this.router.push({name:"home"})
                     })
+
                     .catch(error => {
                         // element.parentElement.innerHTML = `Error: ${error.message}`;
                         console.error('There was an error!', error);
