@@ -64,6 +64,9 @@
                                         Order
                                     </th>
                                     <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                        customer
+                                    </th>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                                         Total Price
                                     </th>
                                     <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
@@ -79,6 +82,10 @@
                             </thead>
                             <tbody>
                                 <tr class="bg-gray-100 border-b" v-for="prod in order" :key="prod.id">
+                                    <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        {{prod.order}}
+                                    </td>
+
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                         {{prod.order}}
                                     </td>

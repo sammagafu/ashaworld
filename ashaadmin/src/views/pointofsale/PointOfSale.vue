@@ -130,7 +130,7 @@
                                             {{prod.productName}}
                                         </td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            {{prod.order_quantity}}
+                                            <input class="w-1/2" type="number" v-model="prod.order_quantity">
                                         </td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             {{prod.price}}
