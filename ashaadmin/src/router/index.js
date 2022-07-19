@@ -3,6 +3,7 @@ import RouteView from "@/views/RouterView.vue"
 import BaseApp from "@/views/BaseApp.vue"
 import AdminBaseView from "@/views/AdminBaseView"
 import Login from "@/views/Login.vue"
+import store from '../store'
 
 const routes = [
   {
@@ -13,6 +14,9 @@ const routes = [
         path: "",
         component: BaseApp,
         name:"UserRouteViews",
+        meta: {
+          requireLogin: true
+        },
         children : [
           {
             path: '',
@@ -87,5 +91,14 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requireLogin) && !store.state.isAuthenticated) {
+    next('/account/login')
+  } else {
+    next()
+  }
+})
+
 
 export default router

@@ -45,7 +45,7 @@
                   <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Settings</a>
                 </MenuItem>
                 <MenuItem v-slot="{ active }">
-                  <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign out</a>
+                  <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']" @click="logout">Sign out</a>
                 </MenuItem>
               </MenuItems>
             </transition>
@@ -65,6 +65,8 @@
 <script setup>
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/vue/outline'
+import axios from 'axios';
+import store from '@/store';
 
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
@@ -72,4 +74,14 @@ const navigation = [
   { name: 'Projects', href: '#', current: false },
   { name: 'Calendar', href: '#', current: false },
 ]
+
+function logout() {
+
+  axios.defaults.headers.common["Authorization"] = ""
+  localStorage.removeItem("token")
+  localStorage.removeItem("username")
+  localStorage.removeItem("userid")
+  this.$store.commit('removeToken')
+  this.$router.push('/')
+}
 </script>

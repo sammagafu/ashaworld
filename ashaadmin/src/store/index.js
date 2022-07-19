@@ -25,6 +25,21 @@ export default createStore({
 
     }
   },
+
+  // companyName = models.CharField(_("Manufacture Name"),max_length=160)
+  // slug = models.SlugField(_("slug"),editable=False,unique=True,null=False)
+  // accounttype = models.CharField(max_length=50,choices=ACCOUNTTYPE)
+  // owner = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+  // relationship = models.CharField(max_length=50,choices=relationshipToBusiness,default="Junior Employee",verbose_name=_("Relationship to Business"))
+  // city = models.CharField(verbose_name=_("City"), max_length=50)
+  // country = models.CharField(verbose_name=_("Country"), max_length=50)
+  // phone_number = PhoneNumberField(verbose_name=_("Business Phone Number"))
+  // address = models.TextField(verbose_name=_("Business Address"))
+  // businessType = models.CharField(max_length=60, verbose_name=_("Business Type"),choices=businessStatus)
+  // businessLincese = models.FileField(verbose_name=_("Bussiness Lincence"),help_text=_("Upload Business Lincence"),upload_to="upload/businesslicense/",null=True,blank=True)
+  // tin = models.FileField(verbose_name=_("Tax Indentification"),help_text=_("Upload Tax Indentification"),upload_to="upload/tin/",null=True,blank=True)
+  // verified = models.BooleanField(default=False)
+
   mutations: {
     initializeStore(state) {
       if (localStorage.getItem('token')) {
