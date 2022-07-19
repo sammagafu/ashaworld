@@ -29,25 +29,45 @@ const routes = [
             component: () => import('../views/Products.vue')
           },
           {
-            path: '/order/',
+            path: '/orders/',
             name: 'order',
             component: () => import('../views/Orders.vue')
           },
+
           {
             path: '/point-of-sale/',
-            name: 'pos',
-            component: () => import('../views/PointOfSale.vue')
+            // name: 'pos',
+            component: RouteView,
+            children : [
+              {
+                path: '',
+                name: 'Pos',
+                component: () => import('../views/pointofsale/PointOfSale.vue')
+              },
+              {
+                path: '/order',
+                name: 'PosOrders',
+                component: () => import('../views/pointofsale/Orders.vue')
+              },
+              {
+                path: '/customer',
+                name: 'PosCustomers',
+                component: () => import('../views/pointofsale/Customers.vue')
+              },
+              {
+                path: '/product/',
+                name: 'PosProducts',
+                component: () => import('../views/pointofsale/Products.vue')
+              },
+            ]
           },
+
           {
             path: '/team/',
             name: 'team',
             component: () => import('../views/Teams.vue')
           },
-          {
-            path: '/customer/',
-            name: 'customer',
-            component: () => import('../views/Customers.vue')
-          },
+          
         ]
       },
       {

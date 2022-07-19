@@ -6,14 +6,15 @@ from django.urls import path,include
 router = DefaultRouter()
 router.register('',PosclientViewSet)
 
-routeruser = DefaultRouter()
-routeruser.register('',PosProductViewSet)
-
+routerproduct = DefaultRouter()
+routerproduct.register('',PosProductViewSet)
 routerorder = DefaultRouter()
 routerorder.register('',PosOrderViewSet)
 
+
+
 urlpatterns = [
     path('client/',include(router.urls)),
-    path('product/',include(routeruser.urls)),
+    path('product/',include(routerproduct.urls)),
     path('order/',include(routerorder.urls)),
 ]

@@ -9,11 +9,15 @@ class POSclientSerializer(serializers.ModelSerializer):
 class POSproductSerializer(serializers.ModelSerializer):
     class Meta:
         model = POSproduct
-        fields = ['productName','brand','coverImage','category','subCategory','descripton','sku','price','wholeSalePrice','discount']
-        read_only = ['approved','created_at','modified_at']
+        fields = ['id','productName','brand','coverImage','category','subCategory','descripton','order_quantity', 'available_quantity','sku','price','wholeSalePrice','discount']
+        read_only_fields = ['id','approved','created_at','modified_at']
 
 class POSorderSerializer(serializers.ModelSerializer):
     class Meta:
         model = POSorder
-        fields = ['product','buyer','seller']
-        read_only = ['order']
+        fields = ['order','products','buyer','seller', 'status', 'created_at']
+        read_only_fields = ['order']
+
+    def perform_create(self, serializer):
+        print(dir(self.request))
+        serializer.save()

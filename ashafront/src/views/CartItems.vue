@@ -169,28 +169,26 @@ import axios from 'axios';
                         console.error('There was an error!', error);
                     });
             },
-            checkout(){
-                const orderitems = this.$store.state.cartItems
+            async checkout(){
                 const items = []
                 this.sum = this.Sum
                 for(let i=0; i < this.$store.state.cartItems.length; i++){
                     const item = this.$store.state.cartItems[i]
-                    console.log('item.product.slug :>> ', item.quantity);
+                    console.log('item.product.slug :>> ', item.product.id);
 
                     const obj = {
-                    product: item.product.slug,
+                    product: item.product.id,
                     quantity: item.quantity,
-                    price: item.product.price * item.quantity
                 }
-                    console.log('item :>> ', item);
-                    // console.log('item :>> ', this.cart.items[i]);
+                items.push(obj)
                 }
+                console.log('items :>> ', items);
                 const data = {
-                    'product' : [orderitems],
-                    'totalprice' : this.sum
+                    'totalprice' : this.sum,
+                    'orderproducts':items,
                 }
                 console.log('orderitems :>> ', data);
-                axios.post('order/',data)
+                await axios.post('order/',data)
                 .then(response => console.log('object >> ', response))
                     .catch(error => {
                         // element.parentElement.innerHTML = `Error: ${error.message}`;

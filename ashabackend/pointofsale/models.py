@@ -40,6 +40,7 @@ class POSclient(models.Model):
         verbose_name_plural = 'Shipping Addresss'
 
 
+
 class POSproduct(models.Model):
     productName = models.CharField(_("Product Name"),max_length=160)
     slug = models.SlugField(_("slug"),editable=False,unique=True,null=False)
@@ -48,12 +49,14 @@ class POSproduct(models.Model):
     category = models.ForeignKey("category.ProuctCategory", verbose_name=_("category"), on_delete=models.SET_NULL,null=True,blank=True)
     subCategory = models.ManyToManyField("category.ProductSubCategory")
     descripton = models.TextField(_("Product description"))
+    order_quantity= models.CharField(null=True, max_length=200)
+    available_quantity = models.IntegerField(verbose_name="quantity in store",default=1)
     sku = models.CharField(max_length=50,verbose_name=_("Stock Keeping Unit"))
     price = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="normal Price")
     wholeSalePrice = models.DecimalField(max_digits=12, decimal_places=2, verbose_name="wholesale Price") #when 20 products are bought 
     discount = models.ForeignKey("product.ProductDiscount", verbose_name=_("discount in %"), related_name="productdiscount", on_delete=models.SET_NULL,null=True,blank=True)
     created_at = models.DateTimeField(default=timezone.now,editable=False)
-    modified_at = models.DateTimeField(blank=True,null=True)
+    modified_at = models.DateTimeField(blank=True,null=True,auto_now=True)
     approved = models.BooleanField(default=False,verbose_name="Approved for POS")
 
     def __str__(self):
@@ -78,12 +81,19 @@ class POSproduct(models.Model):
 
 
 class POSorder(models.Model):
+    STATUS = [
+        ("SHIPPED","shipped"),
+        ("PROCESSING","processing"),
+    ]
+
     order = models.SlugField(_("order"),editable=False,unique=True,null=False)
-    product = models.ForeignKey(POSproduct, verbose_name=_("product"), on_delete=models.CASCADE)
+    products = models.TextField(verbose_name="products",null=True)
+    status = models.CharField(max_length=100, choices=STATUS, default="SHIPPED")
+    created_at = models.DateField(auto_now=True)
     buyer = models.ForeignKey(POSclient, verbose_name=_("buyer"), on_delete=models.SET_NULL,blank=True,null=True)
     seller = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Seller"), on_delete=models.CASCADE)
 
     def save(self,*args, **kwargs):
         if self.pk is None:
             self.order = "asha-order" + uuid.uuid4().hex[:18].lower()
-        super(POSproduct,self).save()
+        super(POSorder,self).save()
