@@ -106,13 +106,15 @@
                                     </td>
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                         <div
-                                         @click="openContext"
+                                         @click="openContext(orderItem.order)"
                                          class="relative inline-block text-left">
                                             <!-- dropdown menu -->
-                                            <div class="origin-top-right hidden absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                                            <div 
+                                            :id="orderItem.order"
+                                            class="origin-top-right hidden absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 z-10 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                                                 <div class="py-1" role="none">
-                                                <a class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Edit</a>
-                                                <a class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Delete</a>
+                                                <a class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="+1" id="menu-item-0">Edit</a>
+                                                <a class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="+1" id="menu-item-1">Delete</a>
                                                 </div>
                                             </div>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -265,8 +267,8 @@
             toggleModal(){
                 this.detailsModal = !this.detailsModal;
             },
-            openContext(e){
-                e.target.parentElement.children[0].classList.toggle("hidden")
+            openContext(id){
+                document.getElementById(id).classList.toggle('hidden')
             }
         }
 
