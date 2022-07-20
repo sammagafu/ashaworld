@@ -45,14 +45,14 @@
             </ul>
           </div>
           <button @click="openModal"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-4 px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
-                        </svg>
-                    </button>
-                    
-         <AshaModal></AshaModal>
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mx-4 px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+            </svg>
+          </button>
+
+          <asha-modal v-if="isOpen" title="Add Product" @close="openModal"></asha-modal>
         </div>
 
       </div>
@@ -65,42 +65,44 @@
 
 <script>
   import axios from 'axios';
-import AshaModal from '@/components/AshaModal.vue';
-  
-  
+  import AshaModal from '@/components/AshaModal.vue';
+
+
   export default {
     name: "PosProducts",
     data() {
-        return {
-            openTab: 1,
-            product: [],
-            isOpen: true,
-            isActive: "information"
-        };
+      return {
+        openTab: 1,
+        product: [],
+        isOpen: false,
+        isActive: "information"
+      };
     },
     methods: {
-        openModal() {
-            this.isOpen = !this.isOpen;
-        },
-        closeModal() {
-            this.isOpen = !this.isOpen;
-        },
-        toggleTabs: function (tabNumber) {
-            this.openTab = tabNumber;
-        },
-        getProducts() {
-            axios.get("pos/product/")
-                .then(response => {
-                this.product = response.data;
-                // console.log('response.data :>> ', response.data);
-            }).catch(error => {
-                console.log(error);
-            });
-        },
+      openModal() {
+        this.isOpen = !this.isOpen;
+      },
+      closeModal() {
+        this.isOpen = !this.isOpen;
+      },
+      toggleTabs: function (tabNumber) {
+        this.openTab = tabNumber;
+      },
+      getProducts() {
+        axios.get("pos/product/")
+          .then(response => {
+            this.product = response.data;
+            // console.log('response.data :>> ', response.data);
+          }).catch(error => {
+            console.log(error);
+          });
+      },
     },
     mounted() {
-        this.getProducts();
+      this.getProducts();
     },
-    components: { AshaModal }
-}
+    components: {
+      AshaModal
+    }
+  }
 </script>
