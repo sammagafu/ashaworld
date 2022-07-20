@@ -18,7 +18,3 @@ class POSorderSerializer(serializers.ModelSerializer):
         model = POSorder
         fields = ['order','products','buyer','seller', 'status', 'created_at']
         read_only_fields = ['order']
-
-    def perform_create(self, serializer):
-        print(dir(self.request))
-        serializer.save()

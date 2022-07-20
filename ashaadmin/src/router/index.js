@@ -1,25 +1,25 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import {
+  createRouter,
+  createWebHistory
+} from 'vue-router'
 import RouteView from "@/views/RouterView.vue"
 import BaseApp from "@/views/BaseApp.vue"
 import AdminBaseView from "@/views/AdminBaseView"
 import Login from "@/views/Login.vue"
 import store from '../store'
 
-const routes = [
-  {
+const routes = [{
     path: '',
     component: RouteView,
-    children:[
-      {
+    children: [{
         path: "",
         component: BaseApp,
-        name:"UserRouteViews",
+        name: "UserRouteViews",
         meta: {
           requireLogin: true
         },
-        children : [
-          {
-            path: '',
+        children: [{
+            path: "",
             name: 'home',
             component: () => import('../views/HomeView.vue')
           },
@@ -35,30 +35,29 @@ const routes = [
           },
 
           {
-            path: '/point-of-sale/',
-            // name: 'pos',
+            path: "/point-of-sale/",
             component: RouteView,
-            children : [
+            children: [
               {
-                path: '',
-                name: 'Pos',
-                component: () => import('../views/pointofsale/PointOfSale.vue')
+                path: "pos",
+                component: () => import('../views/pointofsale/PointOfSale.vue'),
+                name: 'Pos'
               },
               {
-                path: '/order',
-                name: 'PosOrders',
-                component: () => import('../views/pointofsale/Orders.vue')
+                path: "order",
+                component: () => import('../views/pointofsale/Orders.vue'),
+                name: 'PosOrders'
+              }, 
+              {
+                path: "customer",
+                component: () => import('../views/pointofsale/Customers.vue'),
+                name: 'PosCustomers'
               },
               {
-                path: '/customer',
-                name: 'PosCustomers',
-                component: () => import('../views/pointofsale/Customers.vue')
-              },
-              {
-                path: '/product/',
+                path: "product",
+                component: () => import('../views/pointofsale/Products.vue'),
                 name: 'PosProducts',
-                component: () => import('../views/pointofsale/Products.vue')
-              },
+              }, 
             ]
           },
 
@@ -67,24 +66,22 @@ const routes = [
             name: 'team',
             component: () => import('../views/Teams.vue')
           },
-          
+
         ]
       },
       {
-        path:"/account/",
-        name:"AdminRouteViews",
+        path: "/account/",
+        name: "AdminRouteViews",
         component: AdminBaseView,
-        children:[
-          {
-            path:"login/",
-            name:"Login",
-            component: Login,
-          }
-        ]
+        children: [{
+          path: "login/",
+          name: "Login",
+          component: Login,
+        }]
       }
     ]
   },
-  
+
 ]
 
 const router = createRouter({
