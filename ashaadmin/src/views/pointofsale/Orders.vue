@@ -89,8 +89,9 @@
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                         <span 
                                             class="cursor-pointer text-green-600 font-medium"
+                                            v-if="orderItem.buyer"
                                             @click="openOrderDetails(orderItem)"
-                                            >{{orderItem.buyer.clients}}</span>
+                                            >{{ orderItem.buyer.clients }}</span>
                                     </td>
 
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
@@ -103,19 +104,23 @@
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                         {{orderItem.created_at}}
                                     </td>
-                                    <!--
-                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            {{prod.product.category.categoryname}}
-                                        </td>
-                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            {{prod.product.price}}
-                                        </td> -->
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                                        </svg>
+                                        <div
+                                         @click="openContext"
+                                         class="relative inline-block text-left">
+                                            <!-- dropdown menu -->
+                                            <div class="origin-top-right hidden absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                                                <div class="py-1" role="none">
+                                                <a class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-0">Edit</a>
+                                                <a class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="-1" id="menu-item-1">Delete</a>
+                                                </div>
+                                            </div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                                            </svg>
+                                    </div>
                                     </td>
                                 </tr>
 
@@ -259,6 +264,9 @@
             },
             toggleModal(){
                 this.detailsModal = !this.detailsModal;
+            },
+            openContext(e){
+                e.target.parentElement.children[0].classList.toggle("hidden")
             }
         }
 

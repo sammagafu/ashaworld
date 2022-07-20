@@ -210,7 +210,6 @@
                                     placeholder="Search by name"
                                     :items="customers"
                                     :minInputLength="0"
-                                    :defaultItem="customers[0]"
                                     :itemProjection="(item)=> item.clients"
                                     @selectItem="selectedCustomerEventHandler"
                                 >
