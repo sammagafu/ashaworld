@@ -20,7 +20,8 @@
                             xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
                             </path>
-                        </svg></button>
+                        </svg>
+                    </button>
                     <!-- Dropdown menu -->
                     <div id="dropdown"
                         class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700"
@@ -71,11 +72,10 @@
                                     :id="'typehead-id'"
                                     placeholder="Search by name"
                                     :items="products"
-                                    :minInputLength="1"
+                                    :minInputLength="0"
                                     :defaultItem="products[0]"
                                     :itemProjection="(item)=> item.productName"
                                     @selectItem="selectedProductEventHandler"
-                                    @focus="blurEventHandler"
                                 >
                                 </vue3-simple-typeahead>
 
@@ -209,10 +209,9 @@
                                     :id="'user-typehead-id'"
                                     placeholder="Search by name"
                                     :items="customers"
-                                    :minInputLength="1"
+                                    :minInputLength="0"
                                     :defaultItem="customers[0]"
                                     :itemProjection="(item)=> item.clients"
-                                    @focus="blurEventHandler"
                                     @selectItem="selectedCustomerEventHandler"
                                 >
                                 </vue3-simple-typeahead>

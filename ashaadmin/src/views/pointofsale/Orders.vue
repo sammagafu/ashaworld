@@ -81,24 +81,27 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="bg-gray-100 border-b" v-for="prod in order" :key="prod.id">
+                                <tr class="bg-gray-100 border-b" v-for="orderItem in order" :key="orderItem.id">
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        {{prod.order}}
+                                        {{orderItem.order}}
                                     </td>
 
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        {{prod.order}}
+                                        <span 
+                                            class="cursor-pointer text-green-600 font-medium"
+                                            @click="openOrderDetails(orderItem)"
+                                            >{{orderItem.buyer.clients}}</span>
                                     </td>
 
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        {{ getTotalPrice(prod.products) }}
+                                        {{ getTotalPrice(orderItem.products) }}
                                     </td>
 
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap lowercase">
-                                        {{prod.status}}
+                                        {{orderItem.status}}
                                     </td>
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                        {{prod.created_at}}
+                                        {{orderItem.created_at}}
                                     </td>
                                     <!--
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
@@ -118,21 +121,112 @@
 
                             </tbody>
                         </table>
+                        
                     </div>
+                    <ashaModal
+                        @close="toggleModal"
+                        title="Order Details"
+                        v-if="detailsModal"
+                        >
+                            <div class="table-wrapper">
+                                <div class="header flex justify-between">
+                                    <p class="font-semibold">Products</p>
+                                    <button id="dropdownDefault" data-dropdown-toggle="dropdown"
+                                        class="text-white bg-indigo-700 hover:bg-indigo-600 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center inline-flex items-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
+                                        type="button">
+                                        <span class="mr-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                                            </svg></span>
+                                        Export
+                                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <table class="min-w-full">
+                                    <thead class="bg-white border-b">
+                                        <tr>
+                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Id
+                                        </th>
+                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Product Name
+                                        </th>
+                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Price
+                                        </th>
+                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Quantity
+                                        </th>
+                                        <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                                            Action
+                                        </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="prod, i in currentOrder" :key="prod.id" class="bg-gray-100 border-b">
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            {{prod.id}}
+                                        </td>
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            {{prod.productName}}
+                                        </td>
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            {{prod.pric1}}
+                                        </td>
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            {{prod.order_quantity}}
+                                        </td>
+                                        <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                            <div class="flex justify-between">
+                                            <button type="button"
+                                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                                stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                                Edit
+                                            </button>
+                                            <button type="button"
+                                                class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center inline-flex items-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                                                stroke="currentColor" stroke-width="2">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                                Delete
+                                            </button>
+                                            </div>
+                                        </td>
+                                        </tr>
+
+                                    </tbody>
+                                    </table>
+                            </div>
+                    </ashaModal>
                 </div>
             </div>
         </div>
     </div>
-
 </template>
 
 <script>
     import axios from 'axios'
+    import AshaModal from "@/components/AshaModal.vue";
+
     export default {
         name: 'Orders',
+        components:{AshaModal},
         data() {
             return {
-                order: []
+                order: [],
+                detailsModal:false,
+                currentOrder:{}
             }
         },
         mounted() {
@@ -156,6 +250,15 @@
                     price = price +  (x.price * x.order_quantity)
                 })
                 return price
+            },
+            openOrderDetails(item){
+                this.detailsModal = true;
+                console.log(JSON.parse(item.products))
+                const items = JSON.parse(item.products)
+                this.currentOrder  = items
+            },
+            toggleModal(){
+                this.detailsModal = !this.detailsModal;
             }
         }
 

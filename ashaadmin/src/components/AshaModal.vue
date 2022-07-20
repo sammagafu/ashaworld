@@ -9,8 +9,8 @@
             <h3 class="text-3xl font-semibold">
               {{title || "title goes here"}}
             </h3>
-            <button class="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none" v-on:click="toggleModal()">
-              <span class="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
+            <button class="p-1 ml-auto bg-transparent border-0 text-red-600  float-right text-3xl leading-none font-normal" v-on:click="$emit('close')">
+              <span class=" text-red-600 block focus:outline-none">
                 ×
               </span>
             </button>
@@ -48,7 +48,7 @@ export default {
     title:String,
     showFooter:{
       type:Boolean,
-      default:true,
+      default:false,
     }
   },
   emits:["close"],
