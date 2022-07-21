@@ -16,5 +16,5 @@ class POSorderSerializer(serializers.ModelSerializer):
     buyer = POSclientSerializer(read_only=True)
     class Meta:
         model = POSorder
-        fields = ['order','products','buyer','seller', 'status', 'created_at']
+        fields = ['id','order','products','buyer','seller', 'status', 'created_at']
         read_only_fields = ['order']

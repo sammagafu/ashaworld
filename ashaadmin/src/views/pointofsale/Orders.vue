@@ -7,7 +7,9 @@
             <div class="basis-1/2">
                 <div class="inline-flex rounded-lg">
                     <!-- focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded -->
-                    <button id="dropdownDefault" data-dropdown-toggle="dropdown"
+                    <button 
+                    @click="exportAllOrders"
+                    id="dropdownDefault" data-dropdown-toggle="dropdown"
                         class="text-white bg-indigo-700 hover:bg-indigo-600 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
                         type="button">
                         <span class="mr-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -113,8 +115,10 @@
                                             :id="orderItem.order"
                                             class="origin-top-right hidden absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 z-10 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
                                                 <div class="py-1" role="none">
-                                                <a class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="+1" id="menu-item-0">Edit</a>
-                                                <a class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="+1" id="menu-item-1">Delete</a>
+                                                <!-- <a class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="+1" id="menu-item-0">Edit</a> -->
+                                                <a 
+                                                @click="deleteOrder(orderItem.id)"
+                                                class="text-gray-700 block px-4 py-2 text-sm" role="menuitem" tabindex="+1" id="menu-item-1">Delete</a>
                                                 </div>
                                             </div>
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -138,7 +142,9 @@
                             <div class="table-wrapper">
                                 <div class="header flex justify-between">
                                     <p class="font-semibold">Products</p>
-                                    <button id="dropdownDefault" data-dropdown-toggle="dropdown"
+                                    <button 
+                                    @click="exportOrder"
+                                    id="dropdownDefault" data-dropdown-toggle="dropdown"
                                         class="text-white bg-indigo-700 hover:bg-indigo-600 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-1.5 text-center inline-flex items-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
                                         type="button">
                                         <span class="mr-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
@@ -233,7 +239,9 @@
             return {
                 order: [],
                 detailsModal:false,
-                currentOrder:{}
+                currentOrder:{},
+                currentOrderId:null,
+                currentContext:[]
             }
         },
         mounted() {
@@ -244,6 +252,41 @@
                 axios.get('pos/order')
                     .then(response => {
                         this.order = response.data;
+                    }).catch(error => {
+                        console.log(error);
+                    });
+            },
+            deleteOrder(id){
+                axios.delete(`pos/order/${id}`)
+                    .then(response => {
+                        return response;
+                    }).catch(error => {
+                        console.log(error);
+                    });
+                    this.$router.push({name: 'PosOrders'})
+            },
+            exportOrder(){
+                axios.get(`pos/order/${this.currentOrderId}/export_order/?id=${this.currentOrderId}`)
+                    .then(response => {
+                        const fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                        const fileLink = document.createElement('a');
+                        fileLink.href = fileURL;
+                        fileLink.setAttribute('download', 'file.csv');
+                        document.body.appendChild(fileLink);
+                        fileLink.click();
+                    }).catch(error => {
+                        console.log(error);
+                    });
+            },
+            exportAllOrders(){
+                axios.get(`pos/order/export_order_list/?id=${localStorage.getItem('userid')}`)
+                    .then(response => {
+                        const fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                        const fileLink = document.createElement('a');
+                        fileLink.href = fileURL;
+                        fileLink.setAttribute('download', 'all_orders.csv');
+                        document.body.appendChild(fileLink);
+                        fileLink.click();
                     }).catch(error => {
                         console.log(error);
                     });
@@ -260,15 +303,20 @@
             },
             openOrderDetails(item){
                 this.detailsModal = true;
-                console.log(JSON.parse(item.products))
                 const items = JSON.parse(item.products)
                 this.currentOrder  = items
+                this.currentOrderId  = item.id
             },
             toggleModal(){
                 this.detailsModal = !this.detailsModal;
             },
             openContext(id){
-                document.getElementById(id).classList.toggle('hidden')
+                const el = document.getElementById(id)
+                el.classList.toggle('hidden')
+                if(this.currentContext.length>0){
+                    this.currentContext[0].classList.toggle('hidden');
+                    this.currentContext[0] = el;
+                }
             }
         }
 
