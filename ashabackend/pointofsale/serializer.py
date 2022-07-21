@@ -4,7 +4,7 @@ from . models import POSclient,POSproduct,POSorder
 class POSclientSerializer(serializers.ModelSerializer):
     class Meta:
         model = POSclient
-        fields = 'clients','clientsemail','phone_number','address','provider','owner','company','isactive'
+        fields = ['clients','clientsemail','phone_number','address','provider','owner','company','isactive']
 
 class POSproductSerializer(serializers.ModelSerializer):
     class Meta:

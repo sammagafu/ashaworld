@@ -8,7 +8,7 @@
                 <div class="inline-flex rounded-lg">
                     <!-- focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded -->
                     <button 
-                    @click="exportAllOrders"
+                    @click="exportAllPosOrders"
                     id="dropdownDefault" data-dropdown-toggle="dropdown"
                         class="text-white bg-indigo-700 hover:bg-indigo-600 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
                         type="button">
@@ -292,14 +292,14 @@
                         const fileURL = window.URL.createObjectURL(new Blob([response.data]));
                         const fileLink = document.createElement('a');
                         fileLink.href = fileURL;
-                        fileLink.setAttribute('download', 'file.csv');
+                        fileLink.setAttribute('download', 'order.csv');
                         document.body.appendChild(fileLink);
                         fileLink.click();
                     }).catch(error => {
                         console.log(error);
                     });
             },
-            exportAllOrders(){
+            exportAllPosOrders(){
                 axios.get(`pos/order/export_order_list/?id=${localStorage.getItem('userid')}`)
                     .then(response => {
                         const fileURL = window.URL.createObjectURL(new Blob([response.data]));
