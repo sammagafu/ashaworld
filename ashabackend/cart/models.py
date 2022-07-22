@@ -14,7 +14,7 @@ class Cart(models.Model):
         verbose_name_plural = _("Shopping Cart")
 
     def __str__(self):
-        return self.name
+        return 'Cart'
 
     def get_absolute_url(self):
         return reverse("_detail", kwargs={"pk": self.pk})

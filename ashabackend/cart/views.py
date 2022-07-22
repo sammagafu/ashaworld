@@ -17,9 +17,10 @@ from .serializer import CartSerializer,FavouriteProductSerializer
 class CartList(APIView):
     authentication_classes = [authentication.TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
-
+# 
     def get(self, request, format=None):
-        cart = Cart.objects.filter(owner=self.request.user)
+        print("user Id: ", self.request.user)
+        cart = Cart.objects.filter(owner=self.request.user.id)
         serializer = CartSerializer(cart, many=True)
         return Response(serializer.data)
 
@@ -36,8 +37,18 @@ class AddProductToCart (generics.CreateAPIView):
 
 
 class RemoveRetreiveUpdateDeleteCart(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = CartSerializer
-    queryset = Cart.objects.all()
+    serializer_class = CartSerializer(many=True)
+    lookup_field = 'owner'
+
+    def get_queryset(self):
+        return Cart.objects.all().filter(owner=self.kwargs['owner'])
+    
+    def delete(self, request, *args, **kwargs):
+        cart = Cart.objects.all().filter(owner=self.kwargs['owner'])
+        if cart.count() > 0:
+           cart.delete()
+           return Response("cart items deleted", status=status.HTTP_204_NO_CONTENT)
+        return Response("Unable to delete cart items.", status=status.HTTP_404_OK)
 
 
 class AddProductToFavourite(generics.ListCreateAPIView):

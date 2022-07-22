@@ -99,7 +99,7 @@ export default createStore({
           }).catch(error => {
               console.log(error);
           })
-    },
+    }
   },
   modules: {
   }

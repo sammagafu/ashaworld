@@ -107,7 +107,7 @@
                                     </ul>
 
                                     <div class="shipping-calculator">
-                                        <form class="shipping-calculator-form" @submit.prevent="checkout(Sum)">
+                                        <form class="shipping-calculator-form" @submit.prevent="checkout">
                                             <div class="form-group">
                                                 <input class="form-control form-control-md" type="text" name="town-city"
                                                     placeholder="Full Name">
@@ -166,11 +166,11 @@ import { useRouter } from "vue-router";
         },
         methods: {
             removeItemtoCart(item) {
-                axios.delete(`/cart/${item}/`)
+                axios.delete(`/cart/2/delete`)
                     .then(response => this.$router.go(this.$router.currentRoute))
                     .catch(error => {
                         element.parentElement.innerHTML = `Error: ${error.message}`;
-                        console.error('There was an error!', error);
+                        console.error('There was an error tony!', error);
                     });
             },
             checkout(){
@@ -190,6 +190,7 @@ import { useRouter } from "vue-router";
                     console.log('object >> ', response);
                     //clear cart here
                     this.$store.commit("clearCart")
+                    this.removeItemtoCart(1)
                     //go home
                     this.router.push({name:"home"})
                     })
@@ -201,6 +202,9 @@ import { useRouter } from "vue-router";
 
 
             },
+            clearCart(){
+                this.$store.commit("clearCart")
+            }
         },
         computed:{
             Sum(){ return this.$store.state.cartItems.reduce( (Sum, product) => product.get_total_price + Sum  ,0);},
