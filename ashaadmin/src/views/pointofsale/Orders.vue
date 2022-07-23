@@ -280,11 +280,12 @@
             deleteOrder(id){
                 axios.delete(`pos/order/${id}`)
                     .then(response => {
-                        return response;
+                        this.order = this.order.filter(x=>{
+                        if(x.id!=id) return x
+                    });
                     }).catch(error => {
                         console.log(error);
                     });
-                    this.$router.push({name: 'PosOrders'})
             },
             exportOrder(){
                 axios.get(`pos/order/${this.currentOrderId}/export_order/?id=${this.currentOrderId}`)
