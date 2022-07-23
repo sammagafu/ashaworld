@@ -157,8 +157,9 @@
 
                                     <!-- End of Megamenu -->
                                 </li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#">Contact Us</a></li>
+                                <li><router-link :to="{name:'vendor'}">Become a vendor</router-link></li>
+                                <!-- <li><a href="#">Blog</a></li> -->
+                                <li><router-link :to="{name:'contact'}">Contact</router-link></li>
                             </ul>
                         </nav>
                     </div>

@@ -32,7 +32,16 @@ const routes = [
             name: 'about',
             component: () => import( /* webpackChunkName: "about" */ '../views/AboutView.vue')
           },
-
+          {
+            path: '/become-a-vendor',
+            name: 'vendor',
+            component: () => import( /* webpackChunkName: "about" */ '../views/BecomeVendor.vue')
+          },
+          {
+            path: '/contact-us',
+            name: 'contact',
+            component: () => import( /* webpackChunkName: "about" */ '../views/ContactUsPage.vue')
+          },
           {
             path: '/login',
             name: 'login',
@@ -44,39 +53,41 @@ const routes = [
             name: 'signup',
             component: () => import( /* webpackChunkName: "about" */ '../views/SignUp.vue')
           },
-
-
           {
-            path: '/cart',
-            name: 'cart',
-            component: () => import('../views/CartItems.vue'),
+            path: '/signup/vendor',
+            name: 'vendorSignUp',
+            component: () => import( /* webpackChunkName: "about" */ '../views/VendorSignUp.vue')
+          },
+          {
+            path: '/my-account/',
+            name: 'UsersAccount',
+            component: RouteView,
             meta: {
               requireLogin: true
-            }
-
+            },
+            children :[
+            {
+              path:'',
+              name: 'my-account',
+              component: () => import('../views/myaccount/MyAccount.vue'),
+            },
+            {
+              path: 'wishlist/',
+              name: 'wishlist',
+              component: () => import('../views/myaccount/WishList.vue'),
+            },
+            {
+              path: 'cart/',
+              name: 'cart',
+              component: () => import('../views/myaccount/CartItems.vue'),
+            },
+            {
+              path: 'order/',
+              name: 'myorders',
+              component: () => import('../views/myaccount/MyOrders.vue'),
+            },
+            ]
           },
-
-          {
-            path: '/my-account',
-            name: 'my-account',
-            component: () => import('../views/MyAccount.vue'),
-            meta: {
-              requireLogin: true
-            }
-
-          },
-
-          {
-            path: '/wishlist',
-            name: 'wishlist',
-            component: () => import('../views/WishList.vue'),
-            meta: {
-              requireLogin: true
-            }
-
-          },
-
-
           {
             path: '/compared',
             name: 'compared',
@@ -127,34 +138,6 @@ const routes = [
           }
         ]
       },
-
-      {
-        path:"admins",
-        name:"AdminRouteViews",
-        meta: { adminOnly: true },
-        component: RouteView,
-        children:[
-          {
-            path:"",
-            component: AdminBaseView,
-            beforeEnter:(to, from) => {
-              const user = JSON.parse(localStorage.getItem("ashaUser"))
-              console.log("user", user)
-              if(to.meta.adminOnly && user.isAdmin){
-                return true
-              }
-              return { path:"", name:"UserRouteViews"}
-            },
-            children:[
-              {
-                path:"login",
-                name:"AdminLogin",
-                component: () => import("../views/UserLogin.vue")
-              }
-            ]
-          }
-        ]
-      }
     ]
   },
 
