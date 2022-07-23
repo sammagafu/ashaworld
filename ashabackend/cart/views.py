@@ -37,7 +37,7 @@ class AddProductToCart (generics.CreateAPIView):
 
 
 class RemoveRetreiveUpdateDeleteCart(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = CartSerializer(many=True)
+    serializer_class = CartSerializer
     lookup_field = 'owner'
 
     def get_queryset(self):
@@ -48,7 +48,7 @@ class RemoveRetreiveUpdateDeleteCart(generics.RetrieveUpdateDestroyAPIView):
         if cart.count() > 0:
            cart.delete()
            return Response("cart items deleted", status=status.HTTP_204_NO_CONTENT)
-        return Response("Unable to delete cart items.", status=status.HTTP_404_OK)
+        return Response("Unable to delete cart items.", status=status.HTTP_404_NOT_FOUND)
 
 
 class AddProductToFavourite(generics.ListCreateAPIView):

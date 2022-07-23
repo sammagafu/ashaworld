@@ -166,7 +166,7 @@ import { useRouter } from "vue-router";
         },
         methods: {
             removeItemtoCart(item) {
-                axios.delete(`/cart/2/delete`)
+                axios.delete(`/cart/${localStorage.getItem('userid')}/delete`)
                     .then(response => this.$router.go(this.$router.currentRoute))
                     .catch(error => {
                         element.parentElement.innerHTML = `Error: ${error.message}`;
