@@ -265,7 +265,7 @@ import { useRouter } from "vue-router";
       },
       createOrder(){
         const order = {
-            products:JSON.stringify(this.orderProducts),
+            products:JSON.stringify(this.selectedProducts),
             buyer:this.selectedCustomer,
             seller:localStorage.getItem('userid')
         }
