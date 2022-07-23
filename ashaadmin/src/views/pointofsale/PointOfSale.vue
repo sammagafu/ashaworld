@@ -274,7 +274,7 @@ import { useRouter } from "vue-router";
         }).catch(error => {
             console.log(error)
         });
-        this.router.push({name:"order"})
+        this.router.push({name:"PosOrders"})
       },
         
       selectedProductEventHandler(value){
