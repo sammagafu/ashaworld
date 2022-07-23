@@ -18,7 +18,7 @@ STATUS = [
 
 
 class Order(models.Model):
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Order Owner"), on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name=_("Order Owner"), on_delete=models.CASCADE, related_name="owner")
     slug = models.SlugField(_("slug"),editable=False,unique=True,null=False)
     orderstatus = models.CharField(max_length=50,choices=STATUS,default=STATUS[0][0])
     created_at = models.DateTimeField(default=timezone.now,blank=True,null=True)
@@ -52,5 +52,5 @@ class OrderItems(models.Model):
         verbose_name_plural = 'Orders'
 
     def __str__(self):
-        return self.prouct.productName
+        return self.product.productName
 

@@ -17,9 +17,9 @@ class OrderSerializer(serializers.ModelSerializer):
     # owner = serializers.PrimaryKeyRelatedField(read_only=True)
     class Meta:
         model = Order
-        read_only = ('owner','paid_at','created_at')
-        fields = ['owner','totalprice','orderstatus','active','promo_code','orderproducts','slug','created_at']
-        
+        read_only = ('owner','paid_at','created_at', 'id')
+        fields = ['owner','totalprice','orderstatus', 'id','active','promo_code','orderproducts','slug','created_at']
+        depth = 1
     
     def create(self, validated_data):
         orderitems = validated_data.pop('orderproducts')

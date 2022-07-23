@@ -112,7 +112,7 @@
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                         <span 
                                             class="cursor-pointer text-green-600 font-medium"
-                                            @click="openOrderDetails(orderItem)"
+                                        
                                             >{{ orderItem.owner.email }}</span>
                                     </td>
 
