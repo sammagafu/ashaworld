@@ -246,9 +246,7 @@
                     }).catch(error => {
                         console.log(error);
                     });
-                this.$router.push({
-                    name: 'PosCustomers'
-                })
+                this.$router.go()
             },
             getClinet() {
                 axios.get('pos/client').then(response => {

@@ -66,6 +66,11 @@ const routes = [{
             name: 'team',
             component: () => import('../views/Teams.vue')
           },
+          {
+            path: '/team/:teamid',
+            name: 'teamdetail',
+            component: () => import('../views/TeamDetail.vue')
+          },
 
         ]
       },
