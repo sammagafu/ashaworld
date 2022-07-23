@@ -13,8 +13,18 @@ class POSproductSerializer(serializers.ModelSerializer):
         read_only_fields = ['id','approved','created_at','modified_at']
 
 class POSorderSerializer(serializers.ModelSerializer):
-    buyer = POSclientSerializer(read_only=True)
+    buyer = POSclientSerializer(read_only=False)
+
     class Meta:
         model = POSorder
         fields = ['id','order','products','buyer','seller', 'status', 'created_at']
-        read_only_fields = ['order']
+        read_only_fields = ['order', 'buyer']
+
+    def create(self, validated_data):
+        print(validated_data)
+        buyer = validated_data.pop('buyer')
+        buyer_instance = POSclient.objects.get(owner=buyer['owner'])
+        order = POSorder.objects.create(**validated_data)
+        order.buyer = buyer_instance
+        order.save()
+        return order

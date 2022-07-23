@@ -266,7 +266,7 @@ import { useRouter } from "vue-router";
       createOrder(){
         const order = {
             products:JSON.stringify(this.orderProducts),
-            buyer:this.selectedCustomer.owner,
+            buyer:this.selectedCustomer,
             seller:localStorage.getItem('userid')
         }
         axios.post('pos/order/',order).then(response => {
