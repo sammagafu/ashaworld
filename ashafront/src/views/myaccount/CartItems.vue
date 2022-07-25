@@ -154,19 +154,18 @@
 <script>
 import axios from 'axios';
 import { useRouter } from "vue-router";
-
+import { mapState } from 'vuex';
     export default {
         name: 'CartItems',
         data(){
             return {
                 sum : 0,
                 router:useRouter(),
-
             }
         },
         methods: {
             removeItemtoCart(item) {
-                axios.delete(`/cart/${localStorage.getItem('userid')}/delete`)
+                axios.delete(`/cart/2/delete`)
                     .then(response => this.$router.go(this.$router.currentRoute))
                     .catch(error => {
                         element.parentElement.innerHTML = `Error: ${error.message}`;
@@ -174,14 +173,10 @@ import { useRouter } from "vue-router";
                     });
             },
             checkout(){
-                const orderitems = this.$store.state.cartItems.map((x)=>{
-                    return x.product.id
-                })
-                const items = []
-                this.sum = this.Sum
+                this.sum = this.Sum //calculates totalproce
                 const data = {
-                    'orderproducts' :  orderitems,
-                    'totalprice' : this.sum,
+                    'orderproducts' :  this.cartItems.map(x=>{return x.product.id}),
+                    'totalprice' : this.sum.toString(),
                     'owner':localStorage.getItem('userid')
                 }
                 console.log('orderitems :>> ', data);
@@ -194,24 +189,21 @@ import { useRouter } from "vue-router";
                     //go home
                     this.router.push({name:"home"})
                     })
-
                     .catch(error => {
                         // element.parentElement.innerHTML = `Error: ${error.message}`;
-                        console.error('There was an error!', error);
+                        console.error('There was an error!', error.stack);
                     });
-
-
             },
             clearCart(){
                 this.$store.commit("clearCart")
             }
         },
         computed:{
+            ...mapState(["cartItems"]),
             Sum(){ return this.$store.state.cartItems.reduce( (Sum, product) => product.get_total_price + Sum  ,0);},
-        },
+        }
     }
 </script>
 
 <style>
-
 </style>

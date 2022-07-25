@@ -82,7 +82,7 @@ export default createStore({
   },
   actions: {
     getCategories({commit}) {
-      axios.get("/category/")
+      return axios.get("/category/")
           .then(response => {
             let cat = response.data
               commit('getCategories', cat);
@@ -92,7 +92,7 @@ export default createStore({
 
     getCartItems({commit}){
       const token = localStorage.getItem('token')
-      axios.get("/cart/",{ headers: {"Authorization" : `Token ${token}`} })
+      return axios.get("/cart/",{ headers: {"Authorization" : `Token ${token}`} })
           .then(response => {
             let cart = response.data
               commit('getCartItems', cart);
