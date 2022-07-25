@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Order,OrderItems
+from django.conf import settings
 from product.serializer import ProductSerializer
 
 class OrderProductSerializer(serializers.ModelSerializer):
@@ -11,13 +12,13 @@ class OrderProductSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     orderproducts = OrderProductSerializer(many=True)
-    owner = serializers.PrimaryKeyRelatedField(read_only=True)
-    class Meta:
+    # owner = serializers.PrimaryKeyRelatedField(read_only=True,)
 
+    class Meta:
         model = Order
+        depth=1
         read_only = ('owner','paid_at','created_at')
-        fields = ['owner','totalprice','orderstatus','active','promo_code','orderproducts','slug','created_at']
-        
+        fields = ['id','owner','totalprice','orderstatus','active','promo_code','orderproducts','slug','created_at']
     
     def create(self, validated_data):
         orderitems = validated_data.pop('orderproducts')
