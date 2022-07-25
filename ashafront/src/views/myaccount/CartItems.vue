@@ -175,9 +175,10 @@ import { mapState } from 'vuex';
             checkout(){
                 this.sum = this.Sum //calculates totalproce
                 const data = {
-                    'orderproducts' :  this.cartItems.map(x=>{return x.product.id}),
+                    'orderproducts' :  this.cartItems.map(x=>{return {products:x.product, quantity:x.quantity}}),
                     'totalprice' : this.sum.toString(),
-                    'owner':localStorage.getItem('userid')
+                    'owner_id':parseInt(localStorage.getItem('userid'))
+                    // 'owner':{id:parseInt(localStorage.getItem('userid'))}
                 }
                 console.log('orderitems :>> ', data);
                 axios.post('order/',data)
