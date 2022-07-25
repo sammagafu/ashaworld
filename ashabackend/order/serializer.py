@@ -17,7 +17,7 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         read_only = ('id','owner','paid_at','created_at')
         fields = ['id','owner','totalprice','orderstatus','active','promo_code','orderproducts','slug','created_at']
-        depth=1
+        # depth=1
     
     def create(self, validated_data):
         orderitems = validated_data.pop('orderproducts')
