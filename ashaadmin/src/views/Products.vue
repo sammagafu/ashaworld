@@ -9,6 +9,7 @@
         <div class="inline-flex rounded-lg">
           <!-- focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded -->
           <button id="dropdownDefault" data-dropdown-toggle="dropdown"
+            @click="exportAllProducts"
             class="text-white bg-indigo-700 hover:bg-indigo-600 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
             type="button">
             <span class="mr-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -82,6 +83,9 @@
               <thead class="bg-white border-b">
                 <tr>
                   <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                    ID
+                  </th>
+                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                     image
                   </th>
                   <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
@@ -107,11 +111,17 @@
               </thead>
               <tbody>
                 <tr class="bg-gray-100 border-b" v-for="prod in product" :key="prod.id">
+                  <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                    {{prod.id}}
+                  </td>
                   <td class="px-6 py-4 whitespace-nowraw">
                     <img :src="prod.get_coverImage" alt="">
                   </td>
                   <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    {{prod.productName}}
+                    <span 
+                      class=" font-medium">
+                      {{prod.productName}}
+                    </span>
                   </td>
                   <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                     {{prod.sku}}
@@ -129,7 +139,7 @@
                   <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                     <div class="flex justify-between">
                       <button type="button"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                           stroke="currentColor" stroke-width="2">
                           <path stroke-linecap="round" stroke-linejoin="round"
@@ -138,7 +148,7 @@
                         Edit
                       </button>
                       <button type="button"
-                        class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                        class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-1.5 text-center inline-flex items-center mr-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                           stroke="currentColor" stroke-width="2">
                           <path stroke-linecap="round" stroke-linejoin="round"
@@ -157,6 +167,7 @@
       </div>
     </div>
   </div>
+  
 
   <div class="overflow-y-auto overflow-x-hidden fixed z-50 w-full md:inset-0 h-modal md:h-full"
     :class="{hidden : isOpen}">
@@ -284,6 +295,7 @@
     </div>
   </div>
 
+
 </template>
 
 <script>
@@ -319,6 +331,19 @@
             console.log(error);
           });
       },
+      exportAllProducts(){
+                axios.get(`product/export_product_list`)
+                    .then(response => {
+                        const fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                        const fileLink = document.createElement('a');
+                        fileLink.href = fileURL;
+                        fileLink.setAttribute('download', 'order.csv');
+                        document.body.appendChild(fileLink);
+                        fileLink.click();
+                    }).catch(error => {
+                        console.log(error);
+                    });
+            }
     },
     mounted() {
       this.getProducts();

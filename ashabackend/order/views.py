@@ -5,7 +5,6 @@ from rest_framework_csv import renderers as r
 # api imports
 from .serializer import OrderSerializer, OrderProductSerializer
 from rest_framework import viewsets
-from rest_framework.permissions import IsAdminUser
 
 
 class OrderListRenderer(r.CSVRenderer):
