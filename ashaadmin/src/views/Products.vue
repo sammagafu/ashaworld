@@ -83,7 +83,9 @@
             <table class="min-w-full">
               <thead class="bg-white border-b">
                 <tr>
-                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  <th 
+                    @click="sortProducts('id')"
+                    scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                     ID
                   </th>
                   <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
@@ -95,7 +97,9 @@
                   <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                     SKU
                   </th>
-                  <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
+                  <th 
+                    @click="sortProducts('price')"
+                    scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                     Price
                   </th>
                   <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">
@@ -333,17 +337,31 @@
           });
       },
       exportAllProducts(){
-                axios.get(`product/export_product_list`)
-                    .then(response => {
-                        const fileURL = window.URL.createObjectURL(new Blob([response.data]));
-                        const fileLink = document.createElement('a');
-                        fileLink.href = fileURL;
-                        fileLink.setAttribute('download', 'all-products.csv');
-                        document.body.appendChild(fileLink);
-                        fileLink.click();
-                    }).catch(error => {
-                        console.log(error);
-                    });
+          axios.get(`product/export_product_list`)
+              .then(response => {
+                  const fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                  const fileLink = document.createElement('a');
+                  fileLink.href = fileURL;
+                  fileLink.setAttribute('download', 'all-products.csv');
+                  document.body.appendChild(fileLink);
+                  fileLink.click();
+              }).catch(error => {
+                  console.log(error);
+              });
+      },
+      sortProducts(by){
+                console.log(this.product)
+                const sortFn = (a,b)=>{
+                    if(a[by]<b[by]){
+                        return -1
+                    }
+                    if(a[by]>b[by]){
+                        return 1
+                    }
+                    return 0
+                    }
+                console.log(this.product)
+                this.product.sort(sortFn)
             }
     },
     mounted() {
