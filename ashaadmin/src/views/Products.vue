@@ -8,8 +8,9 @@
       <div class="basis-1/2">
         <div class="inline-flex rounded-lg">
           <!-- focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 mt-4 sm:mt-0 inline-flex items-start justify-start px-6 py-3 bg-indigo-700 hover:bg-indigo-600 focus:outline-none rounded -->
-          <button id="dropdownDefault" data-dropdown-toggle="dropdown"
+          <button
             @click="exportAllProducts"
+            id="dropdownDefault" data-dropdown-toggle="dropdown"
             class="text-white bg-indigo-700 hover:bg-indigo-600 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
             type="button">
             <span class="mr-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -337,7 +338,7 @@
                         const fileURL = window.URL.createObjectURL(new Blob([response.data]));
                         const fileLink = document.createElement('a');
                         fileLink.href = fileURL;
-                        fileLink.setAttribute('download', 'order.csv');
+                        fileLink.setAttribute('download', 'all-products.csv');
                         document.body.appendChild(fileLink);
                         fileLink.click();
                     }).catch(error => {
