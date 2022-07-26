@@ -201,7 +201,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="prod, i in currentOrder" :key="prod.id" class="bg-gray-100 border-b">
+                                        <tr v-for="prod, i in currentOrderItems" :key="prod.id" class="bg-gray-100 border-b">
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             {{prod.id}}
                                         </td>
@@ -260,6 +260,7 @@
                 order: [],
                 detailsModal:false,
                 currentOrder:{},
+                currentOrderItems:[],
                 currentOrderId:null,
                 currentContext:[]
             }
@@ -287,7 +288,7 @@
                     });
             },
             exportOrder(){
-                axios.get(`pos/order/${this.currentOrderId}/export_order/?id=${this.currentOrderId}`)
+                axios.get(`order/export_order/?order=${this.currentOrder.id}`)
                     .then(response => {
                         const fileURL = window.URL.createObjectURL(new Blob([response.data]));
                         const fileLink = document.createElement('a');
@@ -326,7 +327,8 @@
                 this.detailsModal = true;
                 const items = item.orderproducts
                 console.log(items)
-                this.currentOrder  = items
+                this.currentOrder  = item
+                this.currentOrderItems  = items
                 this.currentOrderId  = item.id
             },
             toggleModal(){

@@ -8,8 +8,11 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAdminUser
 
 
-class OrderListRenderer (r.CSVRenderer):
+class OrderListRenderer(r.CSVRenderer):
     header = ['id','owner.email', 'orderstatus', 'promocode', 'totalprice']
+
+class OrderDetailsRenderer(r.CSVRenderer):
+     header = ['id','product.productName', 'order', 'quantity'] 
 
 
 class OrderViewSet(viewsets.ModelViewSet):
@@ -21,4 +24,10 @@ class OrderViewSet(viewsets.ModelViewSet):
      def export_order_list(self, request, pk=None):
           order = Order.objects.filter(owner=request.query_params['id'])
           serializer = OrderSerializer(order, many=True)
+          return Response(serializer.data)
+
+     @action(detail=False, methods=['get'], renderer_classes=(OrderDetailsRenderer, ))
+     def export_order(self, request, pk=None):
+          items = OrderItems.objects.filter(order=request.query_params['order'])
+          serializer = OrderProductSerializer(items, many=True)
           return Response(serializer.data)
