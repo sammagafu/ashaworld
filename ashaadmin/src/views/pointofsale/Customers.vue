@@ -39,7 +39,7 @@
 
 
     <div class="sm:px-6 w-full">
-        <div class="inline-flex rounded-md shadow-sm" role="group">
+        <!-- <div class="inline-flex rounded-md shadow-sm" role="group">
             <button type="button"
                 class="py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-l-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
                 All
@@ -53,7 +53,7 @@
                 Blocked
             </button>
 
-        </div>
+        </div> -->
 
         <div class="flex flex-col">
             <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -63,7 +63,9 @@
                             <thead class="bg-gray-100 border-b">
                                 <tr>
                                     <th scope="col" class="py-3 px-6">
-                                        <div class="flex items-center">
+                                        <div 
+                                            @click="sortClients('client')"
+                                            class="flex items-center">
                                             Customer Name
                                             <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3"
                                                     aria-hidden="true" fill="currentColor" viewBox="0 0 320 512">
@@ -73,7 +75,9 @@
                                         </div>
                                     </th>
                                     <th scope="col" class="py-3 px-6">
-                                        <div class="flex items-center">
+                                        <div 
+                                            @click="sortClients('address')"
+                                            class="flex items-center">
                                             Address
                                             <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3"
                                                     aria-hidden="true" fill="currentColor" viewBox="0 0 320 512">
@@ -83,7 +87,9 @@
                                         </div>
                                     </th>
                                      <th scope="col" class="py-3 px-6">
-                                        <div class="flex items-center">
+                                        <div 
+                                            @click="sortClients('phone_number')"
+                                            class="flex items-center">
                                             Phone Number
                                             <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3"
                                                     aria-hidden="true" fill="currentColor" viewBox="0 0 320 512">
@@ -94,7 +100,9 @@
                                     </th>
 
                                     <th scope="col" class="py-3 px-6">
-                                        <div class="flex items-center">
+                                        <div 
+                                            @click="sortClients('is_active')"
+                                            class="flex items-center">
                                             Status
                                             <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3"
                                                     aria-hidden="true" fill="currentColor" viewBox="0 0 320 512">
@@ -267,6 +275,20 @@
                     }).catch(error => {
                         console.log(error);
                     });
+            },
+            sortClients(by){
+                console.log(this.client)
+                const sortFn = (a,b)=>{
+                    if(a[by]<b[by]){
+                        return -1
+                    }
+                    if(a[by]>b[by]){
+                        return 1
+                    }
+                    return 0
+                    }
+                console.log(this.client)
+                this.client.sort(sortFn)
             }
         },
         mounted() {
