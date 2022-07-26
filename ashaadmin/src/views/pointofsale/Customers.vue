@@ -277,7 +277,6 @@
                     });
             },
             sortClients(by){
-                console.log(this.client)
                 const sortFn = (a,b)=>{
                     if(a[by]<b[by]){
                         return -1
@@ -288,7 +287,6 @@
                     return 0
                     }
                 console.log(this.client)
-                this.client.sort(sortFn)
             }
         },
         mounted() {
