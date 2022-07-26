@@ -39,7 +39,9 @@
                             <thead class="bg-gray-100 border-b">
                                 <tr>
                                     <th scope="col" class="py-3 px-6">
-                                        <div class="flex items-center">
+                                        <div 
+                                        @click="sortOrder('order')"
+                                        class="flex items-center">
                                             Order
                                             <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3"
                                                     aria-hidden="true" fill="currentColor" viewBox="0 0 320 512">
@@ -55,7 +57,9 @@
                                         Total Price
                                     </th>
                                     <th scope="col" class="py-3 px-6">
-                                        <div class="flex items-center">
+                                        <div 
+                                            @click="sortOrder('status')"
+                                            class="flex items-center">
                                             Status
                                             <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3"
                                                     aria-hidden="true" fill="currentColor" viewBox="0 0 320 512">
@@ -65,7 +69,9 @@
                                         </div>
                                     </th>
                                     <th scope="col" class="py-3 px-6">
-                                        <div class="flex items-center">
+                                        <div 
+                                            @click="sortOrder('created_at')"
+                                            class="flex items-center">
                                             Ordering Date
                                             <a href="#"><svg xmlns="http://www.w3.org/2000/svg" class="ml-1 w-3 h-3"
                                                     aria-hidden="true" fill="currentColor" viewBox="0 0 320 512">
@@ -315,6 +321,20 @@
                     this.currentContext[0].classList.toggle('hidden');
                     this.currentContext[0] = el;
                 }
+            },
+            sortOrder(by){
+                console.log('before: ',this.order)
+                const sortFn = (a,b)=>{
+                    if(a[by]<b[by]){
+                        return -1
+                    }
+                    if(a[by]>b[by]){
+                        return 1
+                    }
+                    return 0
+                    }
+                this.order.sort(sortFn)
+                console.log('after: ',this.order)
             }
         }
 
