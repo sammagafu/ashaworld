@@ -112,7 +112,7 @@
                                     <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                         <span 
                                             class="cursor-pointer text-green-600 font-medium"
-                                        
+                                            @click="openOrderDetails(orderItem)"
                                             >{{ orderItem.owner.email }}</span>
                                     </td>
 
@@ -206,13 +206,13 @@
                                             {{prod.id}}
                                         </td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            {{prod.productName}}
+                                            {{prod.product.productName}}
                                         </td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            {{prod.price}}
+                                            {{prod.product.price}}
                                         </td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            {{prod.order_quantity}}
+                                            {{prod.quantity}}
                                         </td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             <div class="flex justify-between">
@@ -300,7 +300,7 @@
                     });
             },
             exportAllPosOrders(){
-                axios.get(`pos/order/export_order_list/?id=${localStorage.getItem('userid')}`)
+                axios.get(`order/export_order_list/?id=${localStorage.getItem('userid')}`)
                     .then(response => {
                         const fileURL = window.URL.createObjectURL(new Blob([response.data]));
                         const fileLink = document.createElement('a');
