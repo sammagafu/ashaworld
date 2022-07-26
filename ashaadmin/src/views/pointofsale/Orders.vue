@@ -323,7 +323,6 @@
                 }
             },
             sortOrder(by){
-                console.log('before: ',this.order)
                 const sortFn = (a,b)=>{
                     if(a[by]<b[by]){
                         return -1
@@ -334,7 +333,6 @@
                     return 0
                     }
                 this.order.sort(sortFn)
-                console.log('after: ',this.order)
             }
         }
 
