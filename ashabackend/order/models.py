@@ -43,7 +43,7 @@ class Order(models.Model):
 
 
 class OrderItems(models.Model):
-    product = models.ForeignKey("product.Product", verbose_name=_("product"), on_delete=models.CASCADE)
+    product = models.ForeignKey("product.Product", verbose_name=_("product"),on_delete=models.CASCADE)
     order = models.ForeignKey(Order, verbose_name=_("Order"), on_delete=models.CASCADE,related_name="orderproducts")
     created_at = models.DateTimeField(auto_now_add=True)
     quantity = models.IntegerField(verbose_name=_("Product Quantity"), default=1)

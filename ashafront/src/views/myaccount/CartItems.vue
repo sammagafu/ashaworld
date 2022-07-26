@@ -175,7 +175,7 @@ import { mapState } from 'vuex';
             checkout(){
                 this.sum = this.Sum //calculates totalproce
                 const data = {
-                    'orderproducts' :  this.cartItems.map(x=>{return {products:x.product, quantity:x.quantity}}),
+                    'product_ids' :  this.cartItems.map(x=>{return x.product.id}),
                     'totalprice' : this.sum.toString(),
                     'owner_id':parseInt(localStorage.getItem('userid'))
                     // 'owner':{id:parseInt(localStorage.getItem('userid'))}

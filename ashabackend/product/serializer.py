@@ -15,7 +15,7 @@ class ProductSerializer(serializers.ModelSerializer):
     category = CategorSerializer(read_only=True)
     class Meta:
         model =  Product
-        fields = (
+        fields = [
             "id",
             "slug",
             "productName",
@@ -28,4 +28,4 @@ class ProductSerializer(serializers.ModelSerializer):
             "sku",
             "images",
             "get_absolute_url"
-            )
+        ]
