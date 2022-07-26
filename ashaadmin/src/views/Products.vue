@@ -350,19 +350,17 @@
               });
       },
       sortProducts(by){
-                console.log(this.product)
-                const sortFn = (a,b)=>{
-                    if(a[by]<b[by]){
-                        return -1
-                    }
-                    if(a[by]>b[by]){
-                        return 1
-                    }
-                    return 0
-                    }
-                console.log(this.product)
-                this.product.sort(sortFn)
-            }
+          const sortFn = (a,b)=>{
+              if(a[by]<b[by]){
+                  return -1
+              }
+              if(a[by]>b[by]){
+                  return 1
+              }
+              return 0
+              }
+          this.product.sort(sortFn)
+      }
     },
     mounted() {
       this.getProducts();
