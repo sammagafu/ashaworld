@@ -2,6 +2,8 @@ from rest_framework import viewsets
 from rest_framework.response import Response
 from . models import CompanyInformation,TeamMembers,Team
 from rest_framework.decorators import api_view
+from rest_framework.decorators import action
+from rest_framework_csv import renderers as r
 from django.shortcuts import get_object_or_404
 from .serializer import CompanyInformationSerializer,TeamSerializer,TeamMembersSerializer
 
@@ -21,10 +23,19 @@ class TeamViewSet(viewsets.ModelViewSet):
      serializer_class = TeamSerializer
      http_method_names = ['get','post','retrieve','put','patch']
 
+class TeamMemberListRenderer(r.CSVRenderer):
+    header = ['member.id','member.email', 'member.address', 'member.phone_number']
+
 class TeamMembersViewSet(viewsets.ModelViewSet):
      queryset = TeamMembers.objects.all()
      serializer_class = TeamMembersSerializer
      http_method_names = ['get','post','retrieve','put','patch']
+
+     @action(detail=False, methods=['get'], renderer_classes=(TeamMemberListRenderer, ))
+     def export_team_list(self, request, pk=None):
+          order = TeamMembers.objects.all()
+          serializer = TeamMembersSerializer(order, many=True)
+          return Response(serializer.data)
 
 
 @api_view(['GET'])
