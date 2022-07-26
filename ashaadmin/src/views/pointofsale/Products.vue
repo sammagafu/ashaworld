@@ -222,7 +222,7 @@
                     }
                     return 0
                     }
-                this.order.sort(sortFn)
+                this.product.sort(sortFn)
             }
     },
     mounted() {
