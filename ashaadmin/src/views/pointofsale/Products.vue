@@ -64,7 +64,7 @@
     <div class="flex flex-col">
       <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
-          <div class="inline-flex rounded-md shadow-sm" role="group">
+          <!-- <div class="inline-flex rounded-md shadow-sm" role="group">
             <button type="button"
               class="py-2 px-4 text-sm font-medium text-gray-900 bg-white rounded-l-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-blue-500 dark:focus:text-white">
               All Products
@@ -80,7 +80,7 @@
               Unavailable
             </button>
 
-          </div>
+          </div> -->
           <div class="overflow-hidden">
             <table class="min-w-full">
               <thead class="bg-white border-b">
