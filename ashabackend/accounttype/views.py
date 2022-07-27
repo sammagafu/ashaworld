@@ -41,8 +41,8 @@ class TeamMembersViewSet(viewsets.ModelViewSet):
 @api_view(['GET'])
 def get_my_team(request):
      # print("request")
-     member = Team.objects.filter(teammember__pk=request.user.id).get()
-     company = CompanyInformation.objects.filter(team__pk=member.pk).get()
-     print(CompanyInformationSerializer)
-     serializer = CompanyInformationSerializer(company)
+     member = get_object_or_404(Team,owner=request.user.id)
+     company = CompanyInformation.objects.get(team=member.pk)
+     # serializer = CompanyInformationSerializer(company)
+     serializer = TeamSerializer(member)
      return Response(serializer.data)
