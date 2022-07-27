@@ -234,7 +234,26 @@
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     placeholder="Product name" required>
                 </div>
+                
                 <div class="mb-6">
+                  <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Product
+                    Description</label>
+                  <textarea name=""
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"></textarea>
+                </div>
+              </div>
+
+              <div
+              :class="{ 'hidden': isActive != 'images' }"
+               class="p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="images" role="tabpanel"
+                aria-labelledby="images-tab">
+              <input type="file" name="image" id="">
+              </div>
+              <div 
+              :class="{ 'hidden': isActive != 'pricing' }"
+              class="p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="pricing" role="tabpanel"
+                aria-labelledby="pricing-tab">
+                                <div class="mb-6">
                   <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Normal
                     Price</label>
                   <input type="text" name="price" id="price"
@@ -248,6 +267,11 @@
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     placeholder="Wholesale price" required>
                 </div>
+              </div>
+              <div 
+              :class="{ 'hidden': isActive != 'invetory' }"
+              class="p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="inventory" role="tabpanel"
+                aria-labelledby="inventory-tab">
                 <div class="mb-6">
                   <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Stock
                     Keeping
@@ -257,41 +281,12 @@
                     placeholder="Stock Keeping Unit" required>
                 </div>
                 <div class="mb-6">
-                  <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Product
-                    Description</label>
-                  <textarea name=""
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"></textarea>
+                  <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Stock
+                    Quantity</label>
+                  <input type="text" name="quantity" id="price"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    placeholder="quanity" required>
                 </div>
-              </div>
-
-              <div
-              :class="{ 'hidden': isActive != 'images' }"
-               class="p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="images" role="tabpanel"
-                aria-labelledby="images-tab">
-                <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong
-                    class="font-medium text-gray-800 dark:text-white">Dashboard tab's associated content</strong>.
-                  Clicking another tab will toggle the visibility of this one for the next. The tab JavaScript swaps
-                  classes to control the content visibility and styling.</p>
-              </div>
-              <div 
-              :class="{ 'hidden': isActive != 'pricing' }"
-              class="p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="pricing" role="tabpanel"
-                aria-labelledby="pricing-tab">
-                <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong
-                    class="font-medium text-gray-800 dark:text-white">Settings tab's associated content</strong>.
-                  Clicking
-                  another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
-                  control the content visibility and styling.</p>
-              </div>
-              <div 
-              :class="{ 'hidden': isActive != 'invetory' }"
-              class="p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="inventory" role="tabpanel"
-                aria-labelledby="inventory-tab">
-                <p class="text-sm text-gray-500 dark:text-gray-400">This is some placeholder content the <strong
-                    class="font-medium text-gray-800 dark:text-white">Contacts tab's associated content</strong>.
-                  Clicking
-                  another tab will toggle the visibility of this one for the next. The tab JavaScript swaps classes to
-                  control the content visibility and styling.</p>
               </div>
             </div>
             <button type="submit"

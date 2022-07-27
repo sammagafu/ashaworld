@@ -42,7 +42,7 @@
                             </router-link>
                         </li>
 
-                        <li>
+                        <!-- <li>
                             <router-link :to="{name:'team'}"
                                 class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
@@ -52,7 +52,7 @@
                                 </svg>
                                 <span class="flex-1 ml-3 whitespace-nowrap">Team</span>
                             </router-link>
-                        </li>
+                        </li> -->
 
 
 
@@ -119,7 +119,12 @@
 
 <script>
     export default {
-        name: "SideBar"
+        name: "SideBar",
+        data(){
+            return {
+                isOpen : false,
+            }
+        }
     }
 </script>
 
