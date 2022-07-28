@@ -222,7 +222,7 @@
                                             {{prod.product.productName}}
                                         </td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                            {{prod.price}}
+                                            {{prod.product.price}}
                                         </td>
                                         <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                                             {{prod.quantity}}
