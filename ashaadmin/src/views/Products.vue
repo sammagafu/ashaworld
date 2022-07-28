@@ -228,31 +228,60 @@
               </li>
             </ul>
           </div>
-          <form class="space-y-6" action="#">
+          <form
+            @submit.prevent="clearForm"
+            class="space-y-6" id="productForm">
             <div id="myTabContent">
               <div class="p-4" id="information" role="tabpanel" aria-labelledby="information-tab" :class="{ 'hidden': isActive != 'information' }">
                 <div class="mb-6">
                   <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Product
                     name</label>
-                  <input type="text" name="product" id="product"
+                  <input 
+                    v-model="productForm.productName"
+                    type="text" name="productName" id="productName"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     placeholder="Product name" required>
+                </div>
+
+                <div class="mb-6">
+                  <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Product
+                    brand</label>
+                  <input 
+                    v-model="productForm.brand.brandName"
+                    type="text" name="brand" id="brand"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    placeholder="Product name" >
                 </div>
                 
                 <div class="mb-6">
                   <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Product
                     Description</label>
-                  <textarea name=""
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"></textarea>
+                  <textarea 
+                    v-model="productForm.descripton"
+                    name="description" id="description"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required></textarea>
                 </div>
+              </div>
+
+              <div
+              :class="{ 'hidden': isActive != 'images' }"
+               class="p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="coverImage" role="tabpanel"
+                aria-labelledby="images-tab">
+              <input 
+                @change="getCoverImage"
+                type="file" name="coverImage" id="coverImage" required>
               </div>
 
               <div
               :class="{ 'hidden': isActive != 'images' }"
                class="p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="images" role="tabpanel"
                 aria-labelledby="images-tab">
-              <input type="file" name="image" id="">
+              <input 
+                @change="getImages"
+                type="file" name="images" id="coverImage" required>
               </div>
+
+
               <div 
               :class="{ 'hidden': isActive != 'pricing' }"
               class="p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="pricing" role="tabpanel"
@@ -260,14 +289,18 @@
                                 <div class="mb-6">
                   <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Normal
                     Price</label>
-                  <input type="text" name="price" id="price"
+                  <input 
+                    v-model="productForm.price"
+                    type="text" name="price" id="price"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     placeholder="Product price" required>
                 </div>
                 <div class="mb-6">
                   <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Wholesale
                     Price</label>
-                  <input type="text" name="wholesaleprice" id="price"
+                  <input 
+                    v-model="productForm.wholeSalePrice"
+                    type="text" name="wholeSalePrice" id="wholeSalePrice"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                     placeholder="Wholesale price" required>
                 </div>
@@ -280,21 +313,28 @@
                   <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Stock
                     Keeping
                     Unit</label>
-                  <input type="text" name="sku" id="price"
+                  <input 
+                    v-model="productForm.sku"
+                    type="text" name="sku" id="sku"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                    placeholder="Stock Keeping Unit" required>
+                    placeholder="Stock Keeping Unit">
                 </div>
                 <div class="mb-6">
                   <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Stock
                     Quantity</label>
-                  <input type="text" name="quantity" id="price"
+                  <input 
+                    v-model="productForm.stock"
+                    type="text" name="stock" id="stock"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                    placeholder="quanity" required>
+                    placeholder="quanity">
                 </div>
               </div>
             </div>
-            <button type="submit"
-              class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create
+            <button 
+              type="submit"
+              @click="createProduct"
+              class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >Create
               Product</button>
           </form>
         </div>
@@ -314,6 +354,7 @@
       return {
         openTab: 1,
         product: [],
+        productForm:{brand:{}},
         isOpen: true,
         isActive : "information"
         
@@ -328,6 +369,15 @@
       },
       toggleTabs: function (tabNumber) {
         this.openTab = tabNumber
+      },
+      createProduct(){
+        const headers = { "Content-Type": "multipart/form-data" }
+        axios.post('product/', this.productForm)
+          .then(response => {
+            console.log('response.data :>> ', response.data);
+          }).catch(error => {
+            console.log(error);
+          });
       },
       getProducts() {
         axios.get('product/')
@@ -379,6 +429,16 @@
         }else{
           this.getProducts()
         }
+      },
+      getCoverImage(e){
+        this.productForm.coverImage = e.target.files[0]
+      },
+      getImages(e){
+        console.log(typeof e.files, e.files)
+        this.productForm.images = e.target.files
+      },
+      clearForm(){
+        console.log('form not cleared yet')
       }
     },
     mounted() {

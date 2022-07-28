@@ -3,7 +3,7 @@
         <div class="flex items-center justify-between">
             <div class="basis-3/4">
                 <h2 class="title text-2xl font-semibold">Team</h2>
-                {{company.team}}
+                {{company.teamname}}
             </div>
             <div class="basis-1/2">
                 <div class="inline-flex rounded-lg">
@@ -61,11 +61,13 @@
             
             <div class="flow-root">
                 <ul role="list" class="divide-y divide-gray-400 dark:divide-gray-700">
-                    <li class="py-3 sm:py-4">
+                    <li 
+                    v-for="member in teamMembers"
+                    class="py-3 sm:py-4">
                         <div class="flex items-center space-x-4">
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                    Happiness Watimanya
+                                    {{member.member.username}}
                                 </p>
                                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">
                                     Admin
@@ -73,10 +75,10 @@
                             </div>
                             <div class="flex-1 min-w-0">
                                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                    info@asha-world.com
+                                    {{member.member.email}}
                                 </p>
                             </div>
-                            <div class="flex-1 min-w-0">
+                            <!-- <div class="flex-1 min-w-0">
                                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">
                                     Dar es salaam Tanzania
                                 </p>
@@ -85,47 +87,7 @@
                                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">
                                     +255788419991
                                 </p>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <span
-                                    class="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
-                                    Active
-                                </span>
-                            </div>
-                            <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                        d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-                                </svg>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="py-3 sm:py-4">
-                        <div class="flex items-center space-x-4">
-                            <div class="flex-1 min-w-0">
-                                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-                                    Happiness Watimanya
-                                </p>
-                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                    Admin
-                                </p>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                    info@asha-world.com
-                                </p>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                    Dar es salaam Tanzania
-                                </p>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                    +255788419991
-                                </p>
-                            </div>
+                            </div> -->
                             <div class="flex-1 min-w-0">
                                 <span
                                     class="bg-blue-100 text-blue-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800">
@@ -154,12 +116,14 @@ import axios from 'axios'
         data(){
             return {
                 company : [],
+                teamMembers:[]
             }
         },
         methods:{
             getTeam(){
-                axios.get('company/company-info/').then(response => {
+                axios.get(`/company/my-team/`).then(response => {
                     this.company = response.data
+                    this.teamMembers = this.company.teammember
                     console.log('this.company :>> ', this.company);
                 }).catch(error => {
                     console.log('error :>> ', error);

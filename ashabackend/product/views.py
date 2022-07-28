@@ -56,7 +56,7 @@ class ProductListRenderer(r.CSVRenderer):
 class ProductViewSet(viewsets.ModelViewSet):
      queryset = Product.objects.all()
      serializer_class = ProductSerializer
-     http_method_names = ['get','post','retrieve','put','patch']
+     http_method_names = ['get','post','retrieve','put','patch','delete']
 
      @action(detail=False, methods=['get'], renderer_classes=(ProductListRenderer, ))
      def export_product_list(self, request, pk=None):
