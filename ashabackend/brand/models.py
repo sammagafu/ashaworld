@@ -24,7 +24,7 @@ class Brand(models.Model):
             return 'https://api.asha-world.com' + self.brandlogo.url
         return ''
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.brandName)
         self.slug = slugify(self.brandName)

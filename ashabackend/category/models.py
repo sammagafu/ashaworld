@@ -18,7 +18,7 @@ class ProuctCategory(models.Model):
     def __str__(self):
         return self.categoryname
 
-    def save(self):
+    def save(self, *args, **kwargs):
         if not self.id:
             self.created = timezone.now()
         self.modified_at = timezone.now()

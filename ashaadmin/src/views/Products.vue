@@ -250,7 +250,17 @@
                     v-model="productForm.brand.brandName"
                     type="text" name="brand" id="brand"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                    placeholder="Product name" >
+                    placeholder="Brand name" >
+                </div>
+
+                <div class="mb-6">
+                  <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Product
+                    category</label>
+                  <input 
+                    v-model="productForm.category.categoryname"
+                    type="text" name="category" id="category"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                    placeholder="Category name" >
                 </div>
                 
                 <div class="mb-6">
@@ -272,13 +282,15 @@
                 type="file" name="coverImage" id="coverImage" required>
               </div>
 
+              <br>
+
               <div
               :class="{ 'hidden': isActive != 'images' }"
                class="p-4 bg-gray-50 rounded-lg dark:bg-gray-800" id="images" role="tabpanel"
                 aria-labelledby="images-tab">
               <input 
                 @change="getImages"
-                type="file" name="images" id="coverImage" required>
+                type="file" name="images" id="images" multiple>
               </div>
 
 
@@ -354,7 +366,7 @@
       return {
         openTab: 1,
         product: [],
-        productForm:{brand:{}},
+        productForm:{brand:{}, category:{}},
         isOpen: true,
         isActive : "information"
         
@@ -372,7 +384,7 @@
       },
       createProduct(){
         const headers = { "Content-Type": "multipart/form-data" }
-        axios.post('product/', this.productForm)
+        axios.post('product/', this.productForm, {headers})
           .then(response => {
             console.log('response.data :>> ', response.data);
           }).catch(error => {
@@ -431,11 +443,10 @@
         }
       },
       getCoverImage(e){
-        this.productForm.coverImage = e.target.files[0]
+        this.productForm.get_coverImage = [...e.target.files]
       },
       getImages(e){
-        console.log(typeof e.files, e.files)
-        this.productForm.images = e.target.files
+        this.productForm.images = [...e.target.files]
       },
       clearForm(){
         console.log('form not cleared yet')

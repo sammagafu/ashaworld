@@ -30,13 +30,9 @@ class OrderSerializer(serializers.ModelSerializer):
         fields = ['id','owner','owner_id','totalprice','orderstatus','active','promo_code','product_ids','orderproducts','slug','created_at']
         # depth=1
     
-    def create(self, validated_data):
-        print('initial data:',self.initial_data)
-        print('validated data:',validated_data)
-        print('errors-> :', self.errors)  
+    def create(self, validated_data): 
         orderitems = validated_data.pop('orderproducts')
         owner = validated_data.pop('owner')
-        print([i for i in orderitems])
         order = Order.objects.create(**validated_data, owner=owner)
         for orderitem in orderitems:
             OrderItems.objects.create(product=orderitem, order=order)
