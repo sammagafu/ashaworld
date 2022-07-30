@@ -244,23 +244,33 @@
                 </div>
 
                 <div class="mb-6">
-                  <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Product
-                    brand</label>
-                  <input 
-                    v-model="productForm.brand.brandName"
-                    type="text" name="brand" id="brand"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                    placeholder="Brand name" >
+                  <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Select brand</label>
+                    <vue3-simple-typeahead
+                        :id="'brand-typehead-id'"
+                        placeholder="Search by brand name"
+                        :items="[{brandName:' + add brand'},...brands]"
+                        :minInputLength="0"
+                        :itemProjection="(item)=> item.brandName"
+                        @selectItem="selectedBrandEventHandler"
+                        @onBlur="onBlurBrandEventHandler"
+                    >
+                    </vue3-simple-typeahead>
                 </div>
 
                 <div class="mb-6">
-                  <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Product
-                    category</label>
-                  <input 
-                    v-model="productForm.category.categoryname"
-                    type="text" name="category" id="category"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                    placeholder="Category name" >
+                  <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Select category</label>
+                  <vue3-simple-typeahead
+                      :id="'brand-typehead-id'"
+                      placeholder="Search by brand name"
+                      :items="[{categoryname:' + add category'},...categories]"
+                      :minInputLength="0"
+                      :itemProjection="(item)=> item.categoryname"
+                      @selectItem="selectedCategoryEventHandler"
+                      @onBlur="onBlurCategoryEventHandler"
+                  >
+                  </vue3-simple-typeahead>
                 </div>
                 
                 <div class="mb-6">
@@ -290,7 +300,7 @@
                 aria-labelledby="images-tab">
               <input 
                 @change="getImages"
-                type="file" name="images" id="images" multiple>
+                type="file" name="images" id="images" accept="image/*" multiple>
               </div>
 
 
@@ -308,8 +318,8 @@
                     placeholder="Product price" required>
                 </div>
                 <div class="mb-6">
-                  <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Wholesale
-                    Price</label>
+                  <label for="product" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    Wholesale Price</label>
                   <input 
                     v-model="productForm.wholeSalePrice"
                     type="text" name="wholeSalePrice" id="wholeSalePrice"
@@ -359,101 +369,154 @@
 
 <script>
   import axios from 'axios';
+  import AshaModal from '@/components/AshaModal.vue';
   export default {
-
     name: "Products",
     data() {
-      return {
-        openTab: 1,
-        product: [],
-        productForm:{brand:{}, category:{}},
-        isOpen: true,
-        isActive : "information"
-        
-      }
+        return {
+            openTab: 1,
+            brands: [],
+            categories: [],
+            product: [],
+            productForm: { category: {}, brand:{} },
+            isOpen: true,
+            isActive: "information",
+            newBrand:false
+        };
     },
     methods: {
-      openModal(){
-        this.isOpen = !this.isOpen
-      },
-      closeModal(){
-        this.isOpen = !this.isOpen
-      },
-      toggleTabs: function (tabNumber) {
-        this.openTab = tabNumber
-      },
-      createProduct(){
-        const headers = { "Content-Type": "multipart/form-data" }
-        axios.post('product/', this.productForm, {headers})
-          .then(response => {
-            console.log('response.data :>> ', response.data);
-          }).catch(error => {
-            console.log(error);
-          });
-      },
-      getProducts() {
-        axios.get('product/')
-          .then(response => {
-            this.product = response.data;
-            console.log('response.data :>> ', response.data);
-          }).catch(error => {
-            console.log(error);
-          });
-      },
-      deleteProduct(id){
-        axios.delete(`product/${id}`)
-            .then(response => {
-                this.product = this.product.filter(x=>{
-                if(x.id!=id) return x
-            });
+        openModal() {
+            this.isOpen = !this.isOpen;
+        },
+        closeModal() {
+            this.isOpen = !this.isOpen;
+        },
+        toggleTabs: function (tabNumber) {
+            this.openTab = tabNumber;
+        },
+        getBrands() {
+            axios.get("brand/")
+                .then(response => {
+                this.brands = response.data;
             }).catch(error => {
                 console.log(error);
             });
-      },
-      exportAllProducts(){
-          axios.get(`product/export_product_list`)
-              .then(response => {
-                  const fileURL = window.URL.createObjectURL(new Blob([response.data]));
-                  const fileLink = document.createElement('a');
-                  fileLink.href = fileURL;
-                  fileLink.setAttribute('download', 'all-products.csv');
-                  document.body.appendChild(fileLink);
-                  fileLink.click();
-              }).catch(error => {
-                  console.log(error);
-              });
-      },
-      sortProducts(by){
-          const sortFn = (a,b)=>{
-              if(a[by]<b[by]){
-                  return -1
-              }
-              if(a[by]>b[by]){
-                  return 1
-              }
-              return 0
-              }
-          this.product.sort(sortFn)
-      },
-      filterProductsByStatus(status){
-        if(status!='nothing'){
-        this.product = this.product.filter(x=>x.status==status)
-        }else{
-          this.getProducts()
-        }
-      },
-      getCoverImage(e){
-        this.productForm.get_coverImage = [...e.target.files]
-      },
-      getImages(e){
-        this.productForm.images = [...e.target.files]
-      },
-      clearForm(){
-        console.log('form not cleared yet')
-      }
+        },
+        getCategories() {
+            axios.get("category/")
+                .then(response => {
+                this.categories = response.data;
+            }).catch(error => {
+                console.log(error);
+            });
+        },
+        createProduct() {
+            const headers = { "Content-Type": "multipart/form-data" };
+            axios.post("product/", this.productForm, { headers })
+                .then(response => {
+                this.productForm = { category: {}, brand:{} }
+                this.closeModal();
+                this.getProducts()
+            }).catch(error => {
+                console.log(error);
+            });
+        },
+        getProducts() {
+            axios.get("product/")
+                .then(response => {
+                this.product = response.data;
+            }).catch(error => {
+                console.log(error);
+            });
+        },
+        deleteProduct(id) {
+            axios.delete(`product/${id}`)
+                .then(response => {
+                this.product = this.product.filter(x => {
+                    if (x.id != id)
+                        return x;
+                });
+            }).catch(error => {
+                console.log(error);
+            });
+        },
+        exportAllProducts() {
+            axios.get(`product/export_product_list`)
+                .then(response => {
+                const fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                const fileLink = document.createElement("a");
+                fileLink.href = fileURL;
+                fileLink.setAttribute("download", "all-products.csv");
+                document.body.appendChild(fileLink);
+                fileLink.click();
+            }).catch(error => {
+                console.log(error);
+            });
+        },
+        sortProducts(by) {
+            const sortFn = (a, b) => {
+                if (a[by] < b[by]) {
+                    return -1;
+                }
+                if (a[by] > b[by]) {
+                    return 1;
+                }
+                return 0;
+            };
+            this.product.sort(sortFn);
+        },
+        filterProductsByStatus(status) {
+            if (status != "nothing") {
+                this.product = this.product.filter(x => x.status == status);
+            }
+            else {
+                this.getProducts();
+            }
+        },
+        getCoverImage(e) {
+            this.productForm.coverImage = e.target.files[0];
+        },
+        getImages(e) {
+            this.productForm.images = [...e.target.files];
+        },
+        clearForm() {
+            console.log("form not cleared yet");
+        },
+        selectedBrandEventHandler(value) {
+          //when assigning this form field, clear the brand.brandName form field,
+          //You only need to make a new brandname if it hasn't already been persisted in the db
+          //if it has already been stored, it will appear in the form's drop down list &
+          //then its Id will be passed to the backend
+          this.productForm.brand={}
+          this.productForm.brand_id = value.id;
+        },
+        onBlurBrandEventHandler(val){
+          //only fill the brand.brandName form field if a brand_id
+          //for a persisted brand hasn't been chosen yet
+          const available_brands  = this.brands.map(x=>x.brandName)
+          if(!available_brands.includes(val.input)){
+            this.productForm.brand.brandName= val.input
+          }
+        },
+        selectedCategoryEventHandler(value) {
+          //refer to selectedBrandEventHandler
+          this.productForm.category = {}
+            this.productForm.category_id = value.id;
+        },
+        onBlurCategoryEventHandler(val){
+          //only fill the category.categoryname form field if a category_id
+          //for a persisted category hasn't been chosen yet
+          const available_categories  = this.categories.map(x=>x.categoryname)
+          if(!available_categories .includes(val.input)){
+            this.productForm.category.categoryname= val.input
+          }
+        },
     },
     mounted() {
-      this.getProducts();
+        this.getProducts();
+        this.getBrands();
+        this.getCategories();
     },
-  }
+    components: { AshaModal }
+}
 </script>

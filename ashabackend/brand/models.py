@@ -7,10 +7,10 @@ from accounttype.models import CompanyInformation
 
 class Brand(models.Model):
     brandName = models.CharField(_("Brand Name"),max_length=160)
-    manufacture = models.ForeignKey(CompanyInformation  , verbose_name=_("Product Manufacture"), on_delete=models.CASCADE)
+    manufacture = models.ForeignKey(CompanyInformation  , verbose_name=_("Product Manufacture"), on_delete=models.CASCADE, null=True)
     slug = models.SlugField(_("slug"),editable=False,unique=True,null=True)
-    brandlogo =  ResizedImageField(size=[200, 200], crop=['middle', 'center'], upload_to='uploads/brands')
-    description = models.TextField(_("Brand Description"))
+    brandlogo =  ResizedImageField(size=[200, 200], crop=['middle', 'center'], upload_to='uploads/brands', null=True)
+    description = models.TextField(_("Brand Description"), blank=True, null=True)
 
     class Meta:
         verbose_name = _("brand")

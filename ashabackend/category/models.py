@@ -7,7 +7,7 @@ from django.utils.text import slugify
 
 class ProuctCategory(models.Model):
     categoryname = models.CharField(max_length=160)
-    slug = models.SlugField(_("slug"),editable=False,unique=True,null=False,blank=False)
+    slug = models.SlugField(_("slug"),editable=False,null=False,blank=False)
     created_at = models.DateTimeField(editable=False,auto_now_add=True)
     modified_at = models.DateTimeField(blank=True,null=True,editable=False)
 

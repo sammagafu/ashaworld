@@ -1,3 +1,4 @@
+from typing_extensions import Required
 from rest_framework import serializers
 
 from brand.models import Brand
@@ -12,34 +13,44 @@ class ProudctImageSerializer(serializers.ModelSerializer):
         fields = ['get_images',]
 
 class ProductSerializer(serializers.ModelSerializer):
-    brand = BrandSerilizer(Brand.objects.prefetch_related('manufacture'))
+    brand_qs = Brand.objects.prefetch_related('manufacture', 'manufacture__owner')
+    category_qs = ProuctCategory.objects.all()
+    brand = BrandSerilizer(brand_qs, read_only=True)
     # images =  ProudctImageSerializer(write_only=True,many=True)
-    category = CategorSerializer()
-    brand_id =serializers.PrimaryKeyRelatedField(source='brand', read_only=True)
+    category = CategorSerializer(category_qs,read_only=True)
+    brand_id =serializers.PrimaryKeyRelatedField(queryset=brand_qs, source='brand', write_only=True, required=False)
     images_id =serializers.PrimaryKeyRelatedField(source='images', read_only=True, many=True)
+    category_id =serializers.PrimaryKeyRelatedField(queryset=category_qs,source='category', write_only=True, required=False)
 
     class Meta:
         model =  Product
-        read_only_fields = [ 'brand_id', "images_id"]
+        read_only_fields = ["images_id"]
         fields = [
             "id","slug",
             "productName","get_coverImage",
             "price","wholeSalePrice",
             "brand","category",
             "descripton","sku",
-             'brand_id',"images_id"
+             'brand_id',"images_id",
+             "coverImage", 'category_id'
         ]
     
     def create(self, validated_data):
         print("Initial data ==>",self.initial_data)
         print("Validated data ==>",validated_data)
-        brand_data = validated_data.pop('brand')
-        category_data = validated_data.pop('category')
+        try:
+            brand = validated_data.pop('brand')
+        except:
+            brand_data = self.initial_data.pop('brand.brandName')
+            brand = Brand.objects.create(brandName=brand_data[0])
+        try:
+            category= validated_data.pop('category')
+        except:
+            category_data = self.initial_data.pop('category.categoryname')
+            category = ProuctCategory.objects.create(categoryname=category_data[0])
         # images_data = validated_data.pop('images')
-        # company_instance = POSclient.objects.get(owner=buyer['owner'])
-        category = ProuctCategory.objects.create(**category_data)
         product = Product.objects.create(**validated_data)
         product.category = category
-        # product.brand = buyer_instance
+        product.brand = brand
         product.save()
         return product

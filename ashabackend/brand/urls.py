@@ -1,7 +1,10 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register('',views.BrandViewSet)
 
 urlpatterns = [
-    path("",views.BrandListView.as_view()),
-    path("<str:slug>/",views.BrandDetailView.as_view())
+    path('', include(router.urls)),
 ]
