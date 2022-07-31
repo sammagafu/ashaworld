@@ -67,12 +67,16 @@
                 </a>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 mb-4">
-                <a href="#">
+                <a
+                    @click="logout"
+                >
                     <div class="icon-box text-center">
                         <span class="icon-box-icon icon-logout">
                             <i class="w-icon-logout"></i>
                         </span>
-                        <div class="icon-box-content">
+                        <div 
+                            @click="logout"
+                            class="icon-box-content">
                             <p class="text-uppercase mb-0">Logout</p>
                         </div>
                     </div>
@@ -84,7 +88,13 @@
 
 <script>
     export default {
-
+        methods:{
+            logout(){
+                localStorage.removeItem("token");
+                this.$router.push({ name: 'home'})
+                this.$router.go()
+            }
+        }
     }
 </script>
 

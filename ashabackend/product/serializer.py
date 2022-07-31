@@ -32,7 +32,8 @@ class ProductSerializer(serializers.ModelSerializer):
             "brand","category",
             "descripton","sku",
              'brand_id',"images_id",
-             "coverImage", 'category_id'
+             "coverImage", 'category_id',
+             'get_absolute_url'
         ]
     
     def create(self, validated_data):
