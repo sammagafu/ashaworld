@@ -114,8 +114,7 @@
                         localStorage.setItem("token", token)
 
                         const toPath = this.$route.query.to || '/'
-                        this.$router.push(toPath)
-
+                        this.$router.replace(toPath)
                         // console.log('response :>> ', response.data.auth_token);
                     }).catch(error => {
                         if (error.response) {
@@ -140,9 +139,7 @@
                     .catch(error => {
                         console.log(error)
                     })
-
-
-
+                    this.$router.go()
             }
 
         }

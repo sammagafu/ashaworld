@@ -41,11 +41,24 @@
                     <!-- End of Dropdown Menu -->
                     <span class="divider d-lg-show"></span>
                     <!-- <a href="my-account.html" class="d-lg-show">My Account</a> -->
-                    <router-link :to="{name:'my-account'}" class="d-lg-show">My Account</router-link>
-                    <router-link :to="{name:'login'}" class="d-lg-show"><i class="w-icon-account"></i> Sign
-                        In</router-link>
-                    <span class="delimiter d-lg-show">/</span>
-                    <router-link :to="{name:'signup'}"  class="ml-0 d-lg-show login register"> Register </router-link>
+                    <template v-if="loggedIn">
+                        <a 
+                            @click="logout"
+                            class="ml-1/5 d-lg-show cursor-pointer" syle="cursor:pointer"> logout </a>
+                        <router-link
+                            :to="{name:'my-account'}" 
+                            class="d-lg-show">My Account</router-link>
+                    </template>
+                    <template  v-if="!loggedIn">
+                        <router-link 
+                        :to="{name:'login'}" class="d-lg-show"><i class="w-icon-account"></i> 
+                        Sign In</router-link>
+                        <span class="delimiter d-lg-show">/</span>
+                        <router-link 
+                        :to="{name:'signup'}"  
+                        class="ml-0 d-lg-show login register"> Register </router-link>
+                    </template>
+                    
                 </div>
             </div>
         </div>
@@ -185,6 +198,7 @@
                 categories: [],
                 hoveredMenu: false,
                 isOpenedCart : false,
+                loggedIn:false
             };
         },
         created() {
@@ -196,8 +210,22 @@
             // this.$router.go(this.$router.currentRoute)
             this.$store.dispatch('getCategories')
             this.$store.dispatch('getCartItems')
+            this.checkLoggedIn()
+
         },
         methods: {
+            checkLoggedIn(){
+                if(localStorage.getItem('token')==null){
+                    this.loggedIn = false
+                }else{
+                    this.loggedIn = true
+                }
+            },
+            logout(){
+                localStorage.removeItem("token");
+                this.$router.push({ name: 'home'})
+                this.$router.go()
+            }
         },
         components: {
             SubCategoryTopNav
