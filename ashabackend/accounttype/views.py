@@ -58,7 +58,7 @@ def register_user(request):
      new_user = authenticate(email=request.POST.get('email'),
             password=request.POST.get('password'),
             )
-     if new_user is not None:
-          if new_user.is_active:
-               login(request, new_user)
+     if new_user is not None: 
+          login(request, new_user)
+          return Response(serializer(new_user).data)
      return Response(serializer.data)
