@@ -8,7 +8,7 @@
                 <p class="text-center">Register to Asha or <router-link :to="{name:'login'}">Login to your account
                     </router-link>
                 </p>
-                <form>
+                <form @submit.prevent="submitForm">
                     <div class="text-center mb-3">
                         <p>Sign in with:</p>
                         <button type="button" class="btn btn-link btn-floating mx-1">
@@ -51,7 +51,9 @@
                     <!-- Submit button -->
                     <div class="row mb-4">
                         <div class="col-md-12 d-flex justify-content-center">
-                           <input type="submit" value="Register" class="btn btn-block btn-primary">
+                           <input 
+                           @click="submitForm"
+                           type="button" value="Register" class="btn btn-block btn-primary">
                         </div>
                     </div>
 
@@ -100,12 +102,20 @@ export default {
             if (!this.errors.length) {
                 const formData = {
                     email: this.email,
-                    password: this.password
+                    password: this.password,
+                    username:this.username
                 }
                 axios
-                    .post("/api/v1/users/", formData)
-                    .then(response => {
-                        this.$router.push('/log-in')
+                    .post("/register-user/", formData)
+                    .then((response) => {
+                        if(response.data.auth_token){
+                            const token = response.data.auth_token
+                            this.$store.commit('setToken', token)
+                            axios.defaults.headers.common["Authorization"] = "Token " + token
+                            localStorage.setItem("token", token)
+                            this.$router.push({name: 'vendorSignUp'})
+                        }
+                        
                     })
                     .catch(error => {
                         if (error.response) {
