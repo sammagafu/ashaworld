@@ -112,8 +112,8 @@ export default {
                             const token = response.data.auth_token
                             this.$store.commit('setToken', token)
                             axios.defaults.headers.common["Authorization"] = "Token " + token
-                            localStorage.setItem("token", token)
                         }
+                        this.$store.dispatch('updateLoggedInStatus')
                         this.$router.push({name: 'vendorSignUp'})
                     })
                     .catch(error => {

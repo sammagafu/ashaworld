@@ -55,7 +55,7 @@
                         </div>
                         <div class="row mb-4">
                             <div class="col-md-6 d-flex justify-content-center">
-                                <input type="submit" value="Sign in" class="btn btn-block btn-primary">
+                                <input @click="loginUser" type="submit" value="Sign in" class="btn btn-block btn-primary">
                             </div>
                         </div>
 
@@ -111,8 +111,6 @@
                         const token = response.data.auth_token
                         this.$store.commit('setToken', token)
                         axios.defaults.headers.common["Authorization"] = "Token " + token
-                        localStorage.setItem("token", token)
-
                         const toPath = this.$route.query.to || '/'
                         this.$router.replace(toPath)
                         // console.log('response :>> ', response.data.auth_token);
@@ -123,7 +121,8 @@
                             }
                         } else {
                             this.errors.push('Something went wrong. Please try again')
-                            console.log(JSON.stringify(error))
+                            // console.log(JSON.stringify(error))
+                            console.error(error)
                         }
                     })
                 await axios

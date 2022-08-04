@@ -64,10 +64,19 @@ export default createStore({
     setToken(state, token) {
         state.token = token
         state.isAuthenticated = true
+        localStorage.setItem("token", token)
     },  
     removeToken(state) {
         state.token = ''
+        localStorage.removeItem('token')
         state.isAuthenticated = false
+    },
+    checkLoggedIn(state){
+      if(localStorage.getItem('token')==null){
+        state.isAuthenticated = false
+      }else{
+        state.isAuthenticated = true
+      }
     },
     clearCart(state) {
       state.cartItems = { items: [] }
@@ -99,6 +108,9 @@ export default createStore({
           }).catch(error => {
               console.log(error);
           })
+    },
+    updateLoggedInStatus ({ commit }) {
+      commit('checkLoggedIn')
     }
   },
   modules: {

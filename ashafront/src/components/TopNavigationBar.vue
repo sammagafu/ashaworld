@@ -198,7 +198,7 @@
                 categories: [],
                 hoveredMenu: false,
                 isOpenedCart : false,
-                loggedIn:false
+                loggedIn:this.$store.state.isAuthenticated
             };
         },
         created() {
@@ -210,19 +210,19 @@
             // this.$router.go(this.$router.currentRoute)
             this.$store.dispatch('getCategories')
             this.$store.dispatch('getCartItems')
-            this.checkLoggedIn()
+            this.$store.commit('checkLoggedIn')
 
         },
         methods: {
-            checkLoggedIn(){
-                if(localStorage.getItem('token')==null){
-                    this.loggedIn = false
-                }else{
-                    this.loggedIn = true
-                }
-            },
+            // checkLoggedIn(){
+            //     if(localStorage.getItem('token')==null){
+            //         this.loggedIn = false
+            //     }else{
+            //         this.loggedIn = true
+            //     }
+            // },
             logout(){
-                localStorage.removeItem("token");
+                this.$store.commit('removeToken')
                 this.$router.push({ name: 'home'})
                 this.$router.go()
             }
