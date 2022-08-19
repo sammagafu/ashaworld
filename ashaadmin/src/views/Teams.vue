@@ -106,47 +106,62 @@
                 </ul>
             </div>
         </div>
+        <AshaModal v-if="modal" title="sijui">
+            <form>
+                <input 
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                type="email" name="user-email" placeholder="enter user's email" 
+                >
+                <br> <br>
+                <button
+                class="text-white bg-indigo-700 hover:bg-indigo-600 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800"
+                 >find</button>
+            </form>
+        </AshaModal>
     </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import AshaModal from "@/components/AshaModal.vue";
     export default {
-        name : 'Teams',
-        data(){
-            return {
-                company : [],
-                teamMembers:[]
-            }
+    name: "Teams",
+    data() {
+        return {
+            company: [],
+            teamMembers: [],
+            modal: false
+        };
+    },
+    methods: {
+        getTeam() {
+            axios.get(`/company/my-team/`).then(response => {
+                this.company = response.data;
+                this.teamMembers = this.company.teammember;
+                console.log("this.company :>> ", this.company);
+            }).catch(error => {
+                console.log("error :>> ", error);
+            });
         },
-        methods:{
-            getTeam(){
-                axios.get(`/company/my-team/`).then(response => {
-                    this.company = response.data
-                    this.teamMembers = this.company.teammember
-                    console.log('this.company :>> ', this.company);
-                }).catch(error => {
-                    console.log('error :>> ', error);
-                })
-            },
-            exportTeamList(){
-                axios.get('company/team-member/export_team_list/')
+        exportTeamList() {
+            axios.get("company/team-member/export_team_list/")
                 .then(response => {
-                        const fileURL = window.URL.createObjectURL(new Blob([response.data]));
-                        const fileLink = document.createElement('a');
-                        fileLink.href = fileURL;
-                        fileLink.setAttribute('download', 'team_members.csv');
-                        document.body.appendChild(fileLink);
-                        fileLink.click();
-                    }).catch(error => {
-                        console.log(error);
-                    });
-            }
-        },
-        mounted(){
-            this.getTeam()
+                const fileURL = window.URL.createObjectURL(new Blob([response.data]));
+                const fileLink = document.createElement("a");
+                fileLink.href = fileURL;
+                fileLink.setAttribute("download", "team_members.csv");
+                document.body.appendChild(fileLink);
+                fileLink.click();
+            }).catch(error => {
+                console.log(error);
+            });
         }
-    }
+    },
+    mounted() {
+        this.getTeam();
+    },
+    components: { AshaModal }
+}
 </script>
 
 <style>
